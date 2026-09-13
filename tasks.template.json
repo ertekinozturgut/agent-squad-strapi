@@ -1,0 +1,79 @@
+[
+  {
+    "id": "TASK-01",
+    "title": "Kullanıcı Kimlik Doğrulama ve Güvenli Profil Yönetimi",
+    "description": "Strapi v5 Users-Permissions eklentisi üzerinden JWT tabanlı kimlik doğrulama, Next.js Server Actions ile httpOnly cookie yönetimi ve Rohit Kuwar React mimarisine uygun auth feature dilimi.",
+    "status": "pending",
+    "priority": "high",
+    "dependencies": [],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "backend-engineer",
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "qa-tester",
+        "security-reviewer"
+      ]
+    },
+    "dorMet": false,
+    "dodMet": false,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir son kullanıcı olarak, güvenli şekilde giriş yapabilmek ve profil bilgilerimi görüntüleyip güncelleyebilmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given geçerli e-posta ve şifre girildiğinde When giriş yap butonuna basılırsa Then Strapi JWT token'ı httpOnly cookie olarak saklanmalı ve kullanıcı Dashboard'a yönlendirilmeli (Happy Path)",
+        "Given hatalı şifre girildiğinde When istek gönderilirse Then 'Geçersiz kimlik bilgileri' mesajı gösterilmeli ve token set edilmemeli (Validation Error)",
+        "Given oturum süresi dolduğunda When korumalı sayfaya erişilirse Then kullanıcı otomatik olarak /login sayfasına yönlendirilmeli (Security)",
+        "Given şifre alanı When doldurulurken Then şifre maskeli olmalı ve bellekte şifresiz tutulmamalı (Security/PII)"
+      ],
+      "architectureDecisions": [
+        "ADR-01: JWT tokenları ASLA localStorage içinde saklanamaz; Next.js Middleware ve Server Actions ile httpOnly, Secure, SameSite=Strict cookie içinde saklanır.",
+        "ADR-02: Frontend auth modülü 'src/features/auth' altında Rohit Kuwar dikey dilim mimarisine göre organize edilir (components, hooks, services, types).",
+        "ADR-03: Strapi v5 Document Service API kullanılarak kullanıcı profili ve roller çekilir."
+      ],
+      "designPatternsUsed": [
+        "Container / Presentational Pattern",
+        "Custom Hook (useAuth)",
+        "Service Layer & Axios Interceptor Pattern",
+        "TanStack Query Cache Strategy",
+        "Strapi Controller-Service-Policy Pattern"
+      ],
+      "uiDesignTokens": [
+        "color-primary-600",
+        "color-error-500",
+        "radius-md",
+        "spacing-4",
+        "elevation-card"
+      ],
+      "testsWritten": [
+        "tests/unit/features/auth/useAuth.test.ts",
+        "tests/integration/features/auth/LoginForm.test.tsx",
+        "tests/api/strapi-auth.integration.test.ts",
+        "tests/e2e/auth-flow.spec.ts"
+      ],
+      "securityAuditPassed": false,
+      "mutationScore": 0,
+      "standardTraceability": [
+        "ASVS-V2-Authentication",
+        "ASVS-V3-Session-Management",
+        "CWE-384-Session-Fixation",
+        "CWE-522-Insufficient-Credential-Protection",
+        "KVKK-m12-Veri-Guvenligi"
+      ],
+      "toolAuditResults": {
+        "depcruise": "skip",
+        "opengrep": "skip",
+        "eslint": "skip",
+        "stryker": "skip",
+        "typecheck": "skip"
+      },
+      "suppressions": []
+    }
+  }
+]

@@ -1,0 +1,24 @@
+extensions:
+  - addsTo:
+      pack: codeql/javascript-all
+      extensible: sourceModel
+    data:
+      - ["req", "Member[body]", "remote"]
+      - ["req", "Member[query]", "remote"]
+      - ["req", "Member[params]", "remote"]
+      - ["searchParams", "Member[get]", "remote"]
+
+  - addsTo:
+      pack: codeql/javascript-all
+      extensible: sinkModel
+    data:
+      - ["JSXAttribute[dangerouslySetInnerHTML]", "Argument[0]", "xss"]
+      - ["strapi.db.connection", "Member[raw].Argument[0]", "sql-injection"]
+      - ["knex", "Member[raw].Argument[0]", "sql-injection"]
+
+  - addsTo:
+      pack: codeql/javascript-all
+      extensible: neutralModel
+    data:
+      - ["DOMPurify", "Member[sanitize]"]
+      - ["strapi.utils.sanitize.contentAPI", "Member[output]"]

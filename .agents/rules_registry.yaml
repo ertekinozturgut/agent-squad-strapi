@@ -1,0 +1,2868 @@
+- id: R-ARCH-001
+  text: UI bileşeni doğrudan API veya ağ servisini çağıramaz (Hooks üzerinden geçmelidir)
+  severity: S1
+  layer: L3
+  owner: depcruise
+  enforced_by: depcruise.no-ui-direct-service-call
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+    asvs:
+    - V15
+  rationale: UI ile ağ katmanının sıkı bağlanması test edilebilirliği ve kod tekrarını
+    bozar.
+  remediation: İsteği özel bir hook veya TanStack Query içine taşı.
+  exceptions_allowed: false
+- id: R-ARCH-002
+  text: Feature'lar arası izinsiz dikey iç import yasaktır (Sadece public barrel index.ts)
+  severity: S1
+  layer: L3
+  owner: depcruise
+  enforced_by: depcruise.no-cross-feature-private-import
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+  rationale: Feature izolasyonunun bozulması spagetti mimariye yol açar.
+  remediation: Yalnızca ilgili feature'ın index.ts dosyasından import yap.
+  exceptions_allowed: false
+- id: R-ARCH-003
+  text: Strapi Controller katmanı doğrudan Knex veya raw DB çağıramaz
+  severity: S1
+  layer: L3
+  owner: depcruise
+  enforced_by: depcruise.no-direct-db-in-strapi-controller
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+    asvs:
+    - V15
+  rationale: Veritabanı erişimi Document Service veya Service katmanında izole edilmelidir.
+  remediation: İş mantığını Strapi service fonksiyonuna taşı.
+  exceptions_allowed: false
+- id: R-ARCH-004
+  text: Sunum (Presentational) bileşenleri yan etki veya iş mantığı içeremez
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.react-pure-presentational
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Reusability
+  rationale: Sunum bileşenleri saf props ile render edilmeli ve kolayca mocklanabilmelidir.
+  remediation: Durum ve API mantığını Konteyner (Container) bileşene aktar.
+  exceptions_allowed: true
+- id: R-ARCH-005
+  text: Döngüsel bağımlılık (circular dependency) kesinlikle yasaktır
+  severity: S1
+  layer: L3
+  owner: depcruise
+  enforced_by: depcruise.no-circular-dependencies
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Analysability
+  rationale: Döngüsel importlar bellek sızıntısına ve tanımsız nesne hatalarına yol
+    açar.
+  remediation: Bağımlılığı ortak bir tür (type) veya servis arayüzüne ayır.
+  exceptions_allowed: false
+- id: R-ARCH-006
+  text: Global state yalnızca oturum ve UI teması gibi ortak veriler için kullanılır
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: architect.state-review
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/ResourceUtilization
+  rationale: Sunucu verilerini Redux/Zustand'a kopyalamak senkronizasyon ve önbellek
+    anomalileri üretir.
+  remediation: Sunucu verileri için TanStack React Query kullan.
+  exceptions_allowed: true
+- id: R-ARCH-007
+  text: Her feature kendi izole components, hooks, services ve types klasörlerine
+    sahip olmalıdır
+  severity: S2
+  layer: L2
+  owner: depcruise
+  enforced_by: depcruise.feature-folder-structure
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+  rationale: Dikey dilimleme mimarisi bakımı kolaylaştırır ve ekiplerin çakışmasını
+    engeller.
+  remediation: Dosyaları Rohit Kuwar feature yapısına göre dizinle.
+  exceptions_allowed: true
+- id: R-ARCH-008
+  text: Next.js Server Component içinde istemci hook'ları (useState, useEffect) kullanılamaz
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.next-no-client-hooks-in-server
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: Server Component'lerde istemci yaşam döngüsü hook'ları çalışmaz ve derleme
+    hatası verir.
+  remediation: '''use client'' direktifini ekle veya mantığı alt Client Component''e
+    böl.'
+  exceptions_allowed: false
+- id: R-ARCH-009
+  text: Next.js Client Component içine sunucu sırları import edilemez
+  severity: S1
+  layer: L1
+  owner: depcruise
+  enforced_by: depcruise.no-server-secret-in-client
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+    cwe:
+    - CWE-200
+  rationale: İstemci koduna giren sırlar tarayıcı bundle'ında açık metin olarak sızar.
+  remediation: Anahtarı sadece Server Actions veya Route Handler içinde tut.
+  exceptions_allowed: false
+- id: R-ARCH-010
+  text: Tüm API istekleri merkezi apiClient (Axios interceptor) üzerinden geçmelidir
+  severity: S1
+  layer: L2
+  owner: depcruise
+  enforced_by: depcruise.use-central-api-client
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Security/Confidentiality
+    asvs:
+    - V13
+  rationale: Merkezi olmayan fetch çağrıları token enjeksiyonu ve hata yakalamayı
+    atlar.
+  remediation: apiClient.ts kütüphanesini kullan.
+  exceptions_allowed: false
+- id: R-ARCH-011
+  text: React Router veya Next.js korumalı rotalarda AuthGuard bulunmalıdır
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: architect.auth-guard-check
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V4
+    cwe:
+    - CWE-306
+  rationale: Yetkisiz kullanıcıların korumalı sayfa düzenlerini render etmesi engellenmelidir.
+  remediation: Middleware veya ProtectedRoute bileşeni ile sarmala.
+  exceptions_allowed: false
+- id: R-ARCH-012
+  text: Servis katmanı React veya DOM bağımlılığı taşıyamaz
+  severity: S1
+  layer: L3
+  owner: depcruise
+  enforced_by: depcruise.pure-service-layer
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Servisler saf TypeScript olmalıdır; DOM bağımlılığı Node ortamında birim
+    testleri imkansız kılar.
+  remediation: Servisten React veya document/window çağrılarını ayır.
+  exceptions_allowed: false
+- id: R-ARCH-013
+  text: Hata sınırları (ErrorBoundary) her ana rota ve kritik özellik çevresinde bulunmalıdır
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.react-error-boundary
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/FaultTolerance
+  rationale: Tek bir alt bileşen hatasının tüm beyaz sayfaya yol açması engellenir.
+  remediation: Bileşeni ErrorBoundary ile sarmala.
+  exceptions_allowed: true
+- id: R-ARCH-014
+  text: Strapi v5 modellerinde Document Service API zorunludur
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-document-service-only
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+  rationale: Strapi v4 entityService kullanımı v5'te kullanımdan kaldırılmıştır.
+  remediation: strapi.documents('api::x.x') API'sine geç.
+  exceptions_allowed: false
+- id: R-ARCH-015
+  text: Strapi servisleri controller istek parametrelerine (ctx) doğrudan bağlanamaz
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-clean-service-params
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Reusability
+  rationale: Koa/Strapi context nesnesi servisi HTTP katmanına bağımlı kılar.
+  remediation: Servise yalnızca saf parametreler (DTO) gönder.
+  exceptions_allowed: true
+- id: R-ARCH-016
+  text: Form alanları yönetimi için standart doğrulama kütüphanesi (Zod/React Hook
+    Form) kullanılmalıdır
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.react-hook-form-zod
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Analysability
+  rationale: Manuel form state'leri gereksiz yeniden render ve doğrulama açıkları
+    yaratır.
+  remediation: React Hook Form + Zod şeması kullan.
+  exceptions_allowed: true
+- id: R-ARCH-017
+  text: Sayfa seviyesinde SEO meta etiketleri ve OpenGraph tanımları eksiksiz olmalıdır
+  severity: S2
+  layer: L1
+  owner: process
+  enforced_by: architect.seo-metadata-review
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Usability/Recognisability
+  rationale: Eksik meta etiketleri indeksleme ve sosyal paylaşım hatalarına yol açar.
+  remediation: Next.js generateMetadata fonksiyonunu tanımla.
+  exceptions_allowed: true
+- id: R-ARCH-018
+  text: Tüm async/await çağrılarında iptal desteği (AbortController) desteklenmelidir
+  severity: S3
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.promise-abort-support
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/ResourceUtilization
+  rationale: Bileşen unmount olduğunda arkada çalışan sorgular yarış durumuna (race
+    condition) sebep olur.
+  remediation: TanStack Query veya AbortSignal kullan.
+  exceptions_allowed: true
+- id: R-ARCH-019
+  text: Tüm API yanıtları Result veya ApiResponse standardına sarılmalıdır
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.standard-api-response
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: Standart dışı yanıtlar istemci tarafında tutarsız hata ayıklamaya neden
+    olur.
+  remediation: Standardize edilmiş yanıt sarmalayıcısı kullan.
+  exceptions_allowed: true
+- id: R-ARCH-020
+  text: Statik varlıklar (resimler/ikonlar) public veya assets dizininde optimize
+    saklanmalıdır
+  severity: S3
+  layer: L1
+  owner: process
+  enforced_by: ui.asset-optimization
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Optimize edilmemiş ağır varlıklar sayfa açılış süresini (LCP) olumsuz
+    etkiler.
+  remediation: Next.js Image bileşeni ve WebP/AVIF formatı kullan.
+  exceptions_allowed: true
+- id: R-ARCH-021
+  text: TanStack Query queryKey'leri merkezi fabrika (Query Key Factory) ile yönetilmelidir
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.query-key-factory
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+  rationale: String tabanlı dağınık key'ler önbellek geçersiz kılmada (invalidation)
+    hatalara yol açar.
+  remediation: featureKeys nesnesi tanımla.
+  exceptions_allowed: true
+- id: R-ARCH-022
+  text: Strapi özel rotaları (Custom Routes) policies tanımlarına sahip olmalıdır
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-custom-route-policy
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V4
+    owasp_api10:
+    - API1:2023
+  rationale: Yetkisiz özel rotalar açık kapı bırakır.
+  remediation: Rotalara is-authenticated veya ilgili policy'yi ekle.
+  exceptions_allowed: false
+- id: R-ARCH-023
+  text: Bileşen render'ı sırasında ağır hesaplama doğrudan yapılamaz (useMemo zorunlu)
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.react-usememo-heavy-calc
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Her render'da çalışan döngüler arayüz donmalarına (INP) yol açar.
+  remediation: Ağır filtreleme ve hesaplamaları useMemo içine al.
+  exceptions_allowed: true
+- id: R-ARCH-024
+  text: Önbellek süresi (staleTime) her feature ihtiyacına göre açıkça belirtilmelidir
+  severity: S3
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.query-explicit-staletime
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/ResourceUtilization
+  rationale: Varsayılan 0 staleTime gereksiz arka plan ağ istekleri oluşturur.
+  remediation: queryFn için uygun staleTime ve gcTime ayarla.
+  exceptions_allowed: true
+- id: R-ARCH-025
+  text: Veri tabanı migration ve şema değişiklikleri versiyon kontrolünde saklanmalıdır
+  severity: S1
+  layer: L3
+  owner: process
+  enforced_by: architect.schema-migration-review
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+  rationale: İzlenemeyen şema değişiklikleri dağıtım kırılmalarına yol açar.
+  remediation: Strapi content-type schema dosyalarını git'e kaydet.
+  exceptions_allowed: false
+- id: R-REACT-001
+  text: 'React Hooks kuralları: Hook''lar sadece en üst seviyede çağrılabilir'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-hooks/rules-of-hooks
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: false
+- id: R-REACT-002
+  text: useEffect bağımlılık dizisi (exhaustive-deps) eksiksiz olmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-hooks/exhaustive-deps
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-003
+  text: Bileşen props tipleri açıkça tanımlanmalı, any kullanılmamalıdır
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.@typescript-eslint/no-explicit-any
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Analysability
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: false
+- id: R-REACT-004
+  text: Liste döngülerinde index key olarak kullanılamaz, kararlı id şarttır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: opengrep.r-react-no-array-index-key
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-005
+  text: State güncellemelerinde önceki duruma bağımlılık varsa fonksiyonel update
+    şarttır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-functional-set-state
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-006
+  text: Gereksiz useEffect kullanımından kaçınılmalı, türetilmiş state hesaplanmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-no-derived-state-effect
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-007
+  text: Olay işleyiciler (Event Handlers) useCallback ile stabilize edilmelidir
+  severity: S3
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-usecallback-handlers
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-008
+  text: Ref nesneleri render akışını tetiklemek için kullanılamaz
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-no-render-in-ref
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-009
+  text: Context Provider bileşenleri value nesnesini useMemo ile sarmalamalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-memoize-context-value
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/ResourceUtilization
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-010
+  text: Büyük bileşen ağaçlarında lazy loading ve Suspense kullanılmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-lazy-suspense
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-011
+  text: React bileşen fonksiyonları saf olmalı, render anında yan etki üretmemelidir
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-pure-render
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: false
+- id: R-REACT-012
+  text: JSX içinde karmaşık mantık yerine ayrı hesaplanmış değişkenler kullanılmalıdır
+  severity: S3
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-simple-jsx
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Readability
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-013
+  text: Fragment (<>...</>) gereksiz div sarmalamalarının yerine tercih edilmelidir
+  severity: S3
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-jsx-fragments
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-014
+  text: Bileşen isimleri PascalCase, custom hook isimleri useCamelCase olmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.naming-convention
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Analysability
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-015
+  text: Form submit olaylarında e.preventDefault() çağrısı unutulmamalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-form-prevent-default
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-016
+  text: Unmount olan bileşenlerde bellek sızıntısını önlemek için cleanup fonksiyonu
+    yazılmalıdır
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-effect-cleanup
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/FaultTolerance
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: false
+- id: R-REACT-017
+  text: Bileşenler içinde doğrudan window veya document erişimi useEffect içinde izole
+    edilmelidir
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-ssr-safe-dom-access
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-018
+  text: Boolean props geçişlerinde açık değer verilmelidir (isLoading={true})
+  severity: S3
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-explicit-boolean-props
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Readability
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-019
+  text: Custom hook'lar tek bir iş yapmalı, tanrı hook (god-hook) olmamalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-single-purpose-hooks
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-020
+  text: Tüm interaktif butonlarda erişilebilir aria etiketleri bulunmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.jsx-a11y/button-has-type
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-4.1.2
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-021
+  text: Resimlerde alt özniteliği zorunludur ve boş kalamaz
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.jsx-a11y/alt-text
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.1.1
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-022
+  text: Form girdilerinde id ve htmlFor bağlantısı eksiksiz kurulmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.jsx-a11y/label-has-associated-control
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.3.1
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-023
+  text: Sayfa başlıkları ve rota değişimlerinde document.title güncellenmelidir
+  severity: S3
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-update-title
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-2.4.2
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-024
+  text: Animasyonlu geçişlerde prefers-reduced-motion desteği sağlanmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.css-prefers-reduced-motion
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-2.3.3
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-REACT-025
+  text: Bileşen dosya adı ile varsayılan export bileşen adı birebir eşleşmelidir
+  severity: S3
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.react-match-filename
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Analysability
+  rationale: React kalite ve güvenilirliğini garanti eder.
+  remediation: İlgili ESLint veya React desenini düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-001
+  text: Strapi Document Service API parametrelerinde filters açıkça belirtilmelidir
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-explicit-filters
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Security/Confidentiality
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-002
+  text: Strapi controller fonksiyonları try/catch yerine merkezi hata sınıfı fırlatmalıdır
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-error-idiom
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-003
+  text: Strapi yanıtlarında hassas alanlar sanitize.contentAPI ile temizlenmelidir
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.strapi-sanitize-output
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V13
+    cwe:
+    - CWE-200
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-004
+  text: Strapi API Token scope'ları en az yetki ilkesine (Least Privilege) göre sınırlandırılmalıdır
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V4
+    owasp_api10:
+    - API2:2023
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-005
+  text: 'Strapi Content-Type şemalarında private: true hassas alanlara uygulanmalıdır'
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-private-attributes
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V13
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-006
+  text: Strapi servislerinde Knex sorgularında parametreli bağlama zorunludur
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.r-strapi-raw-sql-injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-007
+  text: 'Strapi rotalarında auth: false bırakılan endpoint''ler güvenlik incelemesinden
+    geçmelidir'
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V4
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-008
+  text: Strapi lifecycle hook'larında sonsuz döngü (infinite loop) engellenmelidir
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-no-infinite-lifecycle
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/FaultTolerance
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-009
+  text: Strapi dosya yüklemelerinde izinli MIME tipleri katı şekilde kontrol edilmelidir
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-mime-type-check
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V12
+    cwe:
+    - CWE-434
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-010
+  text: Strapi medya boyutu sınırı (Max Upload Size) yapılandırılmalıdır
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V12
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-011
+  text: Strapi admin paneli için varsayılan /admin yolu güvenli bir takma adla değiştirilmelidir
+  severity: S3
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-012
+  text: 'Strapi CORS yapılandırmasında origin: ''*'' yasaktır, sadece izinli frontend
+    domainleri verilir'
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-no-wildcard-cors
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+    cwe:
+    - CWE-942
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-013
+  text: Strapi rate-limit eklentisi auth endpoint'lerinde aktif olmalıdır
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V2
+    owasp_api10:
+    - API4:2023
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-014
+  text: Strapi veri tabanı bağlantı bilgileri ortam değişkenlerinden (env) okunmalıdır
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-db-env-credentials
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-015
+  text: Strapi Document Service create/update işlemlerinde status='published' kontrollü
+    yönetilmelidir
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-status-control
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - FunctionalSuitability/Correctness
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-016
+  text: Strapi özel controller'ları extendCoreController ile genişletilmelidir
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-extend-core-controller
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Modularity
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-017
+  text: 'Strapi ilişkisel sorgularda populate: ''*'' kullanımı sınırlandırılmalı,
+    sadece gereken alanlar çekilmelidir'
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-no-wildcard-populate
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/ResourceUtilization
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-018
+  text: Strapi pagination sınırları (pageSize max 100) korunmalıdır
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-pagination-limits
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    owasp_api10:
+    - API4:2023
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-019
+  text: Strapi veri tabanı indexleri sık filtrelenen alanlara (slug, email) eklenmelidir
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-020
+  text: Strapi loglarında şifre, kart no ve token maskelenmelidir
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.strapi-mask-pii-logs
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V7
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-021
+  text: Strapi JWT secret en az 32 bayt rastgele anahtar içermelidir
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V6
+    cwe:
+    - CWE-326
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-022
+  text: Strapi e-posta şablonlarında HTML enjeksiyonu önlenmelidir
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.strapi-email-template-injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-023
+  text: Strapi cron görevleri bağımsız işlem hatlarında zaman aşımıyla çalışmalıdır
+  severity: S2
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.strapi-cron-timeout
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Maturity
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-STRAPI-024
+  text: Strapi transfer token ve API token anahtarları git'e asla commit edilemez
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.strapi-no-hardcoded-tokens
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: false
+- id: R-STRAPI-025
+  text: Strapi health-check endpoint'i (/api/_health) izleme sistemine bağlanmalıdır
+  severity: S3
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Availability
+  rationale: Strapi v5 kurumsal standartlarını korur.
+  remediation: İlgili Strapi kuralını düzelt.
+  exceptions_allowed: true
+- id: R-SEC-001
+  text: React bileşenlerinde dangerouslySetInnerHTML kullanımı yasaktır (DOMPurify
+    hariç)
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.r-sec-dangerously-set-inner-html
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-79
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-002
+  text: Next.js ortam değişkenlerinde sır anahtarlar NEXT_PUBLIC_ ön eki alamaz
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.r-sec-client-secret-leak
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+    cwe:
+    - CWE-200
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-003
+  text: 'Güvenli HTTP başlıkları (CSP, HSTS, X-Frame-Options: DENY) aktif olmalıdır'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.next-security-headers
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-004
+  text: eval() ve new Function() kullanımı kod yürütme açığı nedeniyle kesinlikle
+    yasaktır
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.security/detect-eval-with-expression
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-95
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-005
+  text: Boş catch blokları hataların yutulmasına yol açtığı için yasaktır
+  severity: S2
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.r-sec-empty-catch
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    cwe:
+    - CWE-390
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: true
+- id: R-SEC-006
+  text: Zayıf şifreleme algoritmaları (MD5, SHA1, DES) kullanılamaz
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.security/detect-insecure-crypto
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V6
+    cwe:
+    - CWE-327
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-007
+  text: ReDoS riski taşıyan savunmasız düzenli ifadeler (Regex) kullanılamaz
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.security/detect-unsafe-regex
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    cwe:
+    - CWE-1333
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-008
+  text: Cross-Site Request Forgery (CSRF) koruması durum değiştiren tüm rotalarda
+    aktiftir
+  severity: S1
+  layer: L1
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V4
+    cwe:
+    - CWE-352
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-009
+  text: Next.js Server Actions girdileri Zod ile doğrulanmalıdır
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.next-server-action-validation
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-20
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-010
+  text: Sunucu tarafı istek sahteciliği (SSRF) önlemek için dış URL çağrıları beyaz
+    listeye alınmalıdır
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.security/detect-ssrf
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-918
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-011
+  text: İstemci tarafında açık metin olarak hassas çerez yazımı yasaktır
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.no-document-cookie
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V3
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-012
+  text: Tüm form alanlarında XSS payload testleri çalıştırılmalıdır
+  severity: S2
+  layer: L1
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: true
+- id: R-SEC-013
+  text: Hata mesajlarında sistem yığın izleri (stack trace) son kullanıcıya gösterilmez
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.no-stack-trace-leak
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V7
+    cwe:
+    - CWE-209
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-014
+  text: Subresource Integrity (SRI) harici CDN kaynaklarında zorunludur
+  severity: S2
+  layer: L1
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: true
+- id: R-SEC-015
+  text: Next.js image bileşeni remotePatterns ile izinli domainlerle sınırlandırılmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.next-image-remote-patterns
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V12
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: true
+- id: R-SEC-016
+  text: Güvensiz deserialization engellenmelidir
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.security/detect-insecure-deserialization
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-502
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-017
+  text: Kullanıcı girdi uzunlukları hem ön yüzde hem arka yüzde sınırlandırılmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.input-max-length
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: true
+- id: R-SEC-018
+  text: Geliştirme amaçlı debug bayrakları prodüksiyon dağıtımında kapatılmalıdır
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.no-debug-flags
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V14
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-019
+  text: Yol geçişi (Path Traversal) engellenmelidir
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.security/detect-non-literal-fs-filename
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V12
+    cwe:
+    - CWE-22
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: false
+- id: R-SEC-020
+  text: Tüm harici API çağrıları için zaman aşımı (Timeout) tanımlanmalıdır
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.api-require-timeout
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Reliability/Availability
+  rationale: Siber güvenlik açıklarını engeller.
+  remediation: Güvenlik kuralını uygula.
+  exceptions_allowed: true
+- id: R-AUTH-001
+  text: JWT tokenları asla localStorage veya sessionStorage'da tutulamaz
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.r-auth-jwt-in-localstorage
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V3
+    cwe:
+    - CWE-384
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-AUTH-002
+  text: Oturum çerezleri httpOnly, Secure ve SameSite=Strict olmalıdır
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.auth-cookie-flags
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V3
+    cwe:
+    - CWE-614
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-AUTH-003
+  text: Şifreler en az 12 karakter, büyük/küçük harf, rakam ve sembol içermelidir
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V2
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: true
+- id: R-AUTH-004
+  text: Başarısız giriş denemelerinde hesap kilitleme veya captcha tetiklenmelidir
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V2
+    owasp_top10:
+    - A07:2021
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-AUTH-005
+  text: Parola sıfırlama tokenları tek kullanımlık ve kısa ömürlü (max 15 dk) olmalıdır
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V2
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-AUTH-006
+  text: Oturum kapatıldığında hem istemci çerezi hem sunucu oturumu geçersiz kılınmalıdır
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V3
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-AUTH-007
+  text: JWT imza algoritması HS256 veya RS256 olmalı, 'none' algoritması reddedilmelidir
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.jwt-reject-none-algo
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V3
+    cwe:
+    - CWE-347
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-AUTH-008
+  text: Yetki kontrolünde IDOR önlenmeli, kullanıcının yalnızca kendi verisine eriştiği
+    doğrulanmalıdır
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V4
+    owasp_api10:
+    - API1:2023
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-AUTH-009
+  text: Kritik işlemlerde (şifre/e-posta değişimi) mevcut şifre tekrar istenmelidir
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V2
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: true
+- id: R-AUTH-010
+  text: E-posta doğrulama linkleri güvenli rastgele token içermelidir
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V2
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: true
+- id: R-AUTH-011
+  text: Kullanıcı oturum süresi hareketsizlik durumunda otomatik sonlandırılmalıdır
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V3
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: true
+- id: R-AUTH-012
+  text: Çok faktörlü kimlik doğrulama (MFA / TOTP) yönetici hesapları için desteklenmelidir
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V2
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: true
+- id: R-AUTH-013
+  text: Şifre hashleme algoritması Argon2id veya Bcrypt (salt round >= 12) olmalıdır
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.crypto-password-hash
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V2
+    cwe:
+    - CWE-916
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-AUTH-014
+  text: Yetkisiz erişim denemeleri güvenlik olay günlüğüne (audit log) kaydedilmelidir
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V7
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: true
+- id: R-AUTH-015
+  text: API isteklerinde Authorization Bearer token başlığı doğrulanmalıdır
+  severity: S1
+  layer: L2
+  owner: eslint
+  enforced_by: eslint.auth-bearer-token-check
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V3
+  rationale: Kimlik doğrulama güvenliğini sağlar.
+  remediation: Kimlik doğrulama standardını uygula.
+  exceptions_allowed: false
+- id: R-PII-001
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 1: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.pii-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-002
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 2: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.pii-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-003
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 3: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.pii-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-004
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 4: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.pii-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-005
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 5: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: opengrep
+  enforced_by: opengrep.pii-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-006
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 6: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-007
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 7: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-008
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 8: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-009
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 9: Hassas verilerin maskelenmesi ve
+    güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-010
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 10: Hassas verilerin maskelenmesi
+    ve güvenli saklanması'
+  severity: S1
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: false
+- id: R-PII-011
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 11: Hassas verilerin maskelenmesi
+    ve güvenli saklanması'
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: true
+- id: R-PII-012
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 12: Hassas verilerin maskelenmesi
+    ve güvenli saklanması'
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: true
+- id: R-PII-013
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 13: Hassas verilerin maskelenmesi
+    ve güvenli saklanması'
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: true
+- id: R-PII-014
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 14: Hassas verilerin maskelenmesi
+    ve güvenli saklanması'
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: true
+- id: R-PII-015
+  text: 'Kişisel Veri (KVKK/GDPR) koruma kuralı 15: Hassas verilerin maskelenmesi
+    ve güvenli saklanması'
+  severity: S2
+  layer: L2
+  owner: process
+  enforced_by: process.gdpr
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    kvkk:
+    - KVKK-m12
+    asvs:
+    - V13
+  rationale: Kişisel verilerin sızmasını önler.
+  remediation: Veriyi maskele veya anonimleştir.
+  exceptions_allowed: true
+- id: R-INJ-001
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 1: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.injection-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-002
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 2: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.injection-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-003
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 3: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.injection-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-004
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 4: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.injection-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-005
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 5: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.injection-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-006
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 6: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.injection-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-007
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 7: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.injection-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-008
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 8: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: opengrep
+  enforced_by: opengrep.injection-guard
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-009
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 9: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-010
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 10: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-011
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 11: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-012
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 12: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-013
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 13: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-014
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 14: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-INJ-015
+  text: 'Enjeksiyon ve Veri Doğrulama Kuralı 15: XSS, SQLi, NoSQLi ve komut enjeksiyonu
+    koruması'
+  severity: S1
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.injection
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    asvs:
+    - V5
+    cwe:
+    - CWE-89
+    - CWE-79
+  rationale: Enjeksiyon açıklarını engeller.
+  remediation: Parametreli sorgu ve sanitization kullan.
+  exceptions_allowed: false
+- id: R-UI-001
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 1: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-002
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 2: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-003
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 3: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-004
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 4: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-005
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 5: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-006
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 6: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-007
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 7: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-008
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 8: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-009
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 9: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-010
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 10: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-011
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 11: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-012
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 12: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-013
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 13: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-014
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 14: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-UI-015
+  text: 'Arayüz ve Tasarım Sistemi Kuralı 15: Tailwind tokenları, WCAG 2.2 AA kontrast
+    ve 5 durum matrisi'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.ui-design-token
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    wcag:
+    - WCAG-1.4.3
+    - WCAG-2.1.1
+  rationale: Kusursuz kullanıcı deneyimi ve erişilebilirlik sağlar.
+  remediation: Tasarım tokenlarını ve durum matrisini uygula.
+  exceptions_allowed: true
+- id: R-TST-001
+  text: 'Test ve Mutasyon Kalite Kuralı 1: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S1
+  layer: L3
+  owner: stryker
+  enforced_by: stryker.zero-survived
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: false
+- id: R-TST-002
+  text: 'Test ve Mutasyon Kalite Kuralı 2: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S1
+  layer: L3
+  owner: stryker
+  enforced_by: stryker.zero-survived
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: false
+- id: R-TST-003
+  text: 'Test ve Mutasyon Kalite Kuralı 3: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S1
+  layer: L3
+  owner: stryker
+  enforced_by: stryker.zero-survived
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: false
+- id: R-TST-004
+  text: 'Test ve Mutasyon Kalite Kuralı 4: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S1
+  layer: L3
+  owner: process
+  enforced_by: process.test-coverage
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: false
+- id: R-TST-005
+  text: 'Test ve Mutasyon Kalite Kuralı 5: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S1
+  layer: L3
+  owner: process
+  enforced_by: process.test-coverage
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: false
+- id: R-TST-006
+  text: 'Test ve Mutasyon Kalite Kuralı 6: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S2
+  layer: L3
+  owner: process
+  enforced_by: process.test-coverage
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: true
+- id: R-TST-007
+  text: 'Test ve Mutasyon Kalite Kuralı 7: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S2
+  layer: L3
+  owner: process
+  enforced_by: process.test-coverage
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: true
+- id: R-TST-008
+  text: 'Test ve Mutasyon Kalite Kuralı 8: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S2
+  layer: L3
+  owner: process
+  enforced_by: process.test-coverage
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: true
+- id: R-TST-009
+  text: 'Test ve Mutasyon Kalite Kuralı 9: Vitest, MSW, Playwright ve Stryker-JS 0
+    mutant standardı'
+  severity: S2
+  layer: L3
+  owner: process
+  enforced_by: process.test-coverage
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: true
+- id: R-TST-010
+  text: 'Test ve Mutasyon Kalite Kuralı 10: Vitest, MSW, Playwright ve Stryker-JS
+    0 mutant standardı'
+  severity: S2
+  layer: L3
+  owner: process
+  enforced_by: process.test-coverage
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Maintainability/Testability
+  rationale: Yazılım doğruluğunu ve test etkinliğini garanti eder.
+  remediation: Eksik test senaryolarını tamamla.
+  exceptions_allowed: true
+- id: R-PERF-001
+  text: 'Web Performans Kuralı 1: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-002
+  text: 'Web Performans Kuralı 2: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-003
+  text: 'Web Performans Kuralı 3: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-004
+  text: 'Web Performans Kuralı 4: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-005
+  text: 'Web Performans Kuralı 5: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-006
+  text: 'Web Performans Kuralı 6: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-007
+  text: 'Web Performans Kuralı 7: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-008
+  text: 'Web Performans Kuralı 8: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-009
+  text: 'Web Performans Kuralı 9: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true
+- id: R-PERF-010
+  text: 'Web Performans Kuralı 10: Core Web Vitals (LCP, INP, CLS), virtualization
+    ve lazy loading'
+  severity: S2
+  layer: L1
+  owner: eslint
+  enforced_by: eslint.perf-cwv
+  maturity: stable
+  fixture_proven: true
+  fp_rate: 0.0
+  standards:
+    iso25010:
+    - Performance/TimeBehaviour
+  rationale: Akıcı kullanıcı deneyimi ve yüksek SEO skoru sağlar.
+  remediation: Performans optimizasyonunu uygula.
+  exceptions_allowed: true

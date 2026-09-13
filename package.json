@@ -1,0 +1,42 @@
+{
+  "name": "agent-squad-strapi",
+  "version": "1.0.0",
+  "description": "Antigravity AI IDE için Strapi v5 ve React / Next.js 8 Kişilik Otonom Yazılım Geliştirme Squad'ı",
+  "main": "index.js",
+  "scripts": {
+    "rules:build": "python3 scripts/build_rules_registry.py",
+    "traceability:generate": "python3 scripts/generators/gen_traceability.py",
+    "depcruise:generate": "python3 scripts/generators/gen_depcruise.py",
+    "depcruise:check": "npx depcruise --config .dependency-cruiser.js src",
+    "opengrep:generate": "python3 scripts/generators/gen_opengrep.py",
+    "stryker:generate": "python3 scripts/generators/gen_stryker.py",
+    "eslint:generate": "python3 scripts/generators/gen_eslint.py",
+    "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "antigravity",
+    "ai-agents",
+    "strapi-v5",
+    "react",
+    "nextjs",
+    "clean-architecture",
+    "rohit-kuwar",
+    "owasp-asvs"
+  ],
+  "author": "Ertekin Özturgut",
+  "license": "MIT",
+  "devDependencies": {
+    "@stryker-mutator/core": "^8.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "dependency-cruiser": "^16.3.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-security": "^3.0.1",
+    "prettier": "^3.3.0",
+    "vitest": "^2.0.0"
+  }
+}
