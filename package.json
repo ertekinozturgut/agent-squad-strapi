@@ -7,7 +7,7 @@
     "depcruise:check": "depcruise --config .dependency-cruiser.js .",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix",
-    "security:scan": "semgrep scan --config .agents/rules/semgrep/strapi-react-rules.yaml",
+    "security:scan": "opengrep scan --config .agents/opengrep/strapi-react-rules.yaml",
     "test": "vitest run",
     "test:mutation": "stryker run",
     "typecheck": "tsc --noEmit"
@@ -21,12 +21,14 @@
     "clean-architecture",
     "feature-based-architecture",
     "modular-architecture",
+    "opengrep",
     "owasp-asvs"
   ],
   "author": "Ertekin Özturgut",
   "license": "MIT",
   "devDependencies": {
     "@stryker-mutator/core": "^8.7.0",
+    "@stryker-mutator/vitest-runner": "^8.7.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "dependency-cruiser": "^16.3.0",

@@ -69,6 +69,6 @@ Squad'ın tüm iş akışı tek bir merkezi kuyruk dosyası olan `tasks.json` (`
 ### 🏁 Definition of Done (DoD) — Tamamlandı İlan Etme Şartları
 `project-manager`, bir görevi `completed` yapmadan önce şu kod kontrol araçları ile doğrular:
 1. `qa-tester` test sonuçlarını (`npm test`, `npm run test:mutation`) onaylamış mı?
-2. `security-reviewer` OWASP ASVS v5.0 ve Semgrep tarama raporunu (`npm run security:scan`) onaylamış mı?
+2. `security-reviewer` OWASP ASVS v5.0 ve Opengrep tarama raporunu (`npm run security:scan`) onaylamış mı?
 3. `dependency-cruiser` mimari katman denetimi (`npm run depcruise:check`) hatasız geçmiş mi?
 4. TypeScript derlemesinde (`npm run typecheck`) ve ESLint'te (`npm run lint`) 0 hata ve 0 uyarı sağlandı mı?

@@ -60,7 +60,7 @@ Tüm geliştirme süreci projenin kök dizinindeki `tasks.json` durum makinesi �
    - [ ] `dependency-cruiser` mimari katman denetimi hatasız (`npm run depcruise:check`).
    - [ ] Vitest / Jest testleri yazılmış ve tamamı geçmiş (`npm test`).
    - [ ] Stryker-JS mutasyon testinde değişen satırlarda sıfır hayatta kalan mutant (`npm run test:mutation`).
-   - [ ] Semgrep güvenlik taramasında hiçbir açık bulunmamış (`npm run security:scan`).
+   - [ ] Opengrep güvenlik taramasında hiçbir açık bulunmamış (`npm run security:scan`).
    - [ ] Dokümantasyon ve `tasks.json` artefaktları eksiksiz doldurulmuş.
 5. **Revizyon Döngüsü (`changes_requested`):**
    - QA veya Güvenlik incelemesinde bir kusur bulunursa görev `changes_requested` durumuna alınır ve `rejectionCount` 1 artırılır.

@@ -72,7 +72,7 @@ Tüm görevler `tasks.json` üzerindeki durum makinesi doğrultusunda aşağıda
 | **`frontend-engineer`** | React & Next.js Mimarı | Component-Driven Architecture, Modern Web Guidance, Vercel Arch Guides | Feature-based klasörleme, Container/Presentational ayrımı, TanStack Query v5 entegrasyonu, özel hook'lar, apiClient interceptors. |
 | **`uiux-designer`** | UX & Tasarım Sistemi Yöneticisi | Design of Everyday Things, Refactoring UI, WCAG 2.2 AA | Tailwind CSS tasarım tokenları, Radix UI headless primitifleri, 5 kademeli durum matrisi (`Hover`, `Focus`, `Loading` vb.), sıfır satır içi CSS. |
 | **`qa-tester`** | Çift Yönlü Test Avcısı | Meszaros Test Patterns, Testing JS Applications (da Costa) | Vitest + React Testing Library, Mock Service Worker (MSW), Strapi Supertest entegrasyon testleri, Playwright E2E ve Stryker-JS mutasyon testleri. |
-| **`security-reviewer`** | Siber Güvenlik & Kalite Denetçisi | OWASP Top 10 (2025), OWASP ASVS v5.0 Level 2, SEI CERT | XSS (sıfır `dangerouslySetInnerHTML`), httpOnly cookie denetimi, secret sızıntı koruması, Strapi RBAC izin denetimi ve Semgrep taraması. |
+| **`security-reviewer`** | Siber Güvenlik & Kalite Denetçisi | OWASP Top 10 (2025), OWASP ASVS v5.0 Level 2, SEI CERT | XSS (sıfır `dangerouslySetInnerHTML`), httpOnly cookie denetimi, secret sızıntı koruması, Strapi RBAC izin denetimi ve Opengrep taraması. |
 
 ---
 
@@ -143,11 +143,11 @@ Agent Squad Strapi & React, harici derleme scriptlerine ihtiyaç duymadan doğru
    ```
    UI bileşenlerinin servisleri doğrudan çağırmasını veya feature'lar arası izinsiz dikey import yapılmasını engeller (`.dependency-cruiser.js`).
 
-2. **`Semgrep` (OWASP ASVS Güvenlik Motoru):**
+2. **`Opengrep` (OWASP ASVS Güvenlik Motoru):**
    ```bash
    npm run security:scan
    ```
-   XSS, güvensiz çerez, secret sızıntısı ve ham SQL enjeksiyon açıklarını doğrudan tarar (`.agents/rules/semgrep/strapi-react-rules.yaml`).
+   XSS, güvensiz çerez, secret sızıntısı ve ham SQL enjeksiyon açıklarını doğrudan tarar (`.agents/opengrep/strapi-react-rules.yaml`).
 
 3. **`ESLint & TypeScript Strict` (Sıfır Hata & Sıfır Uyarı):**
    ```bash
