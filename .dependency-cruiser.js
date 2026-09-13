@@ -3,38 +3,38 @@ module.exports = {
   forbidden: [
     {
       name: 'no-ui-direct-service-call',
-      comment: 'R-ARCH-006: UI bileşenleri doğrudan API servislerini çağıramaz; Hooks katmanı üzerinden geçmelidir.',
+      comment: 'R-ARCH-001: UI bileşenleri doğrudan API servislerini çağıramaz; Hooks katmanı üzerinden geçmelidir.',
       severity: 'error',
-      from: { path: '^src/(components|features/[^/]+/components)' },
-      to: { path: '^src/(services|features/[^/]+/services)' }
+      from: { path: '(^|.*/)(components|features/[^/]+/components)' },
+      to: { path: '(^|.*/)(services|features/[^/]+/services)' }
     },
     {
       name: 'no-cross-feature-private-import',
-      comment: 'R-ARCH-007: Bir feature başka bir feature\'ın iç dosyalarına doğrudan erişemez, sadece index.ts barrel üzerinden erişebilir.',
+      comment: 'R-ARCH-002: Bir feature başka bir feature\'ın iç dosyalarına doğrudan erişemez, sadece public barrel index.ts üzerinden erişebilir.',
       severity: 'error',
-      from: { path: '^src/features/([^/]+)/' },
+      from: { path: '(^|.*/)features/([^/]+)/' },
       to: {
-        path: '^src/features/([^/]+)/',
-        pathNot: '^src/features/\\1/|index\\.ts$'
+        path: '(^|.*/)features/([^/]+)/',
+        pathNot: '(^|.*/)features/\\2/|index\\.ts$'
       }
     },
     {
       name: 'no-direct-db-in-strapi-controller',
-      comment: 'R-STRAPI-001: Strapi Controller katmanı doğrudan veritabanı sürücülerine (knex, pg vb.) erişemez; Document Service veya Service katmanını kullanmalıdır.',
+      comment: 'R-STRAPI-003: Strapi Controller katmanı doğrudan veritabanı sürücülerine (knex, pg vb.) erişemez; Document Service veya Service katmanını kullanmalıdır.',
       severity: 'error',
-      from: { path: '^backend/src/api/[^/]+/controllers' },
+      from: { path: '(^|.*/)api/[^/]+/controllers' },
       to: { path: '(knex|pg|mysql|sqlite3)' }
     },
     {
       name: 'no-server-secret-in-client',
-      comment: 'R-SEC-004: İstemci bileşenlerine backend gizli anahtarları ve veritabanı değişkenleri import edilemez.',
+      comment: 'R-SEC-002: İstemci bileşenlerine backend gizli anahtarları ve veritabanı değişkenleri import edilemez.',
       severity: 'error',
-      from: { path: '^src/(components|features|hooks)' },
+      from: { path: '(^|.*/)(components|features|hooks)' },
       to: { path: '(STRAPI_ADMIN_API_TOKEN|DATABASE_PASSWORD|JWT_SECRET)' }
     },
     {
       name: 'no-circular-dependencies',
-      comment: 'R-ARCH-010: Modüller arasında döngüsel bağımlılık (circular dependency) bulunamaz.',
+      comment: 'R-ARCH-005: Modüller arasında döngüsel bağımlılık (circular dependency) bulunamaz.',
       severity: 'error',
       from: {},
       to: { circular: true }

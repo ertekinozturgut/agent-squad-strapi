@@ -2,7 +2,7 @@
   {
     "id": "TASK-01",
     "title": "Kullanıcı Kimlik Doğrulama ve Güvenli Profil Yönetimi",
-    "description": "Strapi v5 Users-Permissions eklentisi üzerinden JWT tabanlı kimlik doğrulama, Next.js Server Actions ile httpOnly cookie yönetimi ve Rohit Kuwar React mimarisine uygun auth feature dilimi.",
+    "description": "Strapi v5 Users-Permissions eklentisi üzerinden JWT tabanlı kimlik doğrulama, Next.js Server Actions ile httpOnly cookie yönetimi ve özellik tabanlı (feature-based) React mimarisine uygun auth feature dilimi.",
     "status": "pending",
     "priority": "high",
     "dependencies": [],
@@ -34,7 +34,7 @@
       ],
       "architectureDecisions": [
         "ADR-01: JWT tokenları ASLA localStorage içinde saklanamaz; Next.js Middleware ve Server Actions ile httpOnly, Secure, SameSite=Strict cookie içinde saklanır.",
-        "ADR-02: Frontend auth modülü 'src/features/auth' altında Rohit Kuwar dikey dilim mimarisine göre organize edilir (components, hooks, services, types).",
+        "ADR-02: Frontend auth modülü 'src/features/auth' altında dikey dilim (feature-based) mimarisine göre organize edilir (components, hooks, services, types).",
         "ADR-03: Strapi v5 Document Service API kullanılarak kullanıcı profili ve roller çekilir."
       ],
       "designPatternsUsed": [

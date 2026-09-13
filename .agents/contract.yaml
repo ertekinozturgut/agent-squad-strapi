@@ -6,22 +6,22 @@ frameworks:
 
 layers:
   domain:
-    paths: ["src/types/**", "src/contracts/**", "backend/src/api/**/content-types/**"]
+    paths: ["**/types/**", "**/contracts/**", "**/content-types/**"]
     may_depend_on: []
   services:
-    paths: ["src/services/**", "src/features/*/services/**", "backend/src/api/**/services/**"]
+    paths: ["**/services/**", "**/features/*/services/**"]
     may_depend_on: [domain]
   hooks:
-    paths: ["src/hooks/**", "src/features/*/hooks/**"]
+    paths: ["**/hooks/**", "**/features/*/hooks/**"]
     may_depend_on: [services, domain]
   components:
-    paths: ["src/components/**", "src/features/*/components/**"]
+    paths: ["**/components/**", "**/features/*/components/**"]
     may_depend_on: [hooks, domain]
   routes_pages:
-    paths: ["src/app/**", "src/pages/**", "src/routes/**"]
+    paths: ["**/app/**", "**/pages/**", "**/routes/**"]
     may_depend_on: [components, hooks, services, domain]
   strapi_controllers:
-    paths: ["backend/src/api/**/controllers/**"]
+    paths: ["**/controllers/**", "**/api/**/controllers/**"]
     may_depend_on: [services, domain]
 
 banned_in:
@@ -81,7 +81,7 @@ auth:
   strapi_rbac_enabled: true
 
 integration:
-  client_path: "src/services/apiClient.ts"
+  client_path: "**/services/apiClient.*"
   correlation_header: "X-Correlation-Id"
   require_retry_policy: true
   require_circuit_breaker: true
@@ -98,7 +98,7 @@ observability:
   audit_operations: ["UserCreated", "RoleModified", "ContentPublished", "PermissionOverridden"]
 
 mutation:
-  include: ["src/features/**/hooks/**", "src/features/**/services/**", "backend/src/api/**/services/**"]
+  include: ["**/features/**/hooks/**", "**/features/**/services/**", "**/api/**/services/**"]
   exclude: ["**/*.test.*", "**/*.spec.*", "**/types/**", "**/mocks/**"]
   max_survived_on_changed: 0
 

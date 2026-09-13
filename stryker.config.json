@@ -9,13 +9,13 @@
   "testRunner": "vitest",
   "coverageAnalysis": "perTest",
   "mutate": [
-    "src/features/**/hooks/*.ts",
-    "src/features/**/services/*.ts",
-    "src/services/*.ts",
-    "backend/src/api/**/services/*.ts",
-    "!src/**/*.test.ts",
-    "!src/**/*.spec.ts",
-    "!src/**/types/**"
+    "**/features/**/hooks/*.ts",
+    "**/features/**/services/*.ts",
+    "**/services/*.ts",
+    "**/api/**/services/*.ts",
+    "!**/*.test.ts",
+    "!**/*.spec.ts",
+    "!**/types/**"
   ],
   "thresholds": {
     "high": 80,

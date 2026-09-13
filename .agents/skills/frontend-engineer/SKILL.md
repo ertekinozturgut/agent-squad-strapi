@@ -1,17 +1,17 @@
 ---
 name: frontend-engineer
-description: Rohit Kuwar React Architecture, Next.js App Router (Server/Client Components), TanStack Query v5, Custom Hooks, Feature-Based modüler yapı, Radix UI ve Modern Web standartlarını uygular.
+description: Özellik Tabanlı (Feature-Based) Ölçeklenebilir React Mimarisi, Next.js App Router (Server/Client Components), TanStack Query v5, Custom Hooks, dikey modüler yapı, Radix UI ve Modern Web standartlarını uygular.
 ---
 
 # Frontend Mühendisi Uzmanlık Rehberi (Frontend Engineer Guide)
 
-Bu rehber, **Rohit Kuwar React Architecture** prensipleri doğrultusunda, **Next.js App Router** ve **React** kullanarak ölçeklenebilir, modüler, tip-güvenli ve yüksek performanslı modern ön yüz uygulamalarının inşasını kapsar.
+Bu rehber, **Özellik Tabanlı (Feature-Based) Ölçeklenebilir React Mimarisi** prensipleri doğrultusunda, **Next.js App Router** ve **React** kullanarak ölçeklenebilir, modüler, tip-güvenli ve yüksek performanslı modern ön yüz uygulamalarının inşasını kapsar.
 
 ---
 
 ## 📚 1. Dayandığı Literatür ve Standartlar
 
-1. **React Architecture: A Complete Guide for Scalable Front-End Applications** (Rohit Kuwar)
+1. **Modern Front-End Architecture: Scalable, Feature-Sliced & Component-Driven Systems**
 2. **Learning React: Modern Patterns for Developing React Apps (2nd Edition)** (Alex Banks & Eve Porcello)
 3. **Next.js App Router & React Server Components Architecture Guide** (Vercel)
 4. **W3C / WHATWG HTML Living Standard & Modern Web Guidance** (Dialog, Popover, View Transitions, CWV)
@@ -20,10 +20,10 @@ Bu rehber, **Rohit Kuwar React Architecture** prensipleri doğrultusunda, **Next
 
 ## 🏗️ 2. Özellik Tabanlı (Feature-Based) Dikey Mimari
 
-Rohit Kuwar mimarisinin temeli dikey dilimlemedir (Vertical Slices). Her işlevsel özellik kendi izole dünyasına sahiptir:
+Mimarinin temeli dikey dilimlemedir (Vertical Slices). Her işlevsel özellik kendi izole dünyasına sahiptir:
 
 ```text
-src/features/auth/
+src/features/auth/ (veya features/auth/)
 ├── components/           # UI ve Konteyner bileşenleri
 │   ├── LoginForm.tsx     # Presentation / UI bileşeni
 │   └── LoginCard.tsx     # Container bileşeni
@@ -38,7 +38,7 @@ src/features/auth/
 ```
 
 ### 🔒 Barrel Export Kuralı:
-Diğer modüller `auth` içindeki alt dosyalara erişemez. Yalnızca `src/features/auth/index.ts` üzerinden dışa aktarılan bileşen veya hook'ları import edebilir:
+Diğer modüller `auth` içindeki alt dosyalara erişemez. Yalnızca `features/auth/index.ts` üzerinden dışa aktarılan bileşen veya hook'ları import edebilir:
 ```typescript
 // ✅ Doğru
 import { useAuth, LoginForm } from '@/features/auth';
@@ -54,7 +54,7 @@ import { authService } from '@/features/auth/services/authService';
 Bileşenler içinde doğrudan `fetch` veya `axios` çağrısı yapmak **kesinlikle yasaktır**.
 
 ```typescript
-// 1. Service Katmanı (src/features/products/services/productService.ts)
+// 1. Service Katmanı (features/products/services/productService.ts)
 import { apiClient } from '@/services/apiClient';
 import { Product } from '../types/product.types';
 
@@ -65,7 +65,7 @@ export const productService = {
   }
 };
 
-// 2. Hook Katmanı (src/features/products/hooks/useProducts.ts)
+// 2. Hook Katmanı (features/products/hooks/useProducts.ts)
 import { useQuery } from '@tanstack/react-query';
 import { productService } from '../services/productService';
 
@@ -77,7 +77,7 @@ export const useProducts = () => {
   });
 };
 
-// 3. Container & UI Katmanı (src/features/products/components/ProductList.tsx)
+// 3. Container & UI Katmanı (features/products/components/ProductList.tsx)
 import { useProducts } from '../hooks/useProducts';
 import { ProductCard } from './ProductCard';
 

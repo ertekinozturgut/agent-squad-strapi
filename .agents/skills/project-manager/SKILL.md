@@ -27,7 +27,7 @@ Squad'ın tüm iş akışı tek bir merkezi kuyruk dosyası olan `tasks.json` (`
        ┌───────────┐
        │  pending  │ (Kuyrukta bekleyen atomik görev)
        └─────┬─────┘
-             │ [DoR Onayı: Analiz + Strapi Modeli + Rohit Kuwar Mimarisi + UX Şartnameleri]
+             │ [DoR Onayı: Analiz + Strapi Modeli + Feature-Based React Mimarisi + UX Şartnameleri]
              ▼
       ┌─────────────┐
       │ in_progress │ ──(Beklenmedik engel)──► ┌─────────┐
@@ -62,13 +62,13 @@ Squad'ın tüm iş akışı tek bir merkezi kuyruk dosyası olan `tasks.json` (`
 ### 🟢 Definition of Ready (DoR) — Geliştirmeye Başlama Şartları
 `project-manager`, bir görevi `in_progress` durumuna almadan önce şu kontrolleri yapar:
 1. `business-analyst` 4 kademeli Gherkin kriterlerini yazmış mı?
-2. `solution-architect` Strapi v5 Document Service API sözleşmesini ve Rohit Kuwar React katmanını belirlemiş mi?
+2. `solution-architect` Strapi v5 Document Service API sözleşmesini ve özellik tabanlı React katmanını belirlemiş mi?
 3. `uiux-designer` 5 bileşen durumunu ve Tailwind CSS tokenlarını tanımlamış mı?
 4. Görev bağımlılıkları (`dependencies`) tamamen `completed` olmuş mu?
 
 ### 🏁 Definition of Done (DoD) — Tamamlandı İlan Etme Şartları
-`project-manager`, bir görevi `completed` yapmadan önce şu kanıtları doğrular:
-1. `qa-tester` test sonuçlarını (Vitest, Supertest, Playwright) onaylamış mı?
-2. `security-reviewer` OWASP ASVS v5.0 ve Semgrep tarama raporunu onaylamış mı?
-3. `depcruise:check` çalıştırılmış ve mimari katman ihlali bulunmadığı teyit edilmiş mi?
-4. TypeScript derlemesinde ve ESLint'te 0 hata ve 0 uyarı sağlandı mı?
+`project-manager`, bir görevi `completed` yapmadan önce şu kod kontrol araçları ile doğrular:
+1. `qa-tester` test sonuçlarını (`npm test`, `npm run test:mutation`) onaylamış mı?
+2. `security-reviewer` OWASP ASVS v5.0 ve Semgrep tarama raporunu (`npm run security:scan`) onaylamış mı?
+3. `dependency-cruiser` mimari katman denetimi (`npm run depcruise:check`) hatasız geçmiş mi?
+4. TypeScript derlemesinde (`npm run typecheck`) ve ESLint'te (`npm run lint`) 0 hata ve 0 uyarı sağlandı mı?

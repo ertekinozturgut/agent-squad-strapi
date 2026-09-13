@@ -1,6 +1,6 @@
 # 🏛️ Kural 02: Mimari Değişmezleri (Architecture Invariants)
 
-Bu anayasal kural, **Rohit Kuwar React Architecture** ve **Strapi v5 Headless CMS** katman ayrımını, veri akış yönünü ve bağımlılık sınırlarını tanımlar.
+Bu anayasal kural, **Özellik Tabanlı (Feature-Based) Ölçeklenebilir React Mimarisi** ve **Strapi v5 Headless CMS** katman ayrımını, veri akış yönünü ve bağımlılık sınırlarını tanımlar.
 
 ---
 
@@ -53,7 +53,7 @@ Herhangi bir React veya Next.js bileşeni, doğrudan API veya ağ çağrısı ya
 Uygulama kodları dağınık klasörler yerine ilgili işlevsel alan altında (Vertical Slice) gruplanır:
 
 ```text
-src/
+src/ (veya frontend/src/)
 ├── assets/             # Görseller, ikonlar, genel fontlar
 ├── components/         # Tüm uygulamada paylaşılan genel UI bileşenleri (Button, Modal, Input)
 ├── features/           # Özellik bazlı dikey dilimler
@@ -72,7 +72,7 @@ src/
 ```
 
 ### Katı Kurallar:
-- **Kural 2.1 (No Direct Cross-Feature Private Import):** Bir feature, başka bir feature'ın içindeki derin dosyalara (`features/orders/components/internal/...`) doğrudan erişemez. Sadece ilgili feature'ın `index.ts` dosyası üzerinden dışa açılmış üyeler kullanılabilir.
+- **Kural 2.1 (No Direct Cross-Feature Private Import):** Bir feature, başka bir feature'ın içindeki derin dosyalara doğrudan erişemez. Sadece ilgili feature'ın `index.ts` dosyası üzerinden dışa açılmış üyeler kullanılabilir.
 - **Kural 2.2 (Component Type Separation):**
   - **Sunum Bileşenleri (Presentational):** Sadece props alır, yan etki (side effect) içermez, DOM ve UI oluşturur.
   - **Konteyner Bileşenleri (Container):** Hook'ları çağırır, veriyi çeker ve sunum bileşenine aktarır.

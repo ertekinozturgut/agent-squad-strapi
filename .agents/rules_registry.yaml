@@ -110,7 +110,7 @@
     - Maintainability/Modularity
   rationale: Dikey dilimleme mimarisi bakımı kolaylaştırır ve ekiplerin çakışmasını
     engeller.
-  remediation: Dosyaları Rohit Kuwar feature yapısına göre dizinle.
+  remediation: Dosyaları özellik tabanlı (feature-based) modüler mimari yapısına göre dizinle.
   exceptions_allowed: true
 - id: R-ARCH-008
   text: Next.js Server Component içinde istemci hook'ları (useState, useEffect) kullanılamaz
