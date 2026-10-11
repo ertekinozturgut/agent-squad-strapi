@@ -1,0 +1,93 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "[Yayınlar & Vakalar] Makaleler & Yayınlar",
+    "description": "Ertekin Özturgut Makaleleri ve Teknik Yayınları (Medium, LinkedIn, Site Özelinde)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "excerpt": {
+      "type": "text",
+      "required": true
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": [
+        "site",
+        "medium",
+        "linkedin"
+      ],
+      "default": "site",
+      "required": true
+    },
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "Site",
+        "Medium",
+        "LinkedIn",
+        "TeknoPost"
+      ],
+      "default": "Site",
+      "required": true
+    },
+    "canonicalUrl": {
+      "type": "string"
+    },
+    "readTimeMinutes": {
+      "type": "integer",
+      "default": 5
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false
+    },
+    "publishedAtCustom": {
+      "type": "date"
+    },
+    "clapsCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "viewsCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "tags": {
+      "type": "json"
+    },
+    "tableOfContents": {
+      "type": "json"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "articles"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_principles",
+  "info": {
+    "displayName": "Leadership Principle",
+    "icon": "shield",
+    "description": "Core engineering and leadership philosophy pillar"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

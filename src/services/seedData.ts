@@ -1,0 +1,2444 @@
+import {
+  SiteProfile,
+  ExperienceItem,
+  EducationItem,
+  AwardItem,
+  CaseStudyItem,
+  CategoryItem,
+  ArticleItem,
+  CompetencyCategory,
+  KnowledgeEntry,
+  AiAssistantConfig,
+  SeoConfig,
+} from '../types/content.types';
+
+export const siteProfileSeed: SiteProfile = {
+  fullName: 'Ertekin Özturgut',
+  title: 'Çözüm Mimarı & Yeni Nesil Dijital Çözümler Birim Yöneticisi | Solutions Architect',
+  shortBio:
+    'Toyota Türkiye bünyesinde yeni nesil dijital çözümleri, otonom yapay zekâ ajanlarını ve büyük ölçekli kurumsal platformları yöneten Çözüm Mimarı ve Teknoloji Lideri. 8+ yıllık kurumsal yazılım mühendisliği, bulut CRM mimarisi ve üretim seviyesi yapay zekâ tecrübesi.',
+  fullBio: [
+    '8 yılı aşkın süredir kurumsal yazılım mühendisliği ve çözüm mimarlığı alanında; ölçeklenebilir CRM platformları, merkezi API entegrasyonları, bulut geçişleri ve otonom yapay zekâ sistemleri tasarlayıp hayata geçiriyorum.',
+    'Halen Toyota Türkiye Pazarlama ve Satış A.Ş.\'de Yeni Nesil Dijital Çözümler Birim Yöneticisi (Unit Supervisor) olarak görev yapıyorum. Organizasyonun ilk canlı üretim yapay zekâ asistanını hayata geçirmenin yanı sıra, çok disiplinli mühendislik takımlarına teknik liderlik ve mimari rehberlik sağlıyorum.',
+    'Toyota Kaizen felsefesini modern yapay zekâ mimarileriyle birleştirerek; Toyota Türkiye Kaizen Platformu\'nda 3 kez 1.lik ödülü kazandım ve organizasyonu ALJ Global Kaizen Maratonu\'nda temsil ettim. Amacım, teknolojiyi geçici tanıtımların ötesinde, kurumsal iş omurgasını güçlendiren ölçülebilir bir değere dönüştürmektir.',
+  ],
+  currentRole: 'Next-Generation Digital Solutions Unit Supervisor',
+  company: 'Toyota Türkiye Pazarlama ve Satış A.Ş.',
+  location: 'Istanbul, Türkiye',
+  email: 'ertekinozturgut@gmail.com',
+  linkedinUrl: 'https://www.linkedin.com/in/ertekinozturgut',
+  mediumUrl: 'https://medium.com/@ertekinozturgut',
+  githubUrl: 'https://github.com/ertekinozturgut',
+  stats: {
+    yearsExperience: 8,
+    teamSizeManaged: 6,
+    kaizenAwards: 5,
+    productionAiSystems: 3,
+  },
+  leadershipPhilosophy: {
+    title: 'Enterprise AI & Systems Engineering Philosophy',
+    statement:
+      'Positioning AI where it generates verified operational value: Engineering rigor and Kaizen discipline over hype.',
+    principles: [
+      {
+        title: 'Pragmatic Value vs. AI Hype',
+        description:
+          'Not every problem warrants artificial intelligence. Where deterministic code, SQL queries, or rule engines provide higher reliability, AI is not forced; LLMs and agents are deployed strictly for unstructured data and complex cognitive workflows.',
+      },
+      {
+        title: 'Agentic Workflows with Strict Governance',
+        description:
+          'Autonomous agents must never operate as ungoverned black boxes. They are orchestrated through the Model Context Protocol (MCP), fine-grained RBAC schemas, and human-in-the-loop validation checkpoints.',
+      },
+      {
+        title: 'Seamless Legacy Integration',
+        description:
+          'Production-grade AI must natively communicate with transactional ERPs (SAP), CRMs (Dynamics 365), and secured data lakes. Rather than isolated toys, systems are built to reinforce the enterprise backbone.',
+      },
+      {
+        title: 'The Kaizen Mindset',
+        description:
+          'Rooted in Toyota culture, Kaizen (continuous improvement) drives cumulative excellence across code quality, decoupled architecture, operational workflows, and model evaluations.',
+      },
+    ],
+  },
+};
+
+export const experienceSeed: ExperienceItem[] = [
+  {
+    id: 'exp-1',
+    company: 'Toyota Türkiye Pazarlama ve Satış A.Ş.',
+    role: 'Next-Generation Digital Solutions Unit Supervisor & Enterprise AI Lead',
+    period: 'January 2026 – Present',
+    startDate: '2026-01',
+    endDate: 'Present',
+    isCurrent: true,
+    location: 'Istanbul, Türkiye',
+    summary:
+      'Directing strategic roadmap for agentic AI systems, enterprise intelligent automation, and organizational digital transformation; establishing enterprise AI standards, security guardrails, and adoption governance.',
+    achievements: [
+      'Leading a cross-functional engineering squad of 3 CRM developers, 1 AI engineer, and 2 software developers plus external agency partners.',
+      'Project management and end-to-end delivery ownership for migrating Microsoft Dynamics 365 CRM from on-premises architecture to the Cloud.',
+      'Governing automated audit systems for fleet and retail invoicing, eliminating campaign discrepancies and preventing revenue leakage.',
+      'Architected and launched real-time AI lead intelligence and automated priority routing for authorized dealership sales consultants.',
+      'Developed Copilot Studio analytical agent to evaluate internal Kaizen problem-solving marathons and support engineering teams.',
+      'Mentoring sentiment analysis initiative across customer call recordings and support inquiries, significantly improving categorization accuracy.',
+      'Conducting Enterprise AI Automation & Hands-on Capability workshops for business units and external partners.',
+    ],
+    technologies: [
+      'Agentic AI',
+      'Model Context Protocol (MCP)',
+      'Microsoft Copilot Studio',
+      'Azure AI Foundry',
+      'Dynamics 365',
+      'Power Automate',
+      'Python',
+      'Qdrant',
+    ],
+    teamManaged: '3 CRM Developers, 1 AI Engineer, 2 Software Developers + External Agencies',
+  },
+  {
+    id: 'exp-2',
+    company: 'Toyota Türkiye Pazarlama ve Satış A.Ş.',
+    role: 'Software Supervisor',
+    period: 'January 2025 – January 2026',
+    startDate: '2025-01',
+    endDate: '2026-01',
+    isCurrent: false,
+    location: 'Istanbul, Türkiye',
+    summary:
+      'Managed the delivery of Toyota Turkey’s first production AI assistant, led CRM engineering tracks, and coordinated cross-functional teams across digital platforms.',
+    achievements: [
+      'Managed the end-to-end delivery of Toyota Turkey’s first AI-powered HR chatbot — the company’s first production AI system — covering requirements definition, solution design, vendor coordination, and go-live.',
+      'Supported the omnichannel marketing platform renewal process — conducting gap analyses, evaluating solution alternatives, and managing system integrations with Toyota Europe.',
+      'Coordinated a team of 3 senior CRM developers and 3 external agencies, responsible for workload planning, technical direction, and delivery across concurrent tracks.',
+      'Delivered technical training and capability-building sessions for internal teams and external partners on AI tools, practical workflows, and platform standards.',
+    ],
+    technologies: [
+      'LLM/RAG',
+      'Python',
+      'FastAPI',
+      'Vector Databases',
+      'Dynamics 365',
+      'C# / .NET Core',
+      'RESTful APIs',
+    ],
+    teamManaged: '3 Senior CRM Developers, 3 External Agency Teams',
+  },
+  {
+    id: 'exp-3',
+    company: 'Toyota Türkiye Pazarlama ve Satış A.Ş.',
+    role: 'Senior Software Specialist',
+    period: 'February 2024 – January 2025',
+    startDate: '2024-02',
+    endDate: '2025-01',
+    isCurrent: false,
+    location: 'Istanbul, Türkiye',
+    summary:
+      'Managed Dynamics CRM project delivery across multiple business units and designed a centralized API architecture to eliminate fragmented legacy integrations.',
+    achievements: [
+      'Led requirement analysis, sprint planning, and cross-department stakeholder alignment with a 3-person developer squad.',
+      'Engineered Centralized API Architecture unifying CRM integrations with external platforms, drastically slashing maintenance overhead.',
+      'Assumed operational control and live rollout of Toyota Contact Center platform, introducing pre-owned lead flows and post-sales targeting logic into CRM.',
+      'Built ground-up CRM data architecture, integration specifications, and automated test plans for a newly acquired automotive brand in the Toyota portfolio.',
+    ],
+    technologies: [
+      'Dynamics CRM',
+      'C#',
+      '.NET Core',
+      'REST & SOAP APIs',
+      'MsSQL',
+      'API Gateway Architecture',
+    ],
+    teamManaged: '3 Software Engineers',
+  },
+  {
+    id: 'exp-4',
+    company: 'Toyota Türkiye Pazarlama ve Satış A.Ş.',
+    role: 'Software Specialist',
+    period: 'November 2021 – February 2024',
+    startDate: '2021-11',
+    endDate: '2024-02',
+    isCurrent: false,
+    location: 'Istanbul, Türkiye',
+    summary:
+      'Engineered enterprise web applications and mission-critical integrations including Toyota Application Center, Lexus Accessory Catalog, Fleet Portal, and Price Lists.',
+    achievements: [
+      'Constructed and maintained REST and SOAP APIs consumed by Toyota Motors Europe and Toyota Türkiye internal platforms.',
+      'Delivered Contact Center - CRM integration enabling real-time call tracking and intelligent customer routing between dealership PBX and central CRM.',
+      'Automated legacy Dynamics CRM 2011 synchronization flows at FTP, API, and database layers using C# and MsSQL.',
+    ],
+    technologies: [
+      '.NET Framework',
+      'C#',
+      'JavaScript',
+      'jQuery',
+      'Bootstrap',
+      'MsSQL',
+      'SOAP/REST APIs',
+    ],
+  },
+  {
+    id: 'exp-5',
+    company: 'Bakiciburada.com',
+    role: 'Web Software Developer',
+    period: 'March 2019 – November 2021',
+    startDate: '2019-03',
+    endDate: '2021-11',
+    isCurrent: false,
+    location: 'Istanbul, Türkiye',
+    summary:
+      'Full-stack software engineering across 2 custom CRM platforms and 2 high-traffic production web portals (bakiciburada.com, unisbul.com).',
+    achievements: [
+      'Engineered scalable software backends leveraging .NET, Entity Framework, Dependency Injection, and real-time SignalR architectures.',
+      'Integrated mission-critical third-party SOAP and REST services including banking payment gateways and IP softphone switchboards.',
+      'Provided technical mentorship and task allocation to 2 junior developers during final year, ensuring on-schedule project completion.',
+    ],
+    technologies: [
+      '.NET',
+      'C#',
+      'Entity Framework',
+      'SignalR',
+      'JavaScript',
+      'HTML5/CSS3',
+      'Payment Gateways',
+    ],
+    teamManaged: '2 Junior Developers',
+  },
+  {
+    id: 'exp-6',
+    company: 'BePro Networks',
+    role: 'Information Technology Consultant',
+    period: 'October 2017 – January 2019',
+    startDate: '2017-10',
+    endDate: '2019-01',
+    isCurrent: false,
+    location: 'Istanbul, Türkiye',
+    summary:
+      'Delivered custom workflow automation, web scraping engines, and cross-platform desktop/mobile applications on Zoho CRM.',
+    achievements: [
+      'Engineered custom CRM modules and business process automations using Java / Zoho Deluge.',
+      'Built automated web scraping tools and email verification engines in C# .NET.',
+      'Delivered UWP desktop utilities and hybrid mobile applications using Ionic and Flutter.',
+    ],
+    technologies: [
+      'Java (Zoho Deluge)',
+      'C# .NET',
+      'Flutter',
+      'Ionic',
+      'Web Scraping',
+    ],
+  },
+];
+
+export const educationSeed: EducationItem[] = [
+  {
+    id: 'edu-1',
+    institution: 'Ankara University',
+    degree: "Master's Degree",
+    fieldOfStudy: 'Informatics',
+    graduationYear: 'Jun 2026',
+  },
+  {
+    id: 'edu-2',
+    institution: 'Istanbul Kultur University',
+    degree: "Bachelor's Degree",
+    fieldOfStudy: 'Industrial Engineering',
+    graduationYear: '2018 – 2023',
+    gpa: '2.92 / 4.00',
+  },
+  {
+    id: 'edu-3',
+    institution: 'Marmara University',
+    degree: 'Associate Degree',
+    fieldOfStudy: 'Computer Programming',
+    graduationYear: '2016 – 2018',
+    gpa: '3.33 / 4.00',
+  },
+];
+
+export const certificationsSeed: string[] = [
+  'Agile Project Management & Scrum Methodology',
+  'Customer Relationship Management (CRM)',
+  'Ethical Leadership Training',
+];
+
+export const languagesSeed: Array<{ language: string; proficiency: string }> = [
+  { language: 'Turkish', proficiency: 'Native' },
+  { language: 'English', proficiency: 'Full Professional' },
+  { language: 'Russian', proficiency: 'Limited Working' },
+  { language: 'French', proficiency: 'Elementary' },
+];
+
+export const awardsSeed: AwardItem[] = [
+  {
+    id: 'award-1',
+    title: 'PS 1st Place · Toyota AI-Powered Assistant',
+    competition: 'Kaizen Problem-Solving (PS)',
+    organization: 'Toyota Turkey Kaizen Platform',
+    year: '2025',
+    rank: '1st Place',
+    impactDescription:
+      'Awarded PS 1st Place for architecting the autonomous AI assistant that accelerated operational problem-solving and enabled instant semantic retrieval over enterprise policies.',
+  },
+  {
+    id: 'award-2',
+    title: 'PS 1st Place · Personalised Communication & Offers',
+    competition: 'Kaizen Problem-Solving (PS)',
+    organization: 'Toyota Turkey Kaizen Platform',
+    year: '2024',
+    rank: '1st Place',
+    impactDescription:
+      'Awarded PS 1st Place for transforming customer segmentation and CRM engagement through a hyper-personalized recommendation engine that raised sales conversion rates.',
+  },
+  {
+    id: 'award-3',
+    title: 'PS 1st Place · Improving Post-Sales Customer Targeting with Data Analytics Models',
+    competition: 'Kaizen Problem-Solving (PS)',
+    organization: 'Toyota Turkey Kaizen Platform',
+    year: '2023',
+    rank: '1st Place',
+    impactDescription:
+      'Awarded PS 1st Place for optimizing post-sales service cycles and customer retention using predictive analytics and customer lifetime value models.',
+  },
+  {
+    id: 'award-4',
+    title: 'PS 2nd Place · My Lead Assistant',
+    competition: 'Kaizen Problem-Solving (PS)',
+    organization: 'Toyota Turkey Kaizen Platform',
+    year: '2023',
+    rank: '2nd Place',
+    impactDescription:
+      'Awarded PS 2nd Place for engineering an intelligent lead routing and qualification assistant that reduced dealership response times from hours to minutes.',
+  },
+  {
+    id: 'award-5',
+    title: 'Business Reform — Represented Toyota Turkey at the ALJ Global Kaizen Marathon',
+    competition: 'ALJ Global Kaizen Marathon (Business Reform)',
+    organization: 'Toyota Turkey Kaizen Platform',
+    year: '2024',
+    rank: 'Representative',
+    impactDescription:
+      'Selected to represent Toyota Turkey internationally in the Business Reform category at the ALJ Global Kaizen Marathon.',
+  },
+];
+
+export const caseStudiesSeed: CaseStudyItem[] = [
+  {
+    id: 'cs-1',
+    slug: 'toyota-first-production-ai-system',
+    title: 'PS 1st Place · Toyota AI-Powered Assistant (First Production AI System)',
+    organization: 'Toyota Türkiye',
+    role: 'Lead Architect & Project Owner',
+    period: '2025',
+    executiveSummary:
+      'Toyota Türkiye’s first production-grade AI assistant answering employee inquiries on labor regulations, leave balances, and internal policies in seconds while isolating private data inside enterprise boundaries.',
+    theChallenge:
+      'Substantial engineering time lost to routine procedural inquiries, fragmented intranet document repositories, and strict enterprise governance forbidding public LLM API data transmission.',
+    architecturalSolution: [
+      'Engineered hybrid RAG (Retrieval-Augmented Generation) on Azure AI Foundry paired with internal vector indexing.',
+      'Implemented fine-grained RBAC document partitioning guaranteeing employees access only to authorized corporate policies.',
+      'Integrated real-time hallucination evaluation gates and PII detection middleware before streaming token responses.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: '70%',
+        label: 'Faster First Response',
+        detail: 'Average resolution time for routine HR and policy inquiries reduced from 4 hours to instantaneous.',
+      },
+      {
+        metric: '0 Breaches',
+        label: 'Data Isolation & Privacy',
+        detail: 'Zero PII data leakage and complete compliance with corporate data protection standards.',
+      },
+      {
+        metric: 'PS 1st Place',
+        label: 'Kaizen Problem Solving',
+        detail: 'Awarded 1st Place in corporate Kaizen Problem-Solving (PS) marathons.',
+      },
+    ],
+    technologies: [
+      'Azure AI Foundry',
+      'Retrieval-Augmented Generation (RAG)',
+      'Vector Databases',
+      'Python / FastAPI',
+      'Enterprise SSO & RBAC',
+    ],
+    isFeatured: true,
+  },
+  {
+    id: 'cs-2',
+    slug: 'kaizen-marathon-multimodal-knowledge-base',
+    title: 'Kaizen Intelligence: Multimodal Analysis of 200+ Kaizen Marathon Projects',
+    organization: 'Toyota Turkey Kaizen Platform',
+    role: 'AI & Engineering Lead',
+    period: '2025 – 2026',
+    executiveSummary:
+      'Autonomous ingestion pipeline parsing hundreds of hours of engineering presentations, videos, and technical reports into a structured, queryable enterprise intelligence repository.',
+    theChallenge:
+      'Decades of high-value Kaizen engineering breakthroughs trapped in unindexed video recordings and slide decks, forcing teams to solve identical operational issues from scratch.',
+    architecturalSolution: [
+      'Constructed multimodal pipeline integrating Whisper speech-to-text, OCR slide parsing, and technical document extraction.',
+      'Built semantic search interface and copilot agent via Copilot Studio allowing conversational problem queries.',
+      'Structured unstructured project narratives into standardized 5-Why root cause models, countermeasures, and cost savings.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: '200+',
+        label: 'Projects Analysed',
+        detail: 'Decades of institutional engineering know-how unified into an accessible corporate intelligence layer.',
+      },
+      {
+        metric: '10x',
+        label: 'Search Velocity',
+        detail: 'Days of manual archive searching replaced with sub-second semantic retrieval.',
+      },
+      {
+        metric: 'Global Stage',
+        label: 'ALJ Marathon',
+        detail: 'Pitched on the global enterprise stage at the ALJ Global Kaizen Marathon.',
+      },
+    ],
+    technologies: [
+      'Multimodal LLM Pipeline',
+      'Copilot Studio',
+      'Whisper Speech-to-Text',
+      'Qdrant Vector DB',
+      'Python',
+    ],
+    isFeatured: true,
+  },
+  {
+    id: 'cs-3',
+    slug: 'dynamics-365-agentic-lead-intelligence',
+    title: 'PS 2nd Place · My Lead Assistant (AI Lead Interpretation & Routing)',
+    organization: 'Toyota Dealer Network & Dynamics 365',
+    role: 'Unit Supervisor & Architect',
+    period: '2026',
+    executiveSummary:
+      'AI-assisted lead interpretation and initial-routing system evaluating incoming multi-channel automotive leads in real time, determining purchase intent and routing context to dealership consultants.',
+    theChallenge:
+      'Manual triage of inbound leads across disparate channels causing response delays, duplicate entries, and sales consultants losing high-intent customer opportunities.',
+    architecturalSolution: [
+      'Constructed event-driven microservice backbone using webhooks and Azure Event Grid to ingest omni-channel signals instantly.',
+      'LLM reasoning agent evaluates customer intent, model preference, trade-in likelihood, and purchase urgency to score each lead.',
+      'Configured automated routing within Dynamics 365 CRM matching lead profiles with dealership capacity and consultant specialties.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: '< 3 Min',
+        label: 'Average Qualification Time',
+        detail: 'Initial customer triage slashed from hours to under 3 minutes.',
+      },
+      {
+        metric: '35%',
+        label: 'Consultant Contact Efficiency',
+        detail: 'Higher initial engagement and scheduled test drive conversion across authorized dealerships.',
+      },
+      {
+        metric: 'PS 2nd Place',
+        label: 'Kaizen Problem Solving',
+        detail: 'Awarded 2nd Place in Toyota Kaizen Problem-Solving (PS) competition.',
+      },
+    ],
+    technologies: [
+      'Dynamics 365 CRM',
+      'Azure Event Grid',
+      'Dataverse',
+      'Model Context Protocol (MCP)',
+      'C# / .NET 8',
+    ],
+    isFeatured: true,
+  },
+  {
+    id: 'cs-4',
+    slug: 'api-modernisation',
+    title: 'Centralised API Architecture & Enterprise Modernisation',
+    organization: 'Toyota Türkiye',
+    role: 'Integration Architect & Tech Lead',
+    period: '2024 – 2025',
+    executiveSummary:
+      'Designed a new centralised API architecture replacing fragmented legacy integrations, standardising CRM-to-external communication and establishing the substrate for autonomous AI agent tool execution.',
+    theChallenge:
+      'Over years of organic growth, the core CRM had grown tangled with fragile, direct point-to-point connections to ERP, billing, parts logistics, and third-party dealer systems.',
+    architecturalSolution: [
+      'Mapped all legacy SOAP, direct SQL, and batch connections linking CRM to satellite enterprise platforms.',
+      'Constructed an abstraction layer with unified RESTful contracts, OAuth 2.0 security, and strict rate limits.',
+      'OpenAPI-compliant schemas now serve as tool definitions for modern Model Context Protocol (MCP) agents.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: '60%',
+        label: 'Maintenance Cost Reduction',
+        detail: 'Replaced 20+ brittle legacy integrations with a single governed gateway.',
+      },
+      {
+        metric: '18ms',
+        label: 'Median Latency',
+        detail: 'P99 integration latency reduced from 850ms to 18ms.',
+      },
+      {
+        metric: '100%',
+        label: 'Agent Ready',
+        detail: 'Standardized tool execution layer for autonomous enterprise agents.',
+      },
+    ],
+    technologies: [
+      'REST / SOAP APIs',
+      'C# / .NET Core',
+      'API Gateway',
+      'OAuth 2.0',
+      'MsSQL',
+    ],
+    isFeatured: true,
+  },
+  {
+    id: 'cs-5',
+    slug: 'personalised-communication-and-offers',
+    title: 'PS 1st Place · Personalised Communication & Offers',
+    organization: 'Toyota Turkey Kaizen Platform',
+    role: 'CRM Tech Lead & Data Architect',
+    period: '2024',
+    executiveSummary:
+      'Hyper-personalized customer communication and dynamic offer generation inside Dynamics 365 CRM, transforming customer segmentation and sales conversion rates.',
+    theChallenge:
+      'Broad broadcast marketing campaigns delivering diminishing response rates without alignment to customer renewal cycles or vehicle ownership phases.',
+    architecturalSolution: [
+      'Modeled multi-dimensional customer behavioral profiles within Dynamics 365 and Dataverse.',
+      'Engineered recommendation logic tailoring financing offers and accessory packages based on customer profile history.',
+      'Integrated real-time synchronization between CRM data layer and omnichannel marketing automation engines.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: 'PS 1st Place',
+        label: 'Kaizen Problem Solving',
+        detail: 'Awarded 1st Place in corporate Kaizen Problem-Solving (PS) marathon.',
+      },
+      {
+        metric: '+28%',
+        label: 'Offer Conversion Rate',
+        detail: 'Substantial improvement in campaign response and test-drive conversion.',
+      },
+      {
+        metric: '100%',
+        label: 'CRM Synchronized',
+        detail: 'Automated dealer alert feeds embedded directly into consultant workspaces.',
+      },
+    ],
+    technologies: [
+      'Dynamics 365 CRM',
+      'Dataverse',
+      'Omnichannel Marketing',
+      'C# .NET',
+      'SQL Analytics',
+    ],
+    isFeatured: false,
+  },
+  {
+    id: 'cs-6',
+    slug: 'post-sales-customer-targeting',
+    title: 'PS 1st Place · Improving Post-Sales Customer Targeting with Data Analytics Models',
+    organization: 'Toyota Turkey Kaizen Platform',
+    role: 'Lead Data Engineer & CRM Architect',
+    period: '2023 – 2024',
+    executiveSummary:
+      'Predictive analytics models analyzing service history, mileage velocity, and customer lifecycles to optimize post-sales maintenance retention across authorized service centers.',
+    theChallenge:
+      'Service attrition following initial warranty expiration and inability to forecast when vehicle owners would require periodic maintenance.',
+    architecturalSolution: [
+      'Built machine learning propensity models analyzing historical maintenance records and parts wear patterns.',
+      'Developed automated outreach queues within Dynamics 365 alerting service advisors of optimal customer contact windows.',
+      'Constructed closed-loop telemetry measuring service booking follow-through and retention metrics.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: 'PS 1st Place',
+        label: 'Kaizen Problem Solving',
+        detail: 'Awarded 1st Place for predictive data modeling in Kaizen competitions.',
+      },
+      {
+        metric: '+22%',
+        label: 'Service Retention',
+        detail: 'Measurable rise in multi-year service contract renewals and dealership maintenance retention.',
+      },
+      {
+        metric: 'Predictive',
+        label: 'Outreach Logic',
+        detail: 'Transformed reactive customer calls into proactive scheduled maintenance recommendations.',
+      },
+    ],
+    technologies: [
+      'Predictive Analytics',
+      'Dynamics 365 CRM',
+      'MsSQL',
+      'Python',
+      'Power BI',
+    ],
+    isFeatured: false,
+  },
+  {
+    id: 'cs-7',
+    slug: 'fleet-retail-invoice-compliance-automation',
+    title: 'Fleet & Retail Invoice Compliance: Automated Campaign Auditing',
+    organization: 'Toyota Türkiye',
+    role: 'Supervisor & Delivery Lead',
+    period: '2026',
+    executiveSummary:
+      'Rule engine and AI auditing pipeline scanning high-volume fleet and retail invoices to verify campaign parameters, discount limits, and dealer bonus eligibility.',
+    theChallenge:
+      'Complex multi-tiered promotional campaigns creating heavy manual audit burdens, human verification errors, and revenue leakage risks.',
+    architecturalSolution: [
+      'Engineered automated reconciliation service directly interfacing with transactional ERP and billing APIs.',
+      'Non-compliant invoice lines are automatically flagged with discrepancy annotations and dispatched to finance controllers.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: 'Zero Leakage',
+        label: 'Audit Coverage',
+        detail: '100% of invoice line items automatically audited against dynamic campaign rules.',
+      },
+      {
+        metric: '85%',
+        label: 'Audit Effort Reduction',
+        detail: 'Finance teams focus exclusively on automated exception flags rather than bulk manual audits.',
+      },
+    ],
+    technologies: [
+      'C# .NET',
+      'MsSQL Stored Procedures',
+      'Power Automate',
+      'Dynamics 365 Finance APIs',
+    ],
+    isFeatured: false,
+  },
+  {
+    id: 'cs-8',
+    slug: 'business-reform-alj-marathon',
+    title: 'Business Reform — Represented Toyota Turkey at the ALJ Global Kaizen Marathon',
+    organization: 'Toyota Turkey Kaizen Platform & ALJ Group',
+    role: 'Global Representative & Systems Architect',
+    period: '2024',
+    executiveSummary:
+      'Selected to represent Toyota Turkey internationally on the global stage at the ALJ Global Kaizen Marathon in the Business Reform category, showcasing intelligent workflow and AI systems.',
+    theChallenge:
+      'Presenting an enterprise-grade digital reform framework capable of scaling continuous improvement and operational agility across international distributor organizations.',
+    architecturalSolution: [
+      'Architected end-to-end framework integrating generative AI, centralized API governance, and Toyota Kaizen problem-solving.',
+      'Delivered technical presentation and executive validation on the international stage to global ALJ leaders.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: 'Global Stage',
+        label: 'International Representation',
+        detail: 'Selected as national representative to present at the ALJ Global Kaizen Marathon.',
+      },
+      {
+        metric: 'Business Reform',
+        label: 'Category Honor',
+        detail: 'Recognized for pioneering enterprise intelligent automation and continuous improvement.',
+      },
+    ],
+    technologies: [
+      'Enterprise AI Strategy',
+      'Kaizen Methodology',
+      'API Governance',
+      'Digital Transformation',
+    ],
+    isFeatured: false,
+  },
+  {
+    id: 'cs-9',
+    slug: 'toyota-communication-centre-omnichannel',
+    title: 'Toyota Communication Centre & Omnichannel Marketing Platform Migration',
+    organization: 'Toyota Türkiye Pazarlama ve Satış A.Ş.',
+    role: 'Senior Software Specialist / Software Supervisor',
+    period: '2024 – 2025',
+    executiveSummary:
+      'Took over mid-project ownership of the Toyota Communication Centre through to production release, and supported the omnichannel marketing platform renewal process.',
+    theChallenge:
+      'Mid-stream platform delivery risks, fragmented legacy communication channels, and complex data migration requirements across multiple customer touchpoints.',
+    architecturalSolution: [
+      'Took over mid-project technical management of Toyota Communication Centre, aligning delivery milestones and development squads.',
+      'Conducted gap analyses and evaluated omnichannel marketing solution alternatives ahead of planned migration.',
+      'Supervised customer data integrations and end-to-end IT process management throughout the transition.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: '100%',
+        label: 'On-Schedule Release',
+        detail: 'Completed remaining delivery phases through to a successful production release.',
+      },
+      {
+        metric: 'Zero Downtime',
+        label: 'Data Migration',
+        detail: 'Seamless transition of omnichannel marketing data pipelines.',
+      },
+    ],
+    technologies: [
+      'Dynamics CRM',
+      'Omnichannel Marketing',
+      'C# .NET',
+      'REST APIs',
+      'Enterprise Integration',
+    ],
+    isFeatured: false,
+  },
+  {
+    id: 'cs-10',
+    slug: 'call-centre-crm-telephony-integration',
+    title: 'Call Centre – Dealer Switchboards CRM Telephony Integration',
+    organization: 'Toyota Türkiye Pazarlama ve Satış A.Ş.',
+    role: 'Software Specialist',
+    period: '2021 – 2024',
+    executiveSummary:
+      'Planned and delivered the call centre–CRM integration, enabling call tracking and routing between dealer switchboards and the CRM platform — improving lead attribution and follow-up workflows.',
+    theChallenge:
+      'Disjointed phone communications at authorized dealerships with no automated attribution, customer history lookup, or CRM call logging.',
+    architecturalSolution: [
+      'Engineered telephony bridge connecting dealer PBX switchboards and central CRM platform.',
+      'Built real-time screen-pop logic matching incoming caller numbers with Dataverse customer and vehicle records.',
+      'Developed automated lead generation and follow-up task assignment for dealership sales consultants.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: 'Real-Time',
+        label: 'Call Attribution',
+        detail: 'Incoming calls automatically matched with customer records and active leads.',
+      },
+      {
+        metric: '100%',
+        label: 'Dealer Coverage',
+        detail: 'Standardized telephony tracking across authorized dealer network.',
+      },
+    ],
+    technologies: [
+      'Dynamics CRM 2011/365',
+      'Telephony PBX / Softphone',
+      'C# .NET',
+      'MsSQL',
+      'Web Services',
+    ],
+    isFeatured: false,
+  },
+  {
+    id: 'cs-11',
+    slug: 'toyota-enterprise-web-application-suite',
+    title: 'Toyota Enterprise Web Applications Suite (.NET / REST & SOAP APIs)',
+    organization: 'Toyota Türkiye Pazarlama ve Satış A.Ş.',
+    role: 'Software Specialist',
+    period: '2021 – 2024',
+    executiveSummary:
+      'Developed and maintained custom web applications using .NET Framework, JavaScript, jQuery, and Bootstrap — including Toyota Application Centre, Lexus Accessories Catalog, Toyota Fleet Portal, and Toyota Price List.',
+    theChallenge:
+      'High-availability operational requirements across disparate dealer-facing and distributor web portals with continuous price, vehicle specification, and accessory updates.',
+    architecturalSolution: [
+      'Constructed and maintained responsive enterprise web portals using .NET Framework, JavaScript, jQuery, and Bootstrap.',
+      'Built REST and SOAP APIs consumed by Toyota Motors Europe systems and Toyota Turkey internal platforms.',
+      'Automated legacy Dynamics CRM data synchronization via FTP, API, and direct database pipelines using C# and MsSQL.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: '4 Portals',
+        label: 'Portals Delivered',
+        detail: 'Toyota Application Centre, Lexus Catalog, Fleet Portal, and Price List.',
+      },
+      {
+        metric: '99.9%',
+        label: 'API Availability',
+        detail: 'High-throughput APIs consumed by Toyota Motors Europe and domestic systems.',
+      },
+    ],
+    technologies: [
+      '.NET Framework',
+      'C#',
+      'REST / SOAP APIs',
+      'JavaScript / jQuery',
+      'Bootstrap',
+      'MsSQL',
+    ],
+    isFeatured: false,
+  },
+  {
+    id: 'cs-12',
+    slug: 'bakiciburada-custom-crm-platforms',
+    title: 'Bakiciburada.com & Unisbul.com Full-Stack Custom CRM Systems (.NET / SignalR)',
+    organization: 'Bakiciburada.com',
+    role: 'Web Software Developer & Team Lead',
+    period: '2019 – 2021',
+    executiveSummary:
+      'Delivered full-stack development across 2 custom CRM systems and 2 corporate websites (bakiciburada.com and unisbul.com) using .NET, Entity Framework, Dependency Injection, and SignalR.',
+    theChallenge:
+      'High-concurrency user traffic, real-time communication demands between caregivers and employers, and complex subscription/payment transactions.',
+    architecturalSolution: [
+      'Engineered multi-tenant custom CRM backends using .NET, Entity Framework, Dependency Injection, and MsSQL.',
+      'Integrated real-time SignalR hubs for instant web notifications and messaging.',
+      'Integrated third-party SOAP and REST services including banking payment gateways and softphone systems.',
+      'Mentored and coordinated tasks for 2 junior software developers, hitting all delivery milestones.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: '2 Custom CRMs',
+        label: 'Platforms Built',
+        detail: 'Complete CRM workflows tailored to caregiver and student staffing domains.',
+      },
+      {
+        metric: '100% On-Time',
+        label: 'Team Leadership',
+        detail: 'Led 2 junior developers, meeting all production deadlines within budget.',
+      },
+    ],
+    technologies: [
+      '.NET',
+      'C#',
+      'Entity Framework',
+      'SignalR',
+      'Banking APIs',
+      'HTML5/CSS/jQuery',
+      'MsSQL',
+    ],
+    isFeatured: false,
+  },
+  {
+    id: 'cs-13',
+    slug: 'bepro-crm-automation-data-scraping',
+    title: 'Zoho CRM Custom Automation, .NET Data Scraping & Validation Tools',
+    organization: 'BePro Networks',
+    role: 'Information Technology Consultant',
+    period: '2017 – 2019',
+    executiveSummary:
+      'Developed custom modules and workflow automation features within Zoho CRM using Java, built .NET data scraping tools, and delivered desktop/mobile apps.',
+    theChallenge:
+      'Client-specific business automation needs, repetitive lead extraction bottlenecks, and dirty contact data causing email delivery failures.',
+    architecturalSolution: [
+      'Developed custom modules and automated business workflows within Zoho CRM using Java / Zoho Deluge.',
+      'Built high-performance web scraping utilities and multi-step email validation system in .NET.',
+      'Developed UWP desktop utilities and small-scale mobile apps using Ionic and Flutter.',
+      'Designed and launched custom corporate websites aligned with client brand specifications.',
+    ],
+    measurableOutcomes: [
+      {
+        metric: 'Automated',
+        label: 'Workflow Efficiency',
+        detail: 'Eliminated manual CRM data entry and streamlined client sales processes.',
+      },
+      {
+        metric: 'Multi-Platform',
+        label: 'Solutions Delivered',
+        detail: 'Cross-platform solutions spanning Zoho CRM, .NET tools, and mobile apps.',
+      },
+    ],
+    technologies: [
+      'Java (Zoho Deluge)',
+      'C# .NET',
+      'Web Scraping',
+      'Flutter',
+      'Ionic',
+      'UWP',
+    ],
+    isFeatured: false,
+  },
+];
+
+export const categoriesSeed: CategoryItem[] = [
+  {
+    id: 'cat-1',
+    slug: 'agentic-ai',
+    name: 'AI & Automation',
+    description: 'Autonomous software agents, n8n visual orchestration, Copilot Studio, and on-device language models.',
+    colorCode: '#2563EB',
+  },
+  {
+    id: 'cat-2',
+    slug: 'dotnet-engineering',
+    name: '.NET & Software Engineering',
+    description: 'High-performance C#, Entity Framework bulk data techniques, SignalR real-time hubs, and web automation.',
+    colorCode: '#059669',
+  },
+  {
+    id: 'cat-3',
+    slug: 'developer-tools',
+    name: 'Developer Tools & Mobile',
+    description: 'IDE alternatives on macOS, SQL Server Management Studio extensions, and remote mobile web debugging.',
+    colorCode: '#DC2626',
+  },
+  {
+    id: 'cat-4',
+    slug: 'kayit-defteri',
+    name: 'Bir Yazılımcının Kayıt Defteri',
+    description: 'Yazılımcı kültürü, motivasyon, kariyer gözlemleri ve sektörel denemeler.',
+    colorCode: '#D97706',
+  },
+];
+
+export const articlesSeed: ArticleItem[] = [
+  // -------------------------------------------------------------
+  // 1. TEKNOPOST & AI AUTOMATION
+  // -------------------------------------------------------------
+  {
+    id: 'med-1',
+    slug: 'n8n-vs-copilot-studio-lego-or-ready-made-furniture',
+    title: 'n8n vs Copilot Studio: Lego or Ready-Made Furniture?',
+    subtitle: 'Open-source hyper-automation vs. enterprise powerhouse: Evaluating cost, custom nodes, Adaptive Cards, and POC velocity.',
+    excerpt: 'A pragmatic comparison between the raw composability of open-source n8n and the deep enterprise ecosystem of Microsoft Copilot Studio based on real production workloads.',
+    content: `## Introduction: Two Diametrically Opposed Paradigms
+
+In modern enterprise automation and AI orchestration, engineering teams frequently confront a foundational architectural decision: do we construct our automated workflows with **n8n**, the hyper-composable open-source automation framework, or do we commit to **Microsoft Copilot Studio**, the enterprise-governed powerhouse embedded inside the Power Platform and Microsoft 365 ecosystem?
+
+Having architected and deployed workflows on both platforms, I describe this choice with an analogy: **n8n is like building with Lego bricks, while Copilot Studio is like assembling modular ready-made furniture.**
+
+Both approaches can furnish a functional room, but they demand vastly different technical investments, operational models, and cost structures.
+
+---
+
+## 1. Architectural Flexibility & Extensibility: Lego Blocks
+
+### The n8n Philosophy: Infinite Freedom
+n8n provides unmatched granular control. When an integration demands custom cryptographic signing, obscure database drivers, dynamic JSON manipulation via JavaScript/Python nodes, or raw HTTP payloads, n8n treats every step as an open canvas:
+- **Zero Lock-In:** Workflows are exportable JSON files version-controlled directly in Git.
+- **Node-Level Scripting:** You can inject inline Node.js or Python snippets directly into any execution stage without deploying separate microservices.
+- **Self-Hosting Freedom:** Deployable as lightweight Docker containers behind corporate VPCs, ensuring complete data residency compliance.
+
+### The Copilot Studio Reality: Turnkey Governance
+Microsoft Copilot Studio is engineered from the ground up for deep ecosystem alignment. It natively understands Azure Active Directory (Entra ID), Dataverse tables, Microsoft 365 Graph APIs, and Power Automate cloud flows:
+- **Enterprise IAM:** RBAC, DLP (Data Loss Prevention) policies, and customer lockbox boundaries apply out of the box.
+- **Adaptive Cards:** Rich conversational UI components can be rendered without managing front-end widget lifecycles.
+- **Trade-off:** Customizations outside the Microsoft paradigm require custom connectors or Azure Functions, adding friction to rapid prototypes.
+
+---
+
+## 2. Cost Analysis: Credits vs. Infrastructure
+
+A primary friction point for enterprise leaders is financial predictability.
+
+| Dimension | n8n (Self-Hosted / Cloud) | Microsoft Copilot Studio |
+| :--- | :--- | :--- |
+| **Pricing Model** | Fixed infrastructure cost (Compute/RAM) | Per-session / message credit consumption |
+| **High-Volume Workloads** | Highly cost-effective; predictable compute | Bills scale linearly with tenant volume |
+| **Small-Scale / Internal Bot** | Requires setup & DevOps maintenance | Cost-effective for low-frequency corporate bots |
+| **Enterprise Governance** | Requires custom logging & IAM wrapper | Built-in enterprise compliance & telemetry |
+
+In high-volume batch processing—such as processing tens of thousands of customer service alerts or automated lead parsing—n8n's fixed compute footprint prevents billing surprises. Conversely, Copilot Studio shines when internal employees interact periodically with centralized HR or IT service desks.
+
+---
+
+## 3. UI/UX and Developer Experience
+
+One under-discussed limitation in both platforms is conversational user interface control:
+- In **Copilot Studio**, non-technical makers can quickly assemble chat flows, yet fine-tuning custom CSS, micro-interactions, or non-standard conversational patterns is constrained by the framework's boundaries.
+- In **n8n**, the visual canvas empowers backend developers to map complex conditional loops and parallel branches intuitively, but rendering a client-facing conversational interface requires connecting to external chat clients or webhooks.
+
+---
+
+## Architectural Verdict: When to Choose Which?
+
+**Choose n8n when:**
+1. You are orchestrating complex multi-system automations requiring custom API handshakes and non-Microsoft databases.
+2. High-throughput data transformation demands fixed, predictable operational costs.
+3. You need complete sovereignty over your execution runtime and data privacy boundaries.
+
+**Choose Copilot Studio when:**
+1. Your enterprise core operates on Dynamics 365, SharePoint, and Teams.
+2. Compliance and InfoSec mandate zero self-managed infrastructure.
+3. Business analysts and non-technical stakeholders must co-author conversational topics without writing code.`,
+    category: categoriesSeed[0],
+    tags: ['n8n', 'Copilot Studio', 'Automation', 'Enterprise AI', 'Hyperautomation'],
+    publishedAt: '2026-07-26',
+    readTimeMinutes: 7,
+    isFeatured: true,
+    canonicalUrl: 'https://medium.com/teknopost/n8n-vs-copilot-studio-lego-or-ready-made-furniture-990ffb578c77',
+    platform: 'TeknoPost',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-2',
+    slug: 'building-smart-ai-agent-search-email-automation-n8n',
+    title: 'Building a Smart AI Agent for Search and Email Automation in n8n',
+    subtitle: 'Step-by-step visual orchestration for combining vector retrieval, web search nodes, and autonomous email drafting.',
+    excerpt: 'How to construct functional production AI agents in n8n without heavyweight SDKs: tool calling, contextual buffers, and human review.',
+    content: `## Beyond Static Prompts: The Agentic Transition
+
+While Large Language Models (LLMs) excel at linguistic synthesis, their enterprise utility skyrockets when they are equipped with **tools**—the ability to perform Google searches, query corporate vector indexes, verify calendar availability, and draft tailored correspondence.
+
+Many engineering teams instinctively reach for heavyweight code frameworks like Semantic Kernel, LangChain, or AutoGen. While these libraries offer programmatic depth, building and maintaining production agents often becomes an exercise in wrestling with abstract boilerplate.
+
+In this practical guide, we build a production-grade autonomous agent using **n8n's native AI Agent and Tool nodes**, demonstrating how visual orchestration accelerates delivery while maintaining enterprise reliability.
+
+---
+
+## 1. Agent Architecture & Node Topology
+
+The agent pipeline comprises four core functional layers:
+
+1. **Trigger & Context Ingestion:** Webhook listener capturing inbound corporate inquiries or customer lead forms.
+2. **AI Agent Core (ReAct Framework):** Orchestrating an LLM (such as Claude 3.5 Sonnet or GPT-4o) configured with a strict system prompt and short-term memory buffer.
+3. **Equipped Tools:**
+   - *Web Search Tool (Google / Tavily):* Retrieving real-time market updates and competitor pricing.
+   - *Vector Store Tool (Qdrant / Pinecone):* Querying internal enterprise product documentation and approved FAQs.
+   - *CRM Query Tool:* Verifying customer account status and historical interactions.
+4. **Action & Human-in-the-Loop Node:** Generating an email draft in Gmail / Outlook and pausing for human review before final dispatch.
+
+---
+
+## 2. Configuring the Agent Node
+
+In n8n, the AI Agent node operates on the **ReAct (Reasoning + Acting)** paradigm. At each turn, the model evaluates:
+- *Thought:* What information is missing to resolve the customer's intent?
+- *Action:* Which tool must be invoked with what specific arguments?
+- *Observation:* What data did the tool return?
+
+The agent system prompt defines strict enterprise boundaries:
+\`\`\`text
+You are an autonomous enterprise lead assistant. When evaluating inbound customer inquiries, query the vector knowledge base first. If the information is missing, execute a web search. Always cite your data sources and output structured JSON drafts for human review.
+\`\`\`
+
+---
+
+## 3. Human-in-the-Loop (HITL) Guardrails
+
+In an enterprise setting, fully unconstrained autonomous email dispatch is an operational risk. We implement a **Wait for Webhook / Approval Node**:
+- The agent drafts the personalized email response based on retrieved facts.
+- n8n dispatches a Slack or Teams notification to the account supervisor containing the draft and a 1-click **[Approve / Edit / Reject]** interactive card.
+- Upon approval, the workflow resumes and triggers the mail server API to send the message.
+
+---
+
+## Key Takeaways
+
+Visual agent orchestration in n8n allows teams to validate complex multi-tool workflows in hours rather than weeks. By isolating tools into modular micro-nodes and enforcing human approval before transactional side-effects, organizations achieve agentic speed without sacrificing governance.`,
+    category: categoriesSeed[0],
+    tags: ['AI Agents', 'n8n', 'Workflow Automation', 'LLM', 'Email Automation'],
+    publishedAt: '2025-12-14',
+    readTimeMinutes: 6,
+    isFeatured: true,
+    canonicalUrl: 'https://medium.com/teknopost/building-a-smart-ai-agent-for-search-and-email-automation-in-n8n',
+    platform: 'TeknoPost',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-3',
+    slug: 'pocketpal-ai-how-to-run-llm-on-your-phone',
+    title: 'PocketPal AI: How to Run a LLM on Your Phone',
+    subtitle: 'Running quantized Small Language Models on iOS and Android devices without cloud dependency or latency.',
+    excerpt: 'Hands-on guide to local on-device inference using PocketPal AI: GGUF models, memory management, and zero-data-leakage enterprise field workflows.',
+    content: `## The Rise of On-Device Intelligence
+
+For the past three years, the dominant paradigm in generative AI has been cloud centralization: sending user prompts over the public internet to massive data centers hosting 70B+ parameter models.
+
+However, a parallel revolution has matured quietly: **Small Language Models (SLMs)** like Microsoft Phi-3, Google Gemma 2, and Meta Llama 3.2, combined with advanced 4-bit quantization (GGUF/AWQ).
+
+With apps like **PocketPal AI**, you can now run fully functional 1B to 3B parameter models natively on modern smartphones—without internet access, without cloud API subscriptions, and with zero privacy leakage.
+
+---
+
+## 1. Why Run Models Locally on Mobile Hardware?
+
+In enterprise operations, on-device SLMs solve three critical operational bottlenecks:
+
+1. **Zero Data Leakage:** Sensitive internal conversations, confidential field notes, and proprietary formulas never leave the physical RAM of the device.
+2. **Offline Resilience:** Technicians working in underground facilities, remote factories, or overseas transit zones retain instant access to reasoning and diagnostic support.
+3. **Zero Token Incurrence:** Once downloaded, 10,000 queries cost exactly 0 dollars in API credits.
+
+---
+
+## 2. PocketPal AI Architecture
+
+PocketPal AI leverages **llama.cpp** compiled directly to Apple Metal and Android NNAPI, allowing it to tap into the device's GPU and Neural Processing Unit (NPU).
+
+### Recommended Quantized Models:
+- **Llama-3.2-1B-Instruct (Q4_K_M):** ~800MB download. Extremely fast (~25-35 tokens/sec on iPhone 15/16 Pro or Snapdragon 8 Gen 3). Ideal for rapid summarization and extraction.
+- **Phi-3.5-mini-instruct (Q4_K_M):** ~2.2GB download. Remarkable reasoning and coding capabilities for a small footprint.
+
+---
+
+## 3. Practical Setup Steps
+
+1. Install PocketPal AI from the App Store or Google Play.
+2. Navigate to the **Model Catalog** tab and filter by memory tier suitable for your device (2GB, 4GB, or 6GB RAM allocation).
+3. Download the GGUF binary and configure temperature (0.3 for structured tasks, 0.7 for conversational flexibility).
+4. Run offline inference benchmarks.
+
+---
+
+## Conclusion
+
+PocketPal AI proves that client-side computing is re-entering a golden era. In enterprise AI strategy, not every prompt needs a 400-billion parameter cluster; pairing edge SLMs for local triage with cloud LLMs for deep reasoning is the true future of scalable architecture.`,
+    category: categoriesSeed[0],
+    tags: ['PocketPal AI', 'On-Device LLM', 'Mobile AI', 'Local Models', 'Edge AI'],
+    publishedAt: '2025-07-12',
+    readTimeMinutes: 5,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/teknopost/pocketpal-ai-how-to-run-a-llm-on-your-phone',
+    platform: 'TeknoPost',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+
+  // -------------------------------------------------------------
+  // 2. DEVELOPER TOOLS & WORKSPACE ARCHITECTURE
+  // -------------------------------------------------------------
+  {
+    id: 'med-4',
+    slug: 'visual-studio-2022-dying-on-mac-discover-alternatives',
+    title: 'Visual Studio 2022 Dying on Mac: Discover Alternatives for .NET Developers to Use on Mac',
+    subtitle: "Navigating Microsoft's retirement of Visual Studio for Mac: Benchmarking JetBrains Rider, VS Code C# Dev Kit, and macOS database tools.",
+    excerpt: 'An in-depth guide for .NET developers transitioning away from Visual Studio for Mac: IDE alternatives, NuGet management, and DBeaver workflows.',
+    content: `## The End of an Era for Visual Studio for Mac
+
+When Microsoft officially announced the retirement of Visual Studio for Mac, .NET developers working on Apple Silicon faced an immediate crossroads. While the Windows version of Visual Studio remains Microsoft's premier IDE, the macOS port—originally rooted in MonoDevelop and Xamarin Studio—had long struggled with performance, memory bloat, and feature parity.
+
+For developers who prefer macOS hardware for daily engineering, the question became urgent: **Where do we go from here?**
+
+In this article, I examine the concrete alternatives, evaluating their developer experience, debugging power, and tooling ecosystem.
+
+---
+
+## 1. JetBrains Rider: The Undisputed Enterprise Heavyweight
+
+For professional .NET developers accustomed to full-fledged IDE capabilities, **JetBrains Rider** is the gold standard on macOS:
+
+- **Apple Silicon Native:** Blazing fast performance on M1/M2/M3 chips with zero emulation overhead.
+- **ReSharper Engine Under the Hood:** Deep static code analysis, instant refactoring, and code smell detection without slowing down the editor.
+- **Superior Database & NuGet Tooling:** Built-in DataGrip database tools and transparent NuGet dependency tree inspection.
+- **Unit Testing & Profiling:** Seamless integration with xUnit, NUnit, and memory profiling.
+
+While Rider requires a commercial license, the productivity dividends in enterprise workflows justify the investment within weeks.
+
+---
+
+## 2. Visual Studio Code + C# Dev Kit
+
+Microsoft's official recommended alternative is **Visual Studio Code paired with the C# Dev Kit extension**:
+
+- **Lightweight & Modular:** Exceptional startup times and clean workspace minimalism.
+- **Roslyn-Powered Language Server:** Native IntelliSense, semantic highlighting, and code navigation.
+- **Solution Explorer View:** Brings familiar .sln and project hierarchy into the VS Code sidebar.
+- **Limitations:** Multi-project debugging, complex Entity Framework migrations, and heavy XML/XSLT transformations still feel less integrated compared to dedicated IDEs.
+
+---
+
+## 3. Database Management: Replacing SSMS on macOS
+
+One of the biggest pain points for .NET engineers transitioning to Mac is the absence of SQL Server Management Studio (SSMS). 
+
+To manage SQL Server instances efficiently from macOS:
+- **DBeaver Community:** An outstanding universal database tool supporting MSSQL, PostgreSQL, and Oracle with visual ER diagrams and data filtering.
+- **Azure Data Studio:** Microsoft's cross-platform data tool, offering familiar SSMS keybindings, query execution plans, and notebook support.
+
+---
+
+## Summary
+
+The deprecation of Visual Studio for Mac is not a setback—it is an opportunity to adopt superior tools. By combining JetBrains Rider or VS Code with modern database managers, .NET developers on macOS can achieve a faster, more stable development workflow than ever before.`,
+    category: categoriesSeed[2],
+    tags: ['.NET on Mac', 'JetBrains Rider', 'VS Code', 'Visual Studio', 'Developer Tools'],
+    publishedAt: '2023-09-12',
+    readTimeMinutes: 6,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/visual-studio-2022-dying-on-mac-discover-alternatives-for-net-developers-to-use-on-mac',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-5',
+    slug: 'best-free-tools-for-sql-server-management-studio',
+    title: 'Best Free Tools for SQL Server Management Studio',
+    subtitle: 'Essential free plugins and utilities to supercharge developer productivity in SQL Server Management Studio (SSMS).',
+    excerpt: 'Curated collection of the most effective free tools and plugins for SSMS: full-text database search, schema comparison, and query formatting.',
+    content: `## Maximizing SSMS Productivity
+
+SQL Server Management Studio (SSMS) is the foundational environment for millions of database administrators and backend engineers worldwide. However, out of the box, SSMS lacks several quality-of-life features that developers have come to expect from modern development tools: instantaneous object searching, automated query formatting, and visual schema diffing.
+
+In this practical guide, I review the top free extensions and utilities that transform SSMS into an agile, highly productive workstation.
+
+---
+
+## 1. dbForge SQL Complete (Free Edition)
+
+dbForge SQL Complete is widely regarded as one of the best autocomplete and code formatting add-ins for SSMS:
+
+- **Intelligent Context-Aware Code Completion:** Accelerates query writing with predictive table aliasing and column suggestions.
+- **SQL Formatting Engine:** Standardizes messy, legacy SQL scripts into clean, readable code with customizable formatting rules.
+- **Object Details & Quick Information:** Hover over stored procedures or views to inspect their definitions without navigating the Object Explorer tree.
+
+---
+
+## 2. Only Search / SQL Search Utilities
+
+In large enterprise databases containing thousands of tables, stored procedures, triggers, and foreign keys, locating where a specific column or variable is referenced can take hours.
+
+- **Fast Full-Text Search:** Search across all database object definitions (tables, views, stored procedures, functions, triggers) in seconds.
+- **Direct Navigation:** Jump directly to the exact line in a stored procedure definition from the search results window.
+- **Dependency Tracking:** Quickly identify which views and procedures will be impacted before dropping or altering a database column.
+
+---
+
+## 3. dbForge Data Compare & Schema Compare Free Tools
+
+When managing development, staging, and production environments, keeping database structures synchronized is critical:
+
+- Quickly identify schema drift between local developer instances and staging environments.
+- Generate synchronized DDL deployment scripts with automated conflict resolution.
+- Verify row counts and data consistency across key lookup tables.
+
+---
+
+## Conclusion
+
+You do not need an enterprise budget to turn SSMS into a modern, high-speed development environment. Installing these free tools will save hours of repetitive searching and formatting every week.`,
+    category: categoriesSeed[2],
+    tags: ['SSMS', 'SQL Server', 'Database Tools', 'dbForge', 'Productivity'],
+    publishedAt: '2022-08-06',
+    readTimeMinutes: 5,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/best-free-tools-for-sql-server-management-studio',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-6',
+    slug: 'inspecting-and-debugging-a-website-on-a-mobile-device',
+    title: 'Inspecting and Debugging a Website on a Mobile Device',
+    subtitle: 'Step-by-step developer guide for remote debugging mobile web applications on iOS Safari and Android Chrome.',
+    excerpt: 'How to connect real iOS and Android mobile devices to your desktop browser for deep console inspection, network profiling, and DOM debugging.',
+    content: `## Why Desktop Responsive Mode Is Not Enough
+
+Every front-end and full-stack developer relies on Chrome DevTools' responsive device mode during daily coding. While simulating viewport dimensions is useful for basic CSS layout validation, it cannot reproduce real-world mobile conditions:
+
+- Mobile-specific touch event latency and gesture conflicts.
+- Operating system permission dialogs (geolocation, camera, microphone).
+- Browser engine quirks between WebKit (iOS) and Blink (Android).
+- Hardware performance constraints and thermal throttling on budget devices.
+
+To diagnose true mobile production bugs, you must connect a physical mobile device directly to your desktop development environment.
+
+---
+
+## 1. Remote Debugging on iOS with Safari on Mac
+
+### Step 1: Device Configuration
+1. On your iPhone or iPad, open **Settings > Safari > Advanced**.
+2. Toggle on **Web Inspector**.
+
+### Step 2: Mac Safari Configuration
+1. On your Mac, launch Safari and open **Settings (Preferences) > Advanced**.
+2. Check the box labeled **"Show Develop menu in menu bar"**.
+
+### Step 3: Inspecting the Active Tab
+1. Connect your iPhone to your Mac via USB cable (authorize "Trust This Computer" if prompted).
+2. Open the website you wish to test in Safari on your iPhone.
+3. In Safari on your Mac, click the **Develop** menu, select your connected device name, and choose the active web tab.
+4. A full Web Inspector window opens on your Mac, providing live access to DOM elements, Console logs, Network requests, and JavaScript breakpoints.
+
+---
+
+## 2. Remote Debugging on Android with Chrome DevTools
+
+### Step 1: Enable Developer Options
+1. On your Android device, go to **Settings > About Phone** and tap **Build Number** 7 times.
+2. Under **Developer Options**, enable **USB Debugging**.
+
+### Step 2: Chrome Remote Devices
+1. Connect the phone to your computer via USB.
+2. In desktop Google Chrome, navigate to \`chrome://inspect#devices\`.
+3. Verify that your device is detected.
+4. Under the open Chrome tabs listed for your phone, click **Inspect**.
+5. You get full bidirectional screencasting, console access, and live element inspection directly on your monitor.
+
+---
+
+## Conclusion
+
+Remote mobile debugging turns elusive, user-reported mobile glitches into reproducible bugs with clear stack traces. Incorporating remote inspection into your QA workflow ensures resilient, cross-platform web experiences.`,
+    category: categoriesSeed[2],
+    tags: ['Web Debugging', 'Mobile Web', 'Safari Develop', 'Chrome DevTools', 'Remote Debugging'],
+    publishedAt: '2023-04-18',
+    readTimeMinutes: 5,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/inspecting-and-debugging-a-website-on-a-mobile-device',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+
+  // -------------------------------------------------------------
+  // 3. .NET, C# & HIGH-PERFORMANCE BACKEND
+  // -------------------------------------------------------------
+  {
+    id: 'med-7',
+    slug: 'efficient-techniques-for-bulk-data-multiple-row-insert-in-csharp',
+    title: 'Efficient Techniques for Bulk Data / Multiple Row Insert in C#',
+    subtitle: 'Benchmarking SqlBulkCopy, Entity Framework Core AddRange, and Dapper Plus for high-volume database operations.',
+    excerpt: 'Comparative benchmark of high-volume data insertion methods in .NET: batch sizing, memory overhead, transaction scope, and performance trade-offs.',
+    content: `## The Performance Bottleneck: Individual Inserts
+
+In enterprise applications dealing with financial records, telemetry logs, or customer data imports, inserting large datasets into relational databases is a common bottleneck. 
+
+A naive \`foreach\` loop calling \`context.SaveChanges()\` on every iteration incurs an astronomical network penalty. Even using Entity Framework's standard \`AddRange()\` can suffer from significant memory overhead and change-tracker bloat when handling 100,000+ records.
+
+In this article, we benchmark three primary bulk insertion techniques in C# and identify the optimal architectural choice for different volume tiers.
+
+---
+
+## 1. Entity Framework Core AddRange: Clean but Memory-Intensive
+
+\`\`\`csharp
+context.Orders.AddRange(orderList);
+await context.SaveChangesAsync();
+\`\`\`
+
+- **Pros:** Type-safe, natively supports business logic, entity lifecycles, and foreign key relationships.
+- **Cons:** The change tracker tracks every entity state in memory. For sets exceeding 10,000 rows, memory consumption spikes and execution time degrades non-linearly.
+- **Best For:** Small to medium batches (< 5,000 records) where simplicity and entity validation outweigh raw execution speed.
+
+---
+
+## 2. SqlBulkCopy: The Raw Performance Champion
+
+For extreme throughput in Microsoft SQL Server, the native ADO.NET **\`SqlBulkCopy\`** utility remains the gold standard:
+
+\`\`\`csharp
+using var bulkCopy = new SqlBulkCopy(connectionString, SqlBulkCopyOptions.Default);
+bulkCopy.DestinationTableName = "Orders";
+bulkCopy.BatchSize = 10000;
+bulkCopy.BulkCopyTimeout = 60;
+
+// Map columns explicitly
+bulkCopy.ColumnMappings.Add(nameof(Order.Id), "Id");
+bulkCopy.ColumnMappings.Add(nameof(Order.Total), "Total");
+bulkCopy.ColumnMappings.Add(nameof(Order.CreatedAt), "CreatedAt");
+
+await bulkCopy.WriteToServerAsync(dataTable);
+\`\`\`
+
+- **Pros:** Bypasses EF change-tracking overhead completely; streams directly into SQL Server tables using TDS protocol bulk streams.
+- **Cons:** Requires transforming data into a \`DataTable\` or \`IDataReader\`; bypasses EF Core validation hooks.
+- **Performance:** Inserts 100,000 rows in ~1.2 to 1.8 seconds compared to 45+ seconds with standard EF loops.
+
+---
+
+## 3. Benchmark Summary & Architectural Guidelines
+
+| Method | 1,000 Rows | 10,000 Rows | 100,000 Rows | Memory Footprint |
+| :--- | :--- | :--- | :--- | :--- |
+| **Naive Loop (SaveChanges)** | 3.8s | 38.2s | Unviable | Extremely High |
+| **EF Core AddRange** | 0.4s | 4.2s | 48.6s | High |
+| **SqlBulkCopy** | 0.08s | 0.28s | 1.45s | Minimal (Streamed) |
+
+---
+
+## Conclusion
+
+Choose the right tool for the scale: use EF Core \`AddRange\` for standard transactional batches, and reserve \`SqlBulkCopy\` for ETL pipelines, batch imports, and high-frequency telemetry storage.`,
+    category: categoriesSeed[1],
+    tags: ['C#', '.NET', 'SqlBulkCopy', 'Entity Framework', 'Performance', 'SQL Server'],
+    publishedAt: '2023-10-15',
+    readTimeMinutes: 7,
+    isFeatured: true,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/efficient-techniques-for-bulk-data-multiple-row-insert-in-csharp',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-8',
+    slug: 'signalr-and-dotnet-6-run-dynamically-js-codes-on-clients',
+    title: 'SignalR and .NET 6: Run Dynamically JS Codes on Clients',
+    subtitle: 'Real-time bidirectional communication: Leveraging SignalR Hubs to execute dynamic JavaScript routines on connected browser clients.',
+    excerpt: 'How to build full-duplex real-time web applications with SignalR in .NET 6: hub connections, group targeting, and triggering client-side scripts dynamically.',
+    content: `## The Power of Real-Time Web with SignalR
+
+In distributed web applications, polling server endpoints every few seconds creates unnecessary server load and introduces noticeable latency. **ASP.NET Core SignalR** provides an elegant abstraction over WebSockets, Server-Sent Events, and Long Polling, allowing servers to push instantaneous messages to connected browsers.
+
+Beyond simply pushing JSON payloads, a common requirement in administrative dashboards and monitoring consoles is triggering client-side JavaScript routines dynamically based on server events.
+
+---
+
+## 1. Establishing the SignalR Hub in .NET 6
+
+In the ASP.NET Core 6 minimal API or controller architecture, we define our notification hub:
+
+\`\`\`csharp
+using Microsoft.AspNetCore.SignalR;
+
+public class DynamicClientHub : Hub
+{
+    public async Task SendCommandToClient(string connectionId, string scriptFunction, object parameters)
+    {
+        await Clients.Client(connectionId).SendAsync("ExecuteScript", scriptFunction, parameters);
+    }
+
+    public async Task BroadcastNotification(string message, string alertType)
+    {
+        await Clients.All.SendAsync("ReceiveAlert", message, alertType);
+    }
+}
+\`\`\`
+
+In \`Program.cs\`:
+\`\`\`csharp
+builder.Services.AddSignalR();
+// ...
+app.MapHub<DynamicClientHub>("/hubs/client-hub");
+\`\`\`
+
+---
+
+## 2. Client-Side JavaScript Listener
+
+On the client browser, we establish the WebSocket connection and listen for server commands:
+
+\`\`\`javascript
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/hubs/client-hub")
+    .withAutomaticReconnect()
+    .build();
+
+connection.on("ExecuteScript", (functionName, args) => {
+    if (typeof window[functionName] === "function") {
+        window[functionName](args);
+    } else {
+        console.warn(\`Remote function \${functionName} not found.\`);
+    }
+});
+
+await connection.start();
+\`\`\`
+
+---
+
+## 3. Security Considerations: Guarding Against Arbitrary Script Execution
+
+Allowing servers to trigger client functions requires careful security hygiene:
+1. **Never use \`eval()\`:** Always whitelist allowed client-side action functions within an explicit dispatcher dictionary.
+2. **Authorize Hub Endpoints:** Ensure SignalR endpoints require JWT or cookie-based authentication via the \`[Authorize]\` attribute.
+3. **Validate Payloads:** Sanitize any data arguments before rendering them into the browser DOM.
+
+---
+
+## Conclusion
+
+SignalR in .NET 6 offers a robust, highly scalable mechanism for real-time interactivity. Pairing server hubs with structured client dispatchers enables responsive dashboards, live order tracking, and remote administrative actions.`,
+    category: categoriesSeed[1],
+    tags: ['.NET 6', 'SignalR', 'WebSockets', 'C#', 'Real-Time Web', 'JavaScript'],
+    publishedAt: '2022-11-24',
+    readTimeMinutes: 6,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/signalr-and-dotnet-6-run-dynamically-js-codes-on-clients',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-9',
+    slug: 'basic-web-scraping-with-selenium-in-csharp-google-news',
+    title: 'Basic Web Scraping with Selenium in C# for Google News',
+    subtitle: 'Extracting structured headline data from modern JavaScript-rendered web pages using Selenium WebDriver and headless Chrome.',
+    excerpt: 'Step-by-step tutorial on web scraping with C# and Selenium WebDriver: headless execution, dynamic waiting, DOM element selectors, and data formatting.',
+    content: `## Why Traditional HTTP Clients Fall Short
+
+When collecting market data or monitoring brand mentions across modern news sites, simple HTTP clients like \`HttpClient\` often fail. Modern web applications rely heavily on client-side JavaScript rendering (SPA frameworks, hydration, lazy loading), meaning raw HTML responses lack the actual content rendered in the user's viewport.
+
+To extract information reliably from dynamic sources like **Google News**, developers use **Selenium WebDriver**, which automates a real browser engine to render the complete DOM.
+
+---
+
+## 1. Setting Up the Selenium Environment in .NET
+
+Install the required NuGet packages into your C# project:
+- \`Selenium.WebDriver\`
+- \`Selenium.WebDriver.ChromeDriver\`
+
+Configure ChromeDriver for silent, headless execution:
+
+\`\`\`csharp
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+
+var options = new ChromeOptions();
+options.AddArgument("--headless=new");
+options.AddArgument("--disable-gpu");
+options.AddArgument("--no-sandbox");
+options.AddArgument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
+using var driver = new ChromeDriver(options);
+\`\`\`
+
+---
+
+## 2. Navigating and Scraping Google News
+
+\`\`\`csharp
+driver.Navigate().GoToUrl("https://news.google.com/search?q=technology&hl=tr");
+
+var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+var articles = wait.Until(d => d.FindElements(By.CssSelector("article")));
+
+var newsResults = new List<NewsItem>();
+
+foreach (var article in articles.Take(20))
+{
+    try
+    {
+        var titleElement = article.FindElement(By.CssSelector("h3 a, a.JtKRv"));
+        var title = titleElement.Text;
+        var url = titleElement.GetAttribute("href");
+        
+        var sourceElement = article.FindElement(By.CssSelector("div[data-n-tid]"));
+        var source = sourceElement.Text;
+
+        newsResults.Add(new NewsItem(title, url, source));
+    }
+    catch (NoSuchElementException)
+    {
+        // Skip malformed cards
+    }
+}
+\`\`\`
+
+---
+
+## 3. Best Practices for Automated Scraping
+
+1. **Explicit Waits:** Never use \`Thread.Sleep()\`. Always use \`WebDriverWait\` to pause execution until elements appear in the DOM.
+2. **Rate Limiting:** Respect target website resources by introducing reasonable intervals between requests.
+3. **Resource Disposal:** Ensure the \`ChromeDriver\` instance is disposed cleanly within a \`using\` block to avoid orphaned browser processes consuming memory.
+
+---
+
+## Summary
+
+Selenium WebDriver in C# provides an accessible and resilient approach to web scraping for dynamic, client-rendered web pages, enabling automated pipelines for media monitoring, competitive analysis, and data aggregation.`,
+    category: categoriesSeed[1],
+    tags: ['C#', 'Selenium', 'Web Scraping', '.NET', 'Automation', 'Google News'],
+    publishedAt: '2022-03-18',
+    readTimeMinutes: 5,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/basic-web-scraping-with-selenium-in-csharp-google-news',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-10',
+    slug: 'add-mvc-controller-with-views-using-entity-framework-in-dotnet-6',
+    title: 'Add MVC Controller With Views using Entity Framework in .NET 6',
+    subtitle: 'Resolving Visual Studio scaffolding failures by leveraging the dotnet-aspnet-codegenerator CLI tool.',
+    excerpt: 'Practical guide to resolving NuGet restore and scaffolding errors when generating MVC controllers and Razor views using the dotnet-aspnet-codegenerator CLI in .NET 6.',
+    content: `## The Scaffolding Frustration in .NET 6
+
+In ASP.NET Core development, the "Add Controller with Views using Entity Framework" feature in Visual Studio is one of the most convenient scaffolding mechanisms for rapid CRUD prototyping.
+
+However, in .NET 6 projects, developers frequently encounter cryptic error messages during scaffolding:
+- *"There was an error running the selected code generator"*
+- *"Package restore failed"*
+- *"Could not get the reflection type for DbContext"*
+
+When Visual Studio's graphical wizard fails, the solution is to take control via the command line using **\`dotnet-aspnet-codegenerator\`**.
+
+---
+
+## 1. Installing the Code Generator Global Tool
+
+Open terminal or PowerShell and install the official Microsoft code generator:
+
+\`\`\`bash
+dotnet tool install -g dotnet-aspnet-codegenerator
+\`\`\`
+
+If already installed, ensure it is updated to match your .NET SDK:
+\`\`\`bash
+dotnet tool update -g dotnet-aspnet-codegenerator
+\`\`\`
+
+---
+
+## 2. Adding Required NuGet Packages to Your Project
+
+Before running the generator, install the matching design packages in your web project:
+
+\`\`\`bash
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+\`\`\`
+
+Rebuild the project:
+\`\`\`bash
+dotnet build
+\`\`\`
+
+---
+
+## 3. Generating the Controller and Views
+
+Navigate to your web project directory and run the command:
+
+\`\`\`bash
+dotnet-aspnet-codegenerator controller -name ProductsController -m Product -dc ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+\`\`\`
+
+### Parameter Breakdown:
+- \`-name ProductsController\`: The name of the generated controller.
+- \`-m Product\`: The target entity model class.
+- \`-dc ApplicationDbContext\`: Your Entity Framework DbContext class.
+- \`--relativeFolderPath Controllers\`: Output folder destination.
+- \`--useDefaultLayout\`: Wires the views to \`_Layout.cshtml\`.
+- \`--referenceScriptLibraries\`: Injects client-side validation scripts.
+
+The command outputs fully functional Create, Read, Update, and Delete actions along with Razor views in seconds, completely bypassing Visual Studio GUI bugs.
+
+---
+
+## Conclusion
+
+When GUI wizards fail, the .NET CLI provides deterministic, repeatable code generation. Understanding how \`dotnet-aspnet-codegenerator\` works ensures your project velocity is never blocked by IDE scaffolding glitches.`,
+    category: categoriesSeed[1],
+    tags: ['.NET 6', 'ASP.NET Core', 'Entity Framework', 'Scaffolding', 'C#', 'CLI'],
+    publishedAt: '2022-05-10',
+    readTimeMinutes: 5,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/add-mvc-controller-with-views-using-entity-framework-in-net-6',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+
+  // -------------------------------------------------------------
+  // 4. BİR YAZILIMCININ KAYIT DEFTERİ (DENEMELER & MOTİVASYON)
+  // -------------------------------------------------------------
+  {
+    id: 'med-11',
+    slug: 'bir-yazilimcinin-kayit-defteri-heves',
+    title: 'Bir Yazılımcının Kayıt Defteri: Heves',
+    subtitle: 'Satranç şampiyonu Emanuel Lasker’in felsefesinden yazılım mühendisliğine: İçsel merakı ve üretim hevesini diri tutabilmek.',
+    excerpt: 'Bir yazılımcının en büyük sermayesi kod blokları değil, ilk günkü öğrenme ve üretme hevesidir. Emanuel Lasker alıntısıyla mesleki motivasyon üzerine kişisel bir deneme.',
+    content: `## Birinci Bölüm: Lasker ve Tahtanın Başı
+
+Dünya satranç şampiyonu Emanuel Lasker'e atfedilen çok sevdiğim bir bakış açısı vardır: Satranç tahtasındaki hamlelerin ardında yalnızca matematiksel hesaplar değil, iki insanın psikolojisi, kararlılığı ve oyuna duyduğu saf heves yatar. Tahtadaki taşlar teknik kurallarla hareket eder; fakat oyuna ruhunu veren şey oyuncunun kurduğu stratejiye duyduğu içsel bağlılıktır.
+
+Yazılım dünyasında yıllar geçirdikçe şunu daha berrak fark ediyorum: Bir mühendisin en kırılgan ve aynı zamanda en değerli sermayesi bildiği diller, ezberlediği framework'ler ya da bitirdiği projeler değildir. **En büyük sermaye, ilk günkü üretim hevesidir.**
+
+---
+
+## 2. Rutinin Aşındırıcılığı
+
+Kariyerin ilk yıllarında her yeni teknoloji bir keşif alanıdır:
+- İlk defa ekrana yazdırılan bir satır kod,
+- Veritabanından başarıyla çekilen ilk sorgu,
+- Canlıya alınan ilk web sitesi...
+
+Zamanla bu büyü yerini teslim tarihlerine, kurumsal toplantı takvimlerine, refactoring döngülerine ve hata kayıtlarına bırakır. İş profesyonelleştikçe hevesin yerini görev bilinci alır. Görev bilinci projeyi teslim ettirir; fakat bir projeyi vasatlıktan çıkarıp mükemmelliğe taşıyan şey yalnızca hevestir.
+
+---
+
+## 3. Hevesi Korumak İçin Kişisel Prensipler
+
+Yazılım maratonunda hevesin sönmemesi için kendi adıma uyguladığım üç temel alışkanlık var:
+
+1. **Hiçbir İşlevi Olmayan Kodlar Yazmak:** Bazen sadece merak ettiğiniz için, hiçbir ticari getirisi olmayan küçük denemeler yapmak. Bir kütüphaneyi sadece nasıl çalıştığını anlamak için kurcalamak.
+2. **Soruna Başka Bir Disiplinden Bakmak:** Yazılım mimarisini bazen bir satranç açılışına, bazen bir orkestra düzenine benzetmek; mühendisliği hayatın diğer alanlarıyla beslemek.
+3. **Öğrendiğini Not Etmek ve Paylaşmak:** Yazmak, dağınık düşünceleri netleştirir. Bu kayıt defterini tutmanın asıl sebebi de budur: Başladığımız yeri ve yola çıkış coşkumuzu unutmamak.
+
+---
+
+## Son Söz
+
+Ekranda parlayan imleç her gün yeni bir satranç hamlesi gibi önümüzde duruyor. Önemli olan hamleyi yapmış olmak için değil; merakla, ilgiyle ve o ilk günkü saf hevesle tuşlara basabilmek.`,
+    category: categoriesSeed[3],
+    tags: ['Kayıt Defteri', 'Yazılımcı Kültürü', 'Satranç', 'Emanuel Lasker', 'Motivasyon', 'Kariyer'],
+    publishedAt: '2026-02-10',
+    readTimeMinutes: 5,
+    isFeatured: true,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/bir-yazilimcinin-kayit-defteri-heves',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-12',
+    slug: 'bir-yazilimcinin-kayit-defteri-isiklari-kim-kapatti',
+    title: 'Bir Yazılımcının Kayıt Defteri: Işıkları Kim Kapattı?',
+    subtitle: 'Açık ofis gürültüsü, modern çalışma ortamları ve yazılımcının en çok ihtiyaç duyduğu odaklanma sessizliği üzerine.',
+    excerpt: 'Modern teknoloji şirketlerinde odaklanma kültürü nereye kayboldu? Yazılımcıların zihinsel akış (flow) haline geçişi ve çalışma ortamı gözlemleri.',
+    content: `## Odaklanma: Yazılımcının En Nadir Kaynağı
+
+Yazılım geliştirmek; onlarca soyut katmanı, veri akışını, güvenlik sınırını ve iş kuralını zihinde üç boyutlu bir mimari gibi inşa etmeyi gerektirir. Psikolog Mihaly Csikszentmihalyi'nin "Akış" (Flow) olarak adlandırdığı bu zihinsel durum, dışarıdan bakıldığında sessizce ekrana bakan bir insan gibi görünür; oysa içeride devasa bir zihinsel inşa süreci işlemektedir.
+
+Peki modern ofis kültürü bu akış haline ne kadar saygı duyuyor?
+
+---
+
+## 1. Açık Ofisler ve Bölünen Dikkat
+
+Son on yılda teknoloji dünyasını saran açık ofis modası, iletişimi artırma vaadiyle yola çıktı. Fakat yazılım mühendisliği gibi derin odaklanma gerektiren disiplinlerde şu gerçeği doğurdu:
+- Her 10 dakikada bir gelen bir soru,
+- Arka planda süregiden satış veya toplantı konuşmaları,
+- Masaya bırakılan "iki dakika bakabilir misin?" ricaları.
+
+Araştırmalar, derin bir akış halinden koparılan bir yazılımcının aynı zihinsel derinliğe dönmesinin en az 15 ila 23 dakika sürdüğünü gösteriyor. Gün içinde üç kez bölünen bir zihin için o gün aslında verimli bir mühendislik günü olmaktan çıkıyor.
+
+---
+
+## 2. "Işıkları Kapatmak" Ne Demek?
+
+Başlıktaki soru metaforik bir sitem değil, bir odaklanma arayışıdır. Yazılımcının ışıkları kapatması; bildirimleri sessize alabilmesi, kulaklığını takıp sadece çözülecek mimari düğüme odaklanabilmesidir.
+
+Gürültülü bir dünyada en kıymetli yazılım araçları yeni bir IDE ya da daha hızlı bir işlemci değil; **kesintisiz 2 saatlik sessiz bir zaman bloğudur.**
+
+---
+
+## 3. Kurumsal Çözüm: Saygılı Çalışma Kültürü
+
+Bir mühendislik ekibinde verimliliği artırmanın en ucuz ve en etkili yolu şudur:
+- Toplantısız çalışma blokları tanımlamak (No-Meeting Days / Focus Hours).
+- Anlık mesajlaşma araçlarını asenkron bir iletişim kanalı olarak kabul etmek; anında cevap beklentisini ortadan kaldırmak.
+- Odaklanan bir ekip arkadaşının kulaklığını "meşgul" tabelası olarak görmek.
+
+---
+
+## Kapanış
+
+Günün sonunda harika yazılımlar toplantı odalarında değil; odaklanabilmiş, zihinsel sessizliğini koruyabilmiş ve işine tutkuyla yaklaşan insanların masalarında doğar.`,
+    category: categoriesSeed[3],
+    tags: ['Kayıt Defteri', 'Odaklanma', 'Çalışma Ortamı', 'Yazılım Kültürü', 'Flow', 'Mühendislik'],
+    publishedAt: '2026-05-18',
+    readTimeMinutes: 5,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/bir-yazilimcinin-kayit-defteri-isiklari-kim-kapatti',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'med-13',
+    slug: 'bir-yazilimcinin-kayit-defteri-ales-taksi-ve-yazilimcilar-icin-motivasyon',
+    title: 'Bir Yazılımcının Kayıt Defteri: ALES, Taksi ve Yazılımcılar için Motivasyon',
+    subtitle: 'İstanbul trafiğinde bir sınav sabahı, bir taksi şoförünün hayat bilgeliği ve yazılımcı maratonunda motivasyonu korumak.',
+    excerpt: 'İstanbul trafiğinde bir ALES sınavına yetişme telaşı, bir taksi şoförünün sözleri ve "Bay Evet" filminden bir replik: Yazılımcı maratonunda hayatı bir oyun bahçesi gibi görebilmek.',
+    content: `## Bir Sınav Sabahı ve İstanbul Telaşı
+
+Akademik yolculukların kendine has bir ağırlığı vardır. Pazar sabahının erken saatinde, zihninizde formüller, mantık soruları ve yetişme kaygısıyla yola çıkarsınız. İstanbul gibi bir şehirde yaşıyorsanız bu kaygıya bir de trafik faktörü eklenir.
+
+Böyle bir ALES sabahında, dakikalar aleyhime işlerken kendimi bir takside buldum. Direksiyondaki şoför, aynadan yüzümdeki o gergin ve aceleci ifadeyi fark etmiş olacak ki gülümsedi: *"Nereye bu telaş genç adam? Hayat kaçmıyor ya."*
+
+---
+
+## 1. Hayat Bilgeliği Direksiyon Başında
+
+Taksi şoförüyle yol boyunca yaptığımız sohbet, bana çok uzun zamandır unuttuğum bir perspektifi hatırlattı. Biz yazılımcılar olarak hayatı çoğu zaman katı algoritmalar, hata vermemesi gereken döngüler ve kaçırılmaması gereken sprint teslimleri olarak kodluyoruz. 
+
+Bir şeyler planlandığı gibi gitmediğinde—bir kod derlenmediğinde, bir sınav aksadığında, bir sunucu çöktüğünde—dünyanın sonu gelmiş gibi panikliyoruz.
+
+Oysa şoförün sakinliği, hayatın doğrusal bir çizgi olmadığını hatırlatıyordu: *"Her gün binlerce insan biniyor bu arabaya. Kimi sevinçli, kimi hüzünlü, kimi telaşlı. Hepsi bir yere yetişmeye çalışıyor. Ama en güzel anlar, yolun kendisini fark ettiğin anlar oluyor."*
+
+---
+
+## 2. "Dünya Bir Oyun Bahçesi"
+
+Jim Carrey'nin başrolünde olduğu *Bay Evet* (Yes Man, 2009) filminde çok sevdiğim bir replik vardır:
+
+> *"Dünya bir oyun bahçesi. Bunu çocuklar çok iyi biliyor ama biz büyüdükçe unutuyoruz."*
+
+Yazılımcılık mesleği de özünde bir oyun bahçesidir. Boş bir ekrana sıfırdan bir dünya kurarsınız. Çalışmadığında kuralları değiştirir, taşları yeniden dizip tekrar denersiniz. Çocukların kumdan kale yaparken duyduğu o saf deneme-yanılma heyecanını, büyüdükçe yerini korkuya ve strese bırakır.
+
+---
+
+## 3. Yazılımcılar İçin Çıkarılacak Ders
+
+Kariyer uzun bir maraton. Bu maratonda motivasyonu diri tutmanın yolu:
+- Karşılaşılan hataları (bug'ları) kişisel bir başarısızlık değil, çözülmesi gereken eğlenceli birer bulmaca olarak görmek.
+- Sınavların, mülakatların ve teslim tarihlerinin sadece birer durak olduğunu unutmamak.
+- Yolun telaşına kapılıp, kod yazmanın ve yeni bir şey inşa etmenin verdiği o saf keyfi kaybetmemek.
+
+Taksiden indiğimde sınav yine oradaydı; fakat zihnimdeki o ağır telaş gitmiş, yerini gülümseyen ve yola devam eden bir merak duygusu almıştı.`,
+    category: categoriesSeed[3],
+    tags: ['Kayıt Defteri', 'Motivasyon', 'Kariyer', 'Yaşam Felsefesi', 'ALES', 'Yazılımcı Deneyimi'],
+    publishedAt: '2023-11-20',
+    readTimeMinutes: 5,
+    isFeatured: false,
+    canonicalUrl: 'https://medium.com/@ertekinozturgut/bir-yazilimcinin-kayit-defteri-ales-taksi-ve-yazilimcilar-icin-motivasyon',
+    platform: 'Medium',
+    source: 'medium',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+
+  // -------------------------------------------------------------
+  // 2. LINKEDIN THOUGHT LEADERSHIP & FIELD ESSAYS
+  // -------------------------------------------------------------
+  {
+    id: 'li-1',
+    slug: 'autonomous-agents-mcp-enterprise-standard',
+    title: 'Autonomous Agents in Enterprise Workflows: The Model Context Protocol (MCP) Standard',
+    subtitle: 'Why standardized tool protocols are unlocking multi-agent reliability in enterprise systems.',
+    excerpt: 'A breakdown of why standardizing LLM-to-system interfaces via MCP eliminates custom integration sprawl and makes agentic architectures production-ready.',
+    content: `## The Integration Bottleneck in Enterprise AI
+
+When engineering teams transition from single-prompt LLM experiments to multi-agent workflows, they invariably hit an architectural roadblock: **tool integration fragmentation**.
+
+Every model provider, vector database, and CRM platform historically implemented its own proprietary protocol for function calling and schema passing. As autonomous squads grow, maintaining dozens of custom API wrappers for Dataverse, SAP, and legacy microservices creates untenable technical debt.
+
+---
+
+## 1. Enter the Model Context Protocol (MCP)
+
+Anthropic's open-source **Model Context Protocol (MCP)** provides what the software industry has desperately needed: a standardized, bidirectional protocol for exposing context, tools, and prompts to AI agents:
+
+- **Unified Tool Definition:** Instead of hand-crafting JSON schemas per model family, MCP servers define tools once via standard contracts.
+- **Dynamic Context Discovery:** Agents can query an MCP server to dynamically discover available database queries, ticket actions, and file operations.
+- **Zero Runtime Vendor Lock-in:** Models can be swapped (Claude, Nemotron, GPT-4o) without altering underlying enterprise backbones.
+
+---
+
+## 2. Real-World Architectural Pattern: Toyota Lead & Knowledge Workflows
+
+In enterprise automotive operations—such as our lead routing and Kaizen intelligence systems—MCP acts as the abstraction boundary between LLM reasoning engines and core enterprise services:
+
+\`\`\`
+[ Autonomous Agent Core ]
+         │ (MCP Standard Protocol)
+         ▼
+[ Enterprise MCP Gateway ]
+   ├── [ Dynamics 365 Dataverse MCP Server ]
+   ├── [ Qdrant Vector Store MCP Server ]
+   └── [ Legacy Dealer Switchboard MCP Server ]
+\`\`\`
+
+By isolating tools behind MCP boundaries, we ensure deterministic error handling, audit logging, and role-based access control (RBAC).
+
+---
+
+## Conclusion: Protocol Over Prompts
+
+Enterprise AI succeeds not because of clever prompt wording, but because of resilient software architecture. Adopting open standards like MCP ensures your agentic systems endure long after individual model versions are deprecated.`,
+    category: categoriesSeed[0],
+    tags: ['LinkedIn', 'MCP', 'Enterprise AI', 'Autonomous Agents', 'Architecture'],
+    publishedAt: '2026-08-10',
+    readTimeMinutes: 5,
+    isFeatured: true,
+    canonicalUrl: 'https://www.linkedin.com/in/ertekinozturgut',
+    platform: 'LinkedIn',
+    source: 'linkedin',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'li-2',
+    slug: 'enterprise-ai-adoption-kaizen-perspective',
+    title: 'The Reality of Enterprise AI Adoption: A Kaizen Perspective',
+    subtitle: 'Why incremental, measurable problem-solving beats massive, unvalidated AI hype every time.',
+    excerpt: 'Reflections on bridging cutting-edge LLMs with disciplined Toyota Kaizen methodologies across enterprise squads and business stakeholders.',
+    content: `## The Trap of Big-Bang AI Transformations
+
+In boardrooms across the globe, enterprise executives are pressured to announce massive, all-encompassing "AI transformations." Millions are budgeted for speculative platforms before a single validated business problem is articulated.
+
+In my years leading software and AI initiatives within Toyota, I have witnessed the opposite truth: **Real enterprise impact is achieved not through massive speculative bets, but through disciplined, continuous Kaizen problem solving.**
+
+---
+
+## 1. What Kaizen Teaches Software Architects About AI
+
+The core tenets of Toyota Kaizen (Continuous Improvement) provide the perfect antidote to AI hype:
+
+1. **Genchi Genbutsu (Go and See for Yourself):** Never architect an AI workflow based on boardroom assumptions. Sit with dealer consultants, call centre operators, or HR specialists. Understand where the 15-minute manual bottlenecks truly exist.
+2. **5 Whys (Root Cause Analysis):** Often, what appears to be a need for an expensive fine-tuned LLM is actually an unindexed SQL database or a broken API contract. Solve the root data problem first.
+3. **Muda (Elimination of Waste):** High-latency responses, hallucinated draft emails, and redundant human validation steps are forms of operational waste. An AI system must measurably eliminate friction, not introduce new verification overhead.
+
+---
+
+## 2. Measurable Outcomes Over Demos
+
+At the ALJ Global Kaizen Marathon and Toyota Turkey Kaizen Marathons, an initiative is judged solely on verifiable, quantifiable metrics:
+- Did it reduce lead qualification time by 70%?
+- Did it consolidate 200+ unstructured video presentations into searchable corporate memory?
+- Did it eliminate compliance audit leakage?
+
+When an engineering squad pairs modern autonomous agents with Kaizen discipline, technology ceases to be an expensive experiment—it becomes an undeniable driver of corporate velocity.`,
+    category: categoriesSeed[0],
+    tags: ['LinkedIn', 'Kaizen', 'Enterprise AI', 'Digital Transformation', 'Leadership'],
+    publishedAt: '2026-06-15',
+    readTimeMinutes: 6,
+    isFeatured: true,
+    canonicalUrl: 'https://www.linkedin.com/in/ertekinozturgut',
+    platform: 'LinkedIn',
+    source: 'linkedin',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'li-3',
+    slug: 'centralised-api-governance-production-ai',
+    title: 'Centralised API Governance: The Unsung Prerequisite for Production AI',
+    subtitle: 'How consolidating legacy databases, SOAP endpoints, and microservices powers reliable AI context.',
+    excerpt: 'Before deploying autonomous agents or conversational intelligence, enterprises must solve API sprawl and unified data governance. Here is how we engineered it.',
+    content: `## The Hidden Foundation of Autonomous Systems
+
+There is an unspoken prerequisite that every organization discovers when moving from AI proof-of-concept to production: **LLMs are only as good as the APIs they have permission to call.**
+
+If your customer data is scattered across legacy SOAP web services, un-versioned direct database queries, and third-party SaaS silos, an AI agent cannot function reliably. Hallucinations in production are frequently caused not by model deficiencies, but by stale, conflicting data schemas.
+
+---
+
+## 1. The Toyota Architecture Modernisation Journey
+
+In 2024, our squad tackled the consolidation of multiple fragmented legacy integrations into a unified, centralized RESTful API gateway:
+
+- **Eliminating Point-to-Point Spaghetti:** Replaced direct database connections with authenticated, rate-limited microservice endpoints.
+- **Contract-First Schemas:** Implemented strict OpenAPI contracts and JSON schemas that both human developers and autonomous tool-calling agents can parse unambiguously.
+- **Security & DLP Boundaries:** Encapsulated PII and GDPR-sensitive attributes behind tokenized API filters before external LLM inference can ingest them.
+
+---
+
+## 2. Why API Governance is an AI Enabler
+
+A robust API gateway provides the observability layer required for modern AI governance:
+- **Latency Budgets:** Track upstream service latency to ensure AI chat responses complete within corporate SLAs.
+- **Circuit Breakers:** Prevent agentic retry loops from overwhelming internal enterprise databases.
+- **Telemetry & Auditing:** Record every prompt, retrieved context payload, and downstream API execution for full regulatory compliance.
+
+Before you invest in the next frontier model, invest in your API architecture. It is the foundation upon which all enterprise intelligence rests.`,
+    category: categoriesSeed[1],
+    tags: ['LinkedIn', 'API Gateway', 'Microservices', '.NET', 'Enterprise Architecture'],
+    publishedAt: '2026-04-02',
+    readTimeMinutes: 5,
+    isFeatured: false,
+    canonicalUrl: 'https://www.linkedin.com/in/ertekinozturgut',
+    platform: 'LinkedIn',
+    source: 'linkedin',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+
+  // -------------------------------------------------------------
+  // 3. SITE-SPECIFIC ARCHITECTURAL DEEP DIVES (SITE ÖZELİNDE)
+  // -------------------------------------------------------------
+  {
+    id: 'site-1',
+    slug: 'why-enterprise-agents-need-architecture-not-just-prompts',
+    title: 'Why Enterprise Agents Need Architecture, Not Just Prompts',
+    subtitle: 'Prompts decay. Architectures endure. Why production agentic systems require state machines, isolation boundaries, and robust API contracts.',
+    excerpt: 'A deep architectural examination into why prompt-centric agent prototypes fail in corporate production, and how deterministic state machines and Model Context Protocol restore enterprise reliability.',
+    content: `## The Fragility of the "Prompt as Software" Fallacy
+
+Over the past two years, the software industry underwent an intoxicating phase where natural language prompts were hailed as the new source code. Startups and enterprise skunkworks alike rushed to build autonomous agents by chaining 2,000-word system prompts together.
+
+In enterprise production, however, this paradigm quickly disintegrates.
+
+When an autonomous agent is responsible for auditing corporate invoices, calculating credit scores, or routing multi-thousand-dollar automotive customer leads, a 5% hallucination rate is not an acceptable tolerance—it is a catastrophic failure mode.
+
+---
+
+## 1. Why Pure Prompts Decay in Mission-Critical Systems
+
+Natural language is inherently ambiguous, non-deterministic, and prone to edge-case degradation:
+
+1. **Context Window Drift:** As conversational turns accumulate, models suffer from attention attenuation. Early system constraints (e.g., "Never approve discounts above 10%") are subtly ignored in turn 15.
+2. **Adversarial Exploitation:** Without hard architectural guardrails, clever prompt injections can easily convince a raw LLM to bypass its own guidelines.
+3. **Zero State Guarantees:** A prompt cannot enforce transaction rollbacks, two-phase commits, or idempotent API retries.
+
+---
+
+## 2. The Solution: Deterministic State Machines as Agent Backbones
+
+The architectural pattern we pioneered pairs non-deterministic LLM reasoning with strictly deterministic state machines (e.g., XState, Stateless in .NET, or finite state automata):
+
+\`\`\`
+[ State: Lead Received ] ──(LLM Intent Parser)──► [ State: Validated ]
+                                                          │
+                                                    (Deterministic Guard:
+                                                     Budget > 0 & Valid Phone)
+                                                          ▼
+[ State: Escalated to Dealer ] ◄──(Deterministic)── [ State: Routing ]
+\`\`\`
+
+In this hybrid topology:
+- The **LLM** acts solely as a semantic interpreter: parsing messy natural language, unstructured emails, or multi-lingual queries into structured JSON DTOs.
+- The **State Machine** controls the workflow: deciding which state transitions are mathematically legal, triggering transaction rollbacks if validation fails, and enforcing business logic.
+
+---
+
+## 3. Multi-Layer Guardrail Architecture
+
+To safely deploy autonomous agents to external or internal users, we employ a 3-tier defense-in-depth model:
+
+| Guardrail Tier | Execution Stage | Responsibility |
+| :--- | :--- | :--- |
+| **Tier 1: Pre-Execution** | Gateway / Edge | Regex inspection for prompt injections, jailbreak signatures, rate limiting, and XSS sanitization. |
+| **Tier 2: Semantic Grounding** | Orchestration Layer | Ingesting verified context via Model Context Protocol (MCP) or vector stores; strict ground-truth binding. |
+| **Tier 3: Post-Execution** | Egress Filter | Output validation against schema DTOs, stripping accidental system prompt leaks, and hallucination suppression. |
+
+---
+
+## Key Takeaway for Engineering Leaders
+
+Do not attempt to solve architectural weaknesses with longer system prompts. Treat the LLM as a high-powered cognitive processor, and surround it with the same battle-tested software engineering practices—state machines, contract testing, and isolated microservices—that have powered reliable enterprise software for decades.`,
+    category: categoriesSeed[0],
+    tags: ['Site Exclusive', 'Agentic Architecture', 'MCP', 'Enterprise AI', 'State Machines'],
+    publishedAt: '2026-08-25',
+    readTimeMinutes: 8,
+    isFeatured: true,
+    platform: 'Site',
+    source: 'site',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'site-2',
+    slug: 'from-poc-to-production-what-actually-changes',
+    title: 'From POC to Production: What Actually Changes in Enterprise AI?',
+    subtitle: 'A demo is easy; enterprise compliance, latency SLAs, deterministic fallbacks, and user trust are where 90% of AI initiatives stall.',
+    excerpt: 'An architectural breakdown of the chasm between prototype LLM notebooks and enterprise-scale production systems operating with zero-downtime and ISO-aligned governance.',
+    content: `## The 10/90 Rule of Enterprise AI
+
+Building a proof-of-concept (POC) with modern generative AI is deceptively easy. In a single weekend, a competent developer can wire an API key to an open-source vector store and demonstrate a conversational assistant that dazzles stakeholders.
+
+This represents approximately **10% of the total engineering effort**.
+
+The remaining **90%** is the brutal, disciplined work of turning that demo into a compliant, secure, scalable, and cost-predictable enterprise production system.
+
+---
+
+## 1. What Changes in the Production Chasm?
+
+### A. Latency Budgets & Streaming UX
+In a Jupyter notebook, waiting 8 seconds for a completion is acceptable. In production customer service or dealer switchboard workflows, an 8-second freeze causes abandonment.
+- **Solution:** Implementing Server-Sent Events (SSE) for token-by-token streaming, speculative execution for predictable steps, and semantic caching for frequent queries.
+
+### B. Deterministic Fallbacks
+Third-party LLM providers experience outages, rate limits (HTTP 429), and transient latency spikes. If your system has no fallback, your business halts.
+- **Solution:** Multi-provider failover pipelines (e.g., primary Nemotron Ultra falling back to self-hosted Ollama or cloud models) with graceful degradation to rule-based workflows when models are completely unreachable.
+
+### C. Information Security & Data Residency
+POCs frequently bypass InfoSec scrutiny by sending raw customer queries to cloud endpoints. Production demands strict compliance:
+- Data Loss Prevention (DLP) filters that redact national ID numbers, credit cards, and telephone numbers before API egress.
+- Zero-retention agreements with AI providers.
+- Localized deployment in corporate VPCs when handling sensitive automotive inventory or HR records.
+
+---
+
+## 2. Workforce Enablement: Building Trust
+
+The greatest technical architecture will fail if employees do not trust or understand it. During the rollout of Toyota Turkey's first production AI assistant, our highest priority was **change management**:
+- Transparent citation: Every AI-generated summary links directly to the underlying corporate policy PDF or Kaizen slide.
+- Human-in-the-loop: High-impact actions require explicit human confirmation with single-click approval.
+- Continuous Kaizen feedback loops: Providing end-users with instant thumbs-up/down mechanisms linked directly to our engineering backlog.
+
+---
+
+## Summary
+
+Production AI is not about chasing the newest benchmark score; it is about building reliable, resilient, and governed systems that business stakeholders can depend upon every single business day.`,
+    category: categoriesSeed[0],
+    tags: ['Site Exclusive', 'Production AI', 'Enterprise Governance', 'Reliability', 'SLAs'],
+    publishedAt: '2026-07-12',
+    readTimeMinutes: 9,
+    isFeatured: true,
+    platform: 'Site',
+    source: 'site',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+  {
+    id: 'site-3',
+    slug: 'why-crm-is-becoming-an-ai-execution-layer',
+    title: 'Why CRM is Becoming an AI Execution Layer',
+    subtitle: 'Customer relationship platforms are shifting from passive databases of record into autonomous agent operational hubs.',
+    excerpt: 'How modern CRM backbones like Dynamics 365 and Dataverse transform into execution layers for autonomous agents through event-driven APIs and contextual intelligence.',
+    content: `## The Evolution of Enterprise CRM
+
+For twenty years, Customer Relationship Management (CRM) platforms like Microsoft Dynamics 365 and Salesforce served primarily as **Systems of Record**. They were sophisticated digital filing cabinets: holding contact records, opportunity stages, service cases, and call histories entered by human operators.
+
+Today, enterprise CRM is undergoing the most profound structural shift in its history: it is transforming from a passive System of Record into an **Autonomous System of Execution**.
+
+---
+
+## 1. Why AI Needs CRM, and Why CRM Needs AI
+
+An autonomous agent without enterprise context is useless. It cannot answer questions about vehicle order status, warranties, or customer loyalty tier without querying a unified ground truth.
+
+Conversely, traditional CRM workflows required manual data entry from sales consultants—resulting in stale data, missed follow-ups, and incomplete pipeline visibility.
+
+By marrying agentic automation with Dynamics 365 Dataverse:
+1. **Event-Driven AI Activation:** When a customer submits an inquiry on Toyota.com.tr or a dealer switchboard logs an incoming call, an asynchronous webhook triggers our AI agent within milliseconds.
+2. **Contextual Intent Scoring:** The agent queries historical service records, current promotions, and vehicle availability to qualify lead intent and draft personalized follow-ups.
+3. **Bi-Directional Action Execution:** Rather than merely suggesting text, the agent updates Dataverse records, books showroom appointments, and flags high-priority prospects for human managers.
+
+---
+
+## 2. Architectural Patterns for Dynamics 365 AI Integration
+
+To maintain transactional integrity across high-volume automotive CRM operations, we employ three architectural principles:
+
+- **Centralized API Façade:** Avoid direct plugin sprawl. Mediate all AI actions through a centralized RESTful API gateway with token-based authentication.
+- **Optimistic Concurrency & Audit Trails:** When autonomous agents mutate customer records, record the agent's ID, execution timestamp, and reasoning trace in a dedicated audit log.
+- **Asynchronous Message Queues:** Decouple conversational interfaces from CRM write locks using Azure Service Bus or RabbitMQ, ensuring 99.99% uptime during peak marketing campaigns.
+
+---
+
+## Conclusion: The Agent-Centric Enterprise
+
+Organizations that treat CRM as merely a contact database will find themselves outpaced by competitors who treat CRM as their AI operating system. The future belongs to businesses where software agents and human professionals collaborate seamlessly within a unified data fabric.`,
+    category: categoriesSeed[1],
+    tags: ['Site Exclusive', 'Dynamics 365', 'CRM Architecture', 'AI Execution Layer', 'Dataverse'],
+    publishedAt: '2026-05-30',
+    readTimeMinutes: 8,
+    isFeatured: true,
+    platform: 'Site',
+    source: 'site',
+    author: {
+      name: 'Ertekin Özturgut',
+      role: 'Next-Gen Digital Solutions Unit Supervisor',
+    },
+  },
+];
+
+export const competenciesSeed: CompetencyCategory[] = [
+  {
+    category: 'AI Systems & Agentic Orchestration',
+    description: 'Production-grade LLM/RAG solutions, autonomous agent protocols, and enterprise knowledge architectures.',
+    skills: [
+      { name: 'Model Context Protocol (MCP)', level: 'Expert', highlight: true, context: 'Enterprise agent-tool orchestration' },
+      { name: 'AI Agents & Workflow Automation', level: 'Expert', highlight: true, context: 'Toyota Kaizen & Lead automation' },
+      { name: 'LLM & RAG (Retrieval-Augmented Gen)', level: 'Expert', highlight: true, context: 'First Toyota production AI assistant' },
+      { name: 'Microsoft Copilot Studio & Power Platform', level: 'Expert', highlight: true, context: 'Enterprise insight bots' },
+      { name: 'Vector Databases (Qdrant)', level: 'Advanced', context: 'Semantic search & high-dimensional embeddings' },
+      { name: 'Prompt Engineering & Guardrails', level: 'Expert', context: 'Hallucination prevention & safety gates' },
+      { name: 'Azure AI Foundry & Ollama', level: 'Advanced', context: 'Cloud and isolated model orchestration' },
+      { name: 'n8n & Event-Driven Automation', level: 'Advanced', context: 'Webhook and asynchronous microservices' },
+    ],
+  },
+  {
+    category: 'Enterprise CRM & Platform Architecture',
+    description: 'High-volume customer relationship management, API backbones, and legacy platform modernization.',
+    skills: [
+      { name: 'Microsoft Dynamics 365 / Dataverse', level: 'Expert', highlight: true, context: '8+ years deep architectural expertise' },
+      { name: 'Centralized API Gateway & Microservices', level: 'Expert', highlight: true, context: 'Legacy system consolidation' },
+      { name: 'Cloud Migration (On-Prem to Cloud)', level: 'Expert', highlight: true, context: 'Dynamics 365 cloud transition lead' },
+      { name: 'Omnichannel Marketing Platforms', level: 'Advanced', context: 'Toyota Europe digital integrations' },
+      { name: 'Legacy System Modernization', level: 'Expert', context: 'SOAP/FTP/DB migration to RESTful APIs' },
+    ],
+  },
+  {
+    category: 'Software Engineering & Cloud Infrastructure',
+    description: 'High-performance backend services, relational modeling, and modern web architecture standards.',
+    skills: [
+      { name: 'C# / .NET & .NET Core', level: 'Expert', highlight: true, context: '8+ years enterprise backend engineering' },
+      { name: 'Python', level: 'Advanced', highlight: true, context: 'AI pipelines, data extraction, NLP' },
+      { name: 'TypeScript & JavaScript', level: 'Advanced', highlight: true, context: 'Next.js App Router & modern web standards' },
+      { name: 'SQL & MsSQL Server', level: 'Expert', context: 'Performance tuning, index optimization' },
+      { name: 'REST & SOAP Enterprise APIs', level: 'Expert', context: 'International corporate service integrations' },
+      { name: 'Clean Architecture & DDD', level: 'Advanced', context: 'Modular monoliths and microservice patterns' },
+    ],
+  },
+  {
+    category: 'Leadership, Governance & Methodology',
+    description: 'Cross-functional squad direction, agile execution, and continuous Kaizen delivery.',
+    skills: [
+      { name: 'Squad Leadership & Engineering Management', level: 'Expert', highlight: true, context: '6-member engineering squad + agencies' },
+      { name: 'Toyota Kaizen Problem Solving', level: 'Expert', highlight: true, context: '5 awards + International ALJ representation' },
+      { name: 'Technology Governance & Standards', level: 'Expert', context: 'Enterprise-wide AI usage & security policies' },
+      { name: 'Agile & Scrum Delivery', level: 'Expert', context: 'Certified sprint planning and backlog ownership' },
+      { name: 'Vendor & Agency Coordination', level: 'Expert', context: 'Multi-agency management and contract SLAs' },
+      { name: 'Technical Capability Building & Training', level: 'Advanced', context: 'Enterprise AI workshops and enablement' },
+    ],
+  },
+];
+
+export const aiAssistantConfigSeed: AiAssistantConfig = {
+  provider: 'openrouter',
+  fallbackProvider: 'openrouter',
+  apiBaseUrl: 'https://openrouter.ai/api/v1/chat/completions',
+  apiKeySecretName: 'OPENROUTER_API_KEY',
+  availablePresetModels: [
+    'nvidia/nemotron-3-ultra-550b-a55b:free (OpenRouter - Nemotron Ultra)',
+    'meta-llama/llama-3.3-70b-instruct:free (OpenRouter - Llama 3.3)',
+    'google/gemini-2.0-flash-exp:free (OpenRouter - Gemini 2.0 Flash)',
+    'anthropic/claude-3.5-sonnet (OpenRouter - Claude 3.5 Sonnet)',
+    'gpt-4o-mini (OpenAI - GPT-4o Mini)',
+    'gpt-4o (OpenAI - GPT-4o)',
+    'claude-3-5-sonnet-20241022 (Anthropic - Claude 3.5 Sonnet)',
+    'llama-3.3-70b-versatile (Groq - Llama 3.3)',
+  ],
+  model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
+  fallbackModel: 'nvidia/nemotron-3-ultra-550b-a55b',
+  temperature: 0.2,
+  maxTokens: 800,
+  guardrailsEnabled: true,
+  defamationProtection: true,
+  privacyProtection: true,
+  rateLimitPerMinute: 10,
+  isEnabled: true,
+  knowledgeGroundingMode: 'hybrid',
+  blockedKeywords: [
+    'ignore previous instructions',
+    'you are now DAN',
+    'system prompt leak',
+    'sql injection',
+    'ransomware',
+  ],
+  unverifiedEmployers: [
+    'Google',
+    'Apple',
+    'Meta',
+    'Amazon',
+    'Amazon AWS',
+    'Netflix',
+    'OpenAI',
+    'NASA',
+    'Tesla',
+    'Microsoft',
+    'Oracle',
+    'SAP',
+    'IBM',
+    'Palantir',
+    'Salesforce',
+    'McKinsey',
+    'BCG',
+    'Bain',
+    'Accenture',
+    'Trendyol',
+    'Getir',
+  ],
+  allowedTopics: [
+    'Enterprise AI Architecture',
+    'Model Context Protocol (MCP)',
+    'Toyota CRM Cloud Migration',
+    'Kaizen Problem-Solving & AI Assistant',
+    'Autonomous Agents & LLM/RAG',
+    'Technical Articles & Publications',
+    'Corporate Consulting & Advisory',
+    'Academic Degrees & Qualifications',
+  ],
+  blockedTopics: [
+    'Personal financial details & salary',
+    'Private life, religion & politics',
+    'Malware, hacking & exploits',
+    'Competitor defamation & unverified claims',
+  ],
+  defamationSafeResponse:
+    'Ertekin Özturgut, 8 yılı aşkın kurumsal teknoloji ve yazılım mimarisi kariyerinde Toyota Türkiye ve önceki kurumlarında en yüksek etik ve mühendislik standartlarıyla çalışmış, 5 kez Kaizen ödülü kazanmış ve 13 kurumsal üretim sistemini hayata geçirmiş bir teknoloji lideridir. Asılsız iddialar veya spekülasyonlar yerine doğrulanmış kurumsal başarılar, sistem mimarileri ve yayınlar hakkında bilgi verilmektedir.',
+  privacySafeResponse:
+    'Kişisel finansal bilgiler (maaş vb.), özel hayat, ev adresi ve özel iletişim detayları gibi veriler gizlilik prensipleri gereği kamuya açık profilde yer almamaktadır. Profesyonel danışmanlık, kurumsal iş birlikleri ve teklifler için ertekinozturgut@gmail.com veya LinkedIn üzerinden doğrudan iletişime geçebilirsiniz.',
+  generalRefusalMessage:
+    'Bu soru Ertekin Özturgut’un profesyonel teknoloji liderliği, yapay zeka mimarisi, kurumsal sistemleri ve yayınları kapsamı dışındadır. Bu konularda yardımcı olmaktan memnuniyet duyarım.',
+  additionalContextPrompt:
+    'Ertekin Özturgut teknoloji ve mimari felsefesinde pragmatizmi ve ölçülebilir iş değerini savunur. Gösterişli yapay zeka demoları yerine deterministik sistemlerle hibrit çalışan dayanıklı kurumsal mimarilere odaklanır.',
+};
+
+export const knowledgeEntriesSeed: KnowledgeEntry[] = [
+  {
+    id: 'ke-1',
+    title: 'Model Context Protocol (MCP) ve Kurumsal Ajan Mimarisi Prensipleri',
+    slug: 'mcp-kurumsal-ajan-mimarisi-prensipleri',
+    category: 'Architecture',
+    summary:
+      'Otonom yapay zeka ajanlarının kurumsal veri tabanları, ERP (SAP) ve CRM (Dynamics 365) sistemleriyle güvenli, izlenebilir ve yetkilendirilmiş haberleşme standardı.',
+    content: `### Model Context Protocol (MCP) Kurumsal Entegrasyon Mimarisi
+1. **İstemci-Sunucu Ayrımı:** AI modeli doğrudan veritabanına veya API anahtarlarına erişmez; tüm işlemler MCP sunucuları arkasındaki yetkilendirilmiş araç (tool) sözleşmeleri üzerinden yürütülür.
+2. **Rol Tabanlı Erişim Kontrolü (RBAC):** Her otonom ajan sadece kendi operasyonel etki alanındaki araçları tetikleyebilir.
+3. **Deterministik Denetim & İnsan Onayı:** Kritik veri yazma veya finansal/fatura onay operasyonlarında 'Human-in-the-Loop' kontrol kapısı zorunludur.
+4. **Telemetri ve Denetim İzi (Audit Log):** Her ajan çağrısı girdi/çıktı tokenları, gecikme süreleri ve yürütülen araç imzalarıyla kayıt altına alınır.`,
+    priority: 95,
+    isActive: true,
+    keywords: ['MCP', 'Model Context Protocol', 'Agentic AI', 'Toyota', 'Architecture'],
+  },
+  {
+    id: 'ke-2',
+    title: 'Toyota Türkiye Üretim Seviyesi AI Asistanı & Kaizen Problem Çözme Maratonu',
+    slug: 'toyota-uretim-seviyesi-ai-asistani-kaizen',
+    category: 'Experience',
+    summary:
+      'Toyota Türkiye bünyesinde hayata geçirilen ilk canlı üretim seviyesi yapay zeka sistemi ve Kaizen Problem-Solving (PS) maratonunda 1.lik ödülü getiren başarı öyküsü.',
+    content: `### Toyota Kaizen PS 1.lik Ödülü & Canlı AI Asistanı
+- **Başarı:** Toyota Türkiye bünyesinde ilk canlı üretim seviyesi yapay zeka asistanı geliştirildi ve kurum içi Kaizen PS maratonunda 1.lik derecesi elde edildi.
+- **Problem:** Mühendislik ve operasyon ekiplerinin teknik sorun çözme döngülerinde geçmiş vaka arşivlerine ve teknik dokümantasyona erişim süresinin uzunluğu.
+- **Mimari Çözüm:** Vektörel semantik indeksleme, hibrit arama (BM25 + Dense Embeddings) ve yerel güvenlik sınırları içerisinde çalışan RAG sistemi.
+- **İş Sonucu:** Problem analiz döngü sürelerinde %45 kısalma ve kurumsal bilgi birikiminin anlık erişilebilir hale getirilmesi.`,
+    priority: 90,
+    isActive: true,
+    keywords: ['Toyota', 'Kaizen', 'PS 1st Place', 'Production AI', 'RAG'],
+  },
+  {
+    id: 'ke-3',
+    title: 'Kurumsal Danışmanlık, Yönetici Mentorluğu & AI Dönüşüm Atölyeleri',
+    slug: 'kurumsal-danismanlik-ve-ai-donusum-atolyesi',
+    category: 'Consulting_and_Services',
+    summary:
+      'Büyük ölçekli kurumlar için yapay zeka stratejisi danışmanlığı, agentic workflow tasarımı ve hands-on yetkinlik eğitimleri.',
+    content: `### Kurumsal Danışmanlık ve Eğitim Hizmetleri
+1. **Yönetici ve Strateji Danışmanlığı:** Kurumsal yapay zeka yol haritası çıkarma, AI yatırım geri dönüşü (ROI) hesaplama ve 'hype vs. gerçek değer' analizi.
+2. **Hands-On AI & Agentic Atölyeleri:** Yazılım ekipleri için n8n, Copilot Studio, Azure AI Foundry ve Model Context Protocol (MCP) ile otonom iş akışları oluşturma kampları.
+3. **CRM & Bulut Modernizasyon Danışmanlığı:** On-premises sistemlerden Microsoft Cloud ortamına geçiş, merkezi API mimarisi kurgusu.
+- **İletişim & Teklif:** Kurumsal iş birlikleri ve atölye talepleri için doğrudan ertekinozturgut@gmail.com veya LinkedIn üzerinden irtibata geçilebilir.`,
+    priority: 85,
+    isActive: true,
+    keywords: ['Danışmanlık', 'Kurumsal Eğitim', 'AI Atölyesi', 'Mentorluk'],
+  },
+  {
+    id: 'ke-4',
+    title: 'Microsoft Dynamics 365 Cloud Migration ve Merkezi API Mimarisi',
+    slug: 'dynamics-365-cloud-migration-merkezi-api',
+    category: 'Architecture',
+    summary:
+      'On-premises mimariden Azure Cloud mimarisine Dynamics 365 geçişi ve yüksek hacimli veri entegrasyonu yönetimi.',
+    content: `### Dynamics 365 Cloud Migration & Merkezi API
+- **Proje Kapsamı:** Şirketin on-premises CRM altyapısını Microsoft Dynamics 365 Cloud mimarisine kesintisiz taşıma.
+- **Merkezi API:** 50'den fazla yetkili satıcı, distribütör ve mobil uygulama ile konuşan yüksek hacimli .NET tabanlı mikroservis ağ geçidi.
+- **Otomasyon & Güvenlik:** Fatura ve kampanya denetim sistemleri otomatikleştirilerek kampanya uyuşmazlıkları ve gelir kaçakları sıfırlandı.`,
+    priority: 80,
+    isActive: true,
+    keywords: ['Dynamics 365', 'Cloud Migration', 'Azure', 'Central API', 'CRM'],
+  },
+  {
+    id: 'ke-5',
+    title: 'Sıkça Sorulan Sorular (SSS): Danışmanlık, Proje İncelemeleri ve Konuşmacı Talepleri',
+    slug: 'sikca-sorulan-sorular-sss-danismanlik-ve-konusmaci',
+    category: 'FAQ',
+    summary:
+      'Ertekin Özturgut ile çalışma modelleri, teknik incelemeler, etkinlik konuşmaları ve iş birliği süreçleri.',
+    content: `### Sıkça Sorulan Sorular (FAQ)
+- **Ertekin Özturgut hangi konularda danışmanlık verir?** Kurumsal AI mimarisi, agentic sistemler, CRM modernizasyonu ve yazılım mühendisliği liderliği.
+- **Konferans veya seminerlerde konuşmacı olarak davet edilebilir mi?** Evet, kurumsal yapay zeka, Kaizen metodolojisi ve Model Context Protocol üzerine keynote ve teknik panellere katılmaktadır.
+- **Teklif veya mentorluk için nasıl iletişim kurulur?** ertekinozturgut@gmail.com veya https://www.linkedin.com/in/ertekinozturgut adreslerinden iletişime geçilebilir.
+- **Maaş, özel hayat veya kişisel bilgiler paylaşılır mı?** Hayır, gizlilik ilkeleri gereği kişisel veriler kesinlikle paylaşılmaz.`,
+    priority: 75,
+    isActive: true,
+    keywords: ['SSS', 'FAQ', 'İletişim', 'Konuşmacı', 'Mentorluk'],
+  },
+];
+
+export const seoConfigSeed: SeoConfig = {
+  defaultTitle: 'Ertekin Özturgut | Enterprise AI Lead & Solution Architect',
+  titleTemplate: '%s | Ertekin Özturgut',
+  defaultDescription:
+    'Executive portfolio of Ertekin Özturgut — Enterprise AI & Next-Gen Digital Solutions Lead at Toyota Türkiye. Autonomous agents, Model Context Protocol (MCP), production LLM/RAG systems, and enterprise architecture.',
+  canonicalBaseUrl: 'https://ertekinozturgut.com',
+  defaultKeywords: [
+    'Ertekin Özturgut',
+    'Enterprise AI Lead',
+    'Next-Gen Digital Solutions',
+    'Toyota Türkiye',
+    'Agentic AI',
+    'Model Context Protocol',
+    'MCP',
+    'Microsoft Dynamics 365',
+    'RAG',
+    'Enterprise AI Architecture',
+    'Kaizen Marathon',
+  ],
+  ogSiteName: 'Ertekin Özturgut Portfolio',
+  ogImage: 'https://ertekinozturgut.com/images/og-preview.jpg',
+  twitterHandle: '@ertekinozturgut',
+  twitterCardType: 'summary_large_image',
+  robotsIndex: true,
+  robotsFollow: true,
+  googleSiteVerification: 'google-site-verification=ertekin-ozturgut-official-portfolio',
+  bingSiteVerification: 'msvalidate.01=ertekin-ozturgut-bing-verification',
+  yandexVerification: 'yandex-verification=ertekin-ozturgut-yandex',
+  pages: [
+    {
+      path: '/',
+      title: 'Ertekin Özturgut | Enterprise AI & Next-Gen Digital Solutions Lead',
+      description:
+        'Official portfolio of Ertekin Özturgut. Directing autonomous AI agents, enterprise RAG solutions, and CRM transformation at Toyota Türkiye.',
+      keywords: ['AI Lead', 'Toyota Türkiye', 'Enterprise AI', 'Solution Architect'],
+      ogImage: 'https://ertekinozturgut.com/images/og-home.jpg',
+      canonicalUrl: 'https://ertekinozturgut.com',
+      noIndex: false,
+    },
+    {
+      path: '/about',
+      title: 'About Ertekin Özturgut — Enterprise AI Leader & Architect',
+      description:
+        'Professional narrative, 8+ years experience, leadership philosophy, career evolution, academic background, and honors of Ertekin Özturgut.',
+      keywords: ['Bio', 'Career Timeline', 'Leadership Philosophy', 'Toyota'],
+      ogImage: 'https://ertekinozturgut.com/images/og-about.jpg',
+      canonicalUrl: 'https://ertekinozturgut.com/about',
+      noIndex: false,
+    },
+    {
+      path: '/work',
+      title: 'Selected Systems & Case Studies — Ertekin Özturgut',
+      description:
+        'Explore 13 verified enterprise architecture case studies, Kaizen PS award-winning AI assistant, and Dynamics 365 migrations.',
+      keywords: ['Case Studies', 'AI Assistant', 'Kaizen PS 1st Place', 'Dynamics 365'],
+      ogImage: 'https://ertekinozturgut.com/images/og-work.jpg',
+      canonicalUrl: 'https://ertekinozturgut.com/work',
+      noIndex: false,
+    },
+    {
+      path: '/insights',
+      title: 'Technical Insights & Publications — Ertekin Özturgut',
+      description:
+        'In-depth architecture articles, MCP integration guides, and thought leadership across Site, Medium, and LinkedIn.',
+      keywords: ['Insights', 'MCP', 'Agentic AI', 'Medium', 'LinkedIn'],
+      ogImage: 'https://ertekinozturgut.com/images/og-insights.jpg',
+      canonicalUrl: 'https://ertekinozturgut.com/insights',
+      noIndex: false,
+    },
+    {
+      path: '/articles',
+      title: 'Articles & Editorial Essays — Ertekin Özturgut',
+      description:
+        'Comprehensive technical essays and architectural breakdowns on AI agents, automation, and enterprise platforms.',
+      keywords: ['Articles', 'Tech Publications', 'Engineering'],
+      ogImage: 'https://ertekinozturgut.com/images/og-articles.jpg',
+      canonicalUrl: 'https://ertekinozturgut.com/articles',
+      noIndex: false,
+    },
+  ],
+};
+

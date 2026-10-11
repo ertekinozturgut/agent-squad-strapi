@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_skills_skill_items",
+  "info": {
+    "displayName": "Skill Item",
+    "icon": "code",
+    "description": "Individual technical skill with proficiency level"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "Expert",
+        "Advanced",
+        "Practitioner"
+      ],
+      "default": "Advanced"
+    },
+    "highlight": {
+      "type": "boolean",
+      "default": false
+    },
+    "context": {
+      "type": "string"
+    }
+  }
+}

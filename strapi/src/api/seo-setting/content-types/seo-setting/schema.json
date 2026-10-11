@@ -1,0 +1,80 @@
+{
+  "kind": "singleType",
+  "collectionName": "seo_settings",
+  "info": {
+    "singularName": "seo-setting",
+    "pluralName": "seo-settings",
+    "displayName": "[SEO & Büyüme] Arama Motoru & Sosyal Medya",
+    "description": "Tüm sitenin SEO, OpenGraph, Twitter Cards, Doğrulama Kodları ve Sayfa Bazlı Meta Verileri"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "defaultTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Ertekin Özturgut | AI Solutions Engineer & Next-Gen Digital Solutions Lead"
+    },
+    "titleTemplate": {
+      "type": "string",
+      "default": "%s | Ertekin Özturgut"
+    },
+    "defaultDescription": {
+      "type": "text",
+      "required": true,
+      "default": "Official executive portfolio of Ertekin Özturgut — Enterprise AI & Next-Gen Digital Solutions Lead at Toyota Türkiye. Architecture, agentic workflows, LLM/RAG systems, and enterprise transformation."
+    },
+    "canonicalBaseUrl": {
+      "type": "string",
+      "default": "https://ertekinozturgut.com",
+      "required": true
+    },
+    "defaultKeywords": {
+      "type": "json"
+    },
+    "ogSiteName": {
+      "type": "string",
+      "default": "Ertekin Özturgut Portfolio"
+    },
+    "ogImage": {
+      "type": "string",
+      "default": "https://ertekinozturgut.com/images/og-preview.jpg"
+    },
+    "twitterHandle": {
+      "type": "string",
+      "default": "@ertekinozturgut"
+    },
+    "twitterCardType": {
+      "type": "enumeration",
+      "enum": [
+        "summary",
+        "summary_large_image"
+      ],
+      "default": "summary_large_image"
+    },
+    "robotsIndex": {
+      "type": "boolean",
+      "default": true
+    },
+    "robotsFollow": {
+      "type": "boolean",
+      "default": true
+    },
+    "googleSiteVerification": {
+      "type": "string"
+    },
+    "bingSiteVerification": {
+      "type": "string"
+    },
+    "yandexVerification": {
+      "type": "string"
+    },
+    "pages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.page-seo"
+    }
+  }
+}

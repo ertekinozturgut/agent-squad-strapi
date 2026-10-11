@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "case_studies",
+  "info": {
+    "singularName": "case-study",
+    "pluralName": "case-studies",
+    "displayName": "[Yayınlar & Vakalar] Vaka Çalışmaları",
+    "description": "Kurumsal Proje ve Vaka Çalışmaları"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "organization": {
+      "type": "string",
+      "required": true
+    },
+    "role": {
+      "type": "string",
+      "required": true
+    },
+    "period": {
+      "type": "string"
+    },
+    "executiveSummary": {
+      "type": "text",
+      "required": true
+    },
+    "theChallenge": {
+      "type": "text",
+      "required": true
+    },
+    "architecturalSolution": {
+      "type": "json"
+    },
+    "measurableOutcomes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "metrics.measurable-outcome"
+    },
+    "technologies": {
+      "type": "json"
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

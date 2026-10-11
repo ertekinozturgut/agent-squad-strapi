@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Scale AI / Palantir Enterprise Editorial System Tokens */
+  --color-canvas: #F4F3EF;
+  --color-canvas-white: #FAFAF8;
+  --color-canvas-subtle: #ECEBE4;
+  --color-dark: #111111;
+  --color-dark-secondary: #1A1A1A;
+  --color-dark-card: #161616;
+  --color-ink: #161616;
+  --color-ink-muted: #757575;
+  --color-ink-faint: #A0A0A0;
+  --color-signal: #B6FF39;
+  --color-border-light: rgba(20, 20, 20, 0.14);
+  --color-border-dark: rgba(255, 255, 255, 0.12);
+
+  /* Backward-compatible variables for legacy component tests */
+  --color-background-primary: #F4F3EF;
+  --color-background-secondary: #FAFAF8;
+  --color-surface-card: #FFFFFF;
+  --color-surface-border: rgba(20, 20, 20, 0.14);
+  --color-text-primary: #161616;
+  --color-text-secondary: #555555;
+  --color-text-muted: #757575;
+  --color-accent-crimson: #DC2626;
+  --color-accent-cobalt: #2563EB;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Electric Lime Scale AI Signature Selection */
+::selection {
+  background-color: #B6FF39;
+  color: #111111;
+}
+
+/* Accessible focus visible ring across interactive elements */
+:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+/* Precision Hairline Technical Grid Utilities */
+.hairline-border-b {
+  border-bottom: 1px solid rgba(20, 20, 20, 0.12);
+}
+
+.hairline-border-t {
+  border-top: 1px solid rgba(20, 20, 20, 0.12);
+}
+
+.hairline-border-dark-b {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hairline-border-dark-t {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Refined custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4F3EF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4D3CC;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A0A09A;
+}
+
+/* Scale AI Technical Grid & Dot Patterns */
+.bg-tech-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(20, 20, 20, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 20, 20, 0.05) 1px, transparent 1px);
+}
+
+.bg-tech-grid-dark {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+}
+
+.bg-tech-dots {
+  background-image: radial-gradient(rgba(20, 20, 20, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.bg-tech-dots-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Scale AI Flowing SVG Circuit Animations */
+@keyframes flowDash {
+  from {
+    stroke-dashoffset: 32;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-flow-dash {
+  stroke-dasharray: 6 6;
+  animation: flowDash 1s linear infinite;
+}
+
+.animate-flow-dash-fast {
+  stroke-dasharray: 4 4;
+  animation: flowDash 0.6s linear infinite;
+}
+
+@keyframes signalPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 8px rgba(182, 255, 57, 0.7));
+  }
+}
+
+.animate-signal-pulse {
+  animation: signalPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes radarScan {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-radar-scan {
+  animation: radarScan 8s linear infinite;
+}
+
+/* High-tech Console Glass */
+.terminal-glass {
+  background: rgba(11, 12, 14, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* Subtle corner crosshair markers */
+.corner-crosshairs {
+  position: relative;
+}
+.corner-crosshairs::before,
+.corner-crosshairs::after {
+  content: "+";
+  position: absolute;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+.corner-crosshairs::before {
+  top: 4px;
+  left: 6px;
+}
+.corner-crosshairs::after {
+  bottom: 4px;
+  right: 6px;
+}

@@ -29,7 +29,7 @@ module.exports = {
       from: { path: '(^|.*/)features/([^/]+)/' },
       to: {
         path: '(^|.*/)features/([^/]+)/',
-        pathNot: '(^|.*/)features/\\2/|index\\.ts$'
+        pathNot: '(^|.*/)features/$2/|index\\.ts$'
       }
     },
     {

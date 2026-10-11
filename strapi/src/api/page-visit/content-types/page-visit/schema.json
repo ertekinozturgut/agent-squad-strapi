@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page_visits",
+  "info": {
+    "singularName": "page-visit",
+    "pluralName": "page-visits",
+    "displayName": "[Analitik & İstatistikler] Sayfa Ziyaretleri",
+    "description": "Sayfa ziyaret oranları, cihaz dağılımı ve trafik analitiği"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "path": {
+      "type": "string",
+      "required": true
+    },
+    "pageTitle": {
+      "type": "string"
+    },
+    "referrer": {
+      "type": "string"
+    },
+    "device": {
+      "type": "enumeration",
+      "enum": [
+        "desktop",
+        "mobile",
+        "tablet"
+      ],
+      "default": "desktop"
+    },
+    "browser": {
+      "type": "string"
+    },
+    "ipHash": {
+      "type": "string"
+    },
+    "durationSeconds": {
+      "type": "integer",
+      "default": 0
+    },
+    "timestamp": {
+      "type": "datetime"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "awards",
+  "info": {
+    "singularName": "award",
+    "pluralName": "awards",
+    "displayName": "[Profil & Kariyer] Başarı & Ödüller",
+    "description": "Kaizen and Enterprise competition awards"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "competition": {
+      "type": "string",
+      "required": true
+    },
+    "organization": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "string",
+      "required": true
+    },
+    "rank": {
+      "type": "string",
+      "required": true
+    },
+    "impactDescription": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

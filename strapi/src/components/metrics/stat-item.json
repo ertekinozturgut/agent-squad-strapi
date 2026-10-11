@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_metrics_stat_items",
+  "info": {
+    "displayName": "Stat Item",
+    "icon": "chartBubble",
+    "description": "Executive numerical achievements"
+  },
+  "options": {},
+  "attributes": {
+    "yearsExperience": {
+      "type": "integer",
+      "default": 8
+    },
+    "teamSizeManaged": {
+      "type": "integer",
+      "default": 12
+    },
+    "kaizenAwards": {
+      "type": "integer",
+      "default": 5
+    },
+    "productionAiSystems": {
+      "type": "integer",
+      "default": 13
+    }
+  }
+}

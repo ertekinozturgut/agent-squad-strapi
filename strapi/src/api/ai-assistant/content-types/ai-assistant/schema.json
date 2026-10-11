@@ -1,0 +1,125 @@
+{
+  "kind": "singleType",
+  "collectionName": "ai_assistant_configs",
+  "info": {
+    "singularName": "ai-assistant",
+    "pluralName": "ai-assistants",
+    "displayName": "[AI Asistan] Model & Guardrail Ayarları",
+    "description": "Ertekin Özturgut Web AI Chatbot, LLM Provider & Guardrail Yönetim Modülü"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "provider": {
+      "type": "enumeration",
+      "enum": [
+        "openrouter",
+        "openai",
+        "anthropic",
+        "groq",
+        "ollama",
+        "custom"
+      ],
+      "default": "openrouter",
+      "required": true
+    },
+    "fallbackProvider": {
+      "type": "enumeration",
+      "enum": [
+        "openrouter",
+        "openai",
+        "anthropic",
+        "groq",
+        "ollama",
+        "custom"
+      ],
+      "default": "openrouter"
+    },
+    "apiBaseUrl": {
+      "type": "string"
+    },
+    "apiKeySecretName": {
+      "type": "string",
+      "default": "OPENROUTER_API_KEY"
+    },
+    "availablePresetModels": {
+      "type": "json"
+    },
+    "model": {
+      "type": "string",
+      "default": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "required": true
+    },
+    "fallbackModel": {
+      "type": "string",
+      "default": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "temperature": {
+      "type": "decimal",
+      "default": 0.2,
+      "required": true
+    },
+    "maxTokens": {
+      "type": "integer",
+      "default": 800
+    },
+    "systemPromptOverride": {
+      "type": "text"
+    },
+    "guardrailsEnabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "defamationProtection": {
+      "type": "boolean",
+      "default": true
+    },
+    "privacyProtection": {
+      "type": "boolean",
+      "default": true
+    },
+    "blockedKeywords": {
+      "type": "json"
+    },
+    "unverifiedEmployers": {
+      "type": "json"
+    },
+    "allowedTopics": {
+      "type": "json"
+    },
+    "blockedTopics": {
+      "type": "json"
+    },
+    "defamationSafeResponse": {
+      "type": "text"
+    },
+    "privacySafeResponse": {
+      "type": "text"
+    },
+    "generalRefusalMessage": {
+      "type": "text"
+    },
+    "knowledgeGroundingMode": {
+      "type": "enumeration",
+      "enum": [
+        "dynamic_cms",
+        "custom_entries_only",
+        "hybrid"
+      ],
+      "default": "hybrid"
+    },
+    "additionalContextPrompt": {
+      "type": "text"
+    },
+    "rateLimitPerMinute": {
+      "type": "integer",
+      "default": 10
+    },
+    "isEnabled": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

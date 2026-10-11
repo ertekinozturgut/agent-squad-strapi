@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "competencies",
+  "info": {
+    "singularName": "competency",
+    "pluralName": "competencies",
+    "displayName": "[Profil & Kariyer] Yetkinlik Matrisi",
+    "description": "Domain-based technical skills and proficiency matrix"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "skills": {
+      "type": "component",
+      "repeatable": true,
+      "component": "skills.skill-item"
+    }
+  }
+}

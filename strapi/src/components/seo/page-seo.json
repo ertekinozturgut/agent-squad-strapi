@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_seo_page_seos",
+  "info": {
+    "displayName": "Page SEO",
+    "icon": "search",
+    "description": "Sayfa bazlı SEO başlık, açıklama ve paylaşım ayarları"
+  },
+  "options": {},
+  "attributes": {
+    "path": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "keywords": {
+      "type": "json"
+    },
+    "ogImage": {
+      "type": "string"
+    },
+    "canonicalUrl": {
+      "type": "string"
+    },
+    "noIndex": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

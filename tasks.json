@@ -1,0 +1,1130 @@
+[
+  {
+    "id": "TASK-01",
+    "title": "Agent Squad Temel Kurulumu, Repo Senkronizasyonu & Çevre Yapılandırması",
+    "description": "agent-squad-strapi reposunun entegrasyonu, .agents kural ve becerilerinin etkinleştirilmesi, Next.js 15 App Router ve Strapi v5 mimarisinin proje iskeletine dönüştürülmesi ve geliştirme bağımlılıklarının yapılandırılması.",
+    "status": "completed",
+    "priority": "critical",
+    "dependencies": [],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "backend-engineer",
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "qa-tester",
+        "security-reviewer"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir proje yöneticisi ve yazılım mimarı olarak, 8 kişilik otonom mühendislik squadını ve Next.js 15 + Strapi v5 entegrasyon iskeletini eksiksiz kurarak geliştirme sürecini anayasal kurallara uygun başlatmak istiyorum.",
+      "acceptanceCriteria": [
+        "Given boş bir çalışma alanı olduğunda When agent-squad-strapi klonlanıp yapılandırıldığında Then .agents kuralları, ESLint, TypeScript ve depcruise konfigürasyonları hazır olmalıdır (Happy Path)",
+        "Given eksik veya uyumsuz paketler olduğunda When bağımlılıklar kurulurken Then uyumsuzluklar çözülmeli ve package.json temiz tutulmalıdır (Validation)",
+        "Given hem frontend hem CMS ihtiyaçları varken When dizin mimarisi kurgulandığında Then özellik tabanlı (feature-based) React ve Strapi v5 ayrımı açıkça sağlanmalıdır (Conflict Prevention)",
+        "Given geliştirme ortamı hazırlanırken When gizli ortam değişkenleri tanımlandığında Then hiçbir gizli anahtar NEXT_PUBLIC_ olarak açılmamalı ve .env.example şablonlanmalıdır (Security)"
+      ],
+      "architectureDecisions": [
+        "ADR-01: Projede bağımsız Next.js 15 App Router frontend katmanı ile Strapi v5 CMS katmanı decoupled olarak kurgulanır.",
+        "ADR-02: .agents altındaki 5 anayasal kural ve 8 persona uzmanlık rehberi projenin daimi kılavuzudur.",
+        "ADR-03: Paket yöneticisi olarak npm ve TypeScript strict mode zorunlu kılınmıştır."
+      ],
+      "designPatternsUsed": [
+        "Decoupled Client-CMS Pattern",
+        "Feature-Based Architecture",
+        "Zero-Script Tooling Guardrails"
+      ],
+      "uiDesignTokens": [
+        "color-background-primary",
+        "color-slate-900",
+        "font-sans-inter"
+      ],
+      "testsWritten": [
+        "tests/architecture/dependency-rules.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "ISO25010-Maintainability",
+        "OWASP-ASVS-Configuration",
+        "PMBOK-7th-WBS"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-02",
+    "title": "Strapi v5 Headless CMS Veri Modelleri, İzinler & Seed Verisi",
+    "description": "Ertekin Özturgut'un CV ve LinkedIn verileriyle birebir uyumlu; Article, Category, CaseStudy, Experience, Award ve SiteProfile içerik tiplerinin Strapi v5 Document Service API formatında modellenmesi, public RBAC izinleri ve dayanıklı seed/offline fallback katmanının oluşturulması.",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-01"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "backend-engineer"
+      ],
+      "reviewers": [
+        "security-reviewer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir içerik yöneticisi olarak, Ertekin Özturgut'un makalelerini, Toyota projelerini, Kaizen ödüllerini ve kariyer geçmişini Strapi v5 üzerinden yönetebilmek; frontend'in CMS kapalıyken bile kesintisiz çalışabilmesini istiyorum.",
+      "acceptanceCriteria": [
+        "Given Strapi Document Service API çağrıldığında When Article, CaseStudy veya Experience sorgulandığında Then doğru tip güvenli JSON şeması dönmelidir (Happy Path)",
+        "Given zorunlu alanlar (slug, başlık, yayın tarihi) boş bırakıldığında When kayıt oluşturulmaya çalışılırsa Then Strapi ValidationError dönmeli ve işlem engellenmelidir (Validation)",
+        "Given Strapi CMS sunucusuna erişilemediğinde When frontend veri talep ederse Then yerel tip güvenli seed/fallback verisi devreye girmeli ve sayfa çökmemelidir (Conflict/Resilience)",
+        "Given yetkisiz bir dış istek geldiğinde When POST/PUT/DELETE yapılmak istendiğinde Then 403 Forbidden dönmeli, yalnızca GET okumaları Public olmalıdır (Security)"
+      ],
+      "architectureDecisions": [
+        "ADR-04: Strapi v5 Document Service API standart kabul edilir (strapi.documents).",
+        "ADR-05: Dayanıklı CMS Mimarisi: Frontend apiClient, CMS erişilemediğinde statik seed veri sağlayıcısına otomatik fallback yapar."
+      ],
+      "designPatternsUsed": [
+        "Repository Pattern",
+        "Document Service Provider Pattern",
+        "Fallback Cache Pattern"
+      ],
+      "uiDesignTokens": [],
+      "testsWritten": [
+        "tests/backend/content-schemas.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 0,
+      "standardTraceability": [
+        "OWASP-ASVS-AccessControl",
+        "BABOK-v3-DataModeling"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-03",
+    "title": "Executive UI/UX Tasarım Sistemi & Kurumsal Yönetici Kimliği",
+    "description": "Yapay zeka şablonu (AI slop) hissiyatı vermeyen, Toyota mühendislik disiplinine ve kurumsal AI yöneticisi ağırlığına uygun Tailwind CSS tasarım tokenları, editoryal tipografi, Radix UI primitifleri, 5 kademeli bileşen durum matrisi ve WCAG 2.2 AA kontrast garantisi.",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-01"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "uiux-designer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Siteyi ziyaret eden bir CTO, Genel Müdür veya sektör paydaşı olarak, Ertekin Özturgut'un kişisel sitesine girdiğimde jenerik bir AI teması yerine yüksek mühendislik disiplini ve editoryal yönetici prestiji hissetmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given kullanıcı herhangi bir interaktif bileşenle (buton, kart, bağlantı) etkileşime girdiğinde When durumu değişirse Then Default, Hover, Focus-Visible, Active/Loading, Disabled durumları pürüzsüz geçişlerle görsel geri bildirim sunmalıdır (Happy Path)",
+        "Given klavye ile gezinme yapıldığında When Tab tuşuna basılırsa Then belirgin focus-visible halkası görünmeli, outline: none ile odak gizlenmemelidir (Accessibility)",
+        "Given parlak mor/camgöbeği gibi basmakalıp AI renkleri talep edildiğinde When tasarım sistemi uygulandığında Then derin kömür (#090D16), arduvaz (#1E293B) ve hassas mühendislik vurguları (rafine kiremit/kırmızı #DC2626 & kobalt #2563EB) kullanılmalıdır (Design Invariant)",
+        "Given metin kontrastı ölçüldüğünde When WCAG 2.2 AA denetimi yapılırsa Then metin kontrast oranı en az 4.5:1 sağlamalıdır (A11y/WCAG)"
+      ],
+      "architectureDecisions": [
+        "ADR-06: Sıfır inline CSS anayasal kuralı geçerlidir. Tüm stiller Tailwind CSS ve CSS Değişkenleri üzerinden yönetilir.",
+        "ADR-07: Radix UI headless primitifleri klavye erişilebilirliği ve focus trap standartları için kullanılır."
+      ],
+      "designPatternsUsed": [
+        "Design Token Pattern",
+        "Headless Component Primitive Pattern",
+        "State Matrix Pattern"
+      ],
+      "uiDesignTokens": [
+        "color-obsidian-950",
+        "color-slate-900",
+        "color-titanium-100",
+        "color-toyota-red-600",
+        "color-precision-cobalt-600",
+        "radius-md",
+        "radius-lg"
+      ],
+      "testsWritten": [
+        "tests/ui/contrast-and-tokens.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 0,
+      "standardTraceability": [
+        "WCAG-2.2-AA",
+        "Refactoring-UI",
+        "Design-Of-Everyday-Things"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-04",
+    "title": "Özellik Tabanlı (Feature-Based) Next.js Frontend Çekirdeği",
+    "description": "Executive Hero, Pragmatic AI Felsefesi & Yaklaşımı, Toyota Vaka Çalışmaları (Case Studies), İnteraktif Kariyer Yolculuğu, Temel Yetkinlikler (Agentic AI, MCP, CRM, .NET/Python) ve İletişim feature modüllerinin dikey dilimleme mimarisiyle geliştirilmesi.",
+    "status": "completed",
+    "priority": "critical",
+    "dependencies": [
+      "TASK-02",
+      "TASK-03"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "qa-tester",
+        "security-reviewer"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir son kullanıcı ve sektör profesyoneli olarak, Ertekin Özturgut'un kariyer kilometre taşlarını, Toyota'daki üretim seviyesi yapay zeka başarılarını ve yönetici felsefesini akıcı, hızlı ve modüler bir arayüzde incelemek istiyorum.",
+      "acceptanceCriteria": [
+        "Given ana sayfa yüklendiğinde When bileşenler render edildiğinde Then Executive Hero, AI Felsefesi, Vaka Çalışmaları, Kariyer Zaman Tüneli ve İletişim modülleri sırayla ve yüksek editoryal kalitede gösterilmelidir (Happy Path)",
+        "Given bir vaka çalışması incelendiğinde When detay butonuna tıklandığında Then problem, çözüm mimarisi ve somut iş çıktısı metrikleri (200+ Kaizen projesi, ilk üretim AI sistemi) eksiksiz açılmalıdır (Validation)",
+        "Given dikey dilimleme (feature-based) incelendiğinde When kod yapısı denetlendiğinde Then feature'lar arası doğrudan derin import yasak olmalı, sadece public index.ts üzerinden haberleşilmelidir (Architecture Invariant)",
+        "Given kullanıcı iletişim butonuna tıkladığında When yönlendirme sağlandığında Then LinkedIn, Medium ve e-posta güvenli target='_blank' rel='noopener noreferrer' ile açılmalıdır (Security)"
+      ],
+      "architectureDecisions": [
+        "ADR-08: Özellik tabanlı klasör yapısı: src/features/profile, src/features/case-studies, src/features/experience, src/features/competencies, src/features/contact.",
+        "ADR-09: Container / Presentational ayrımı: UI bileşenleri prop alır, mantık custom hook'larda toplanır."
+      ],
+      "designPatternsUsed": [
+        "Vertical Slice Feature Pattern",
+        "Container / Presentational Pattern",
+        "Custom Hook Abstraction"
+      ],
+      "uiDesignTokens": [
+        "spacing-6",
+        "spacing-8",
+        "shadow-subtle-elevation"
+      ],
+      "testsWritten": [
+        "tests/frontend/hero.test.tsx",
+        "tests/frontend/experience.test.tsx",
+        "tests/frontend/case-studies.test.tsx"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 0,
+      "standardTraceability": [
+        "Clean-Architecture-Uncle-Bob",
+        "OWASP-ASVS-OutputEncoding"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-05",
+    "title": "Yayıncılık & Makale / İçerik Altyapısı (Blog Engine)",
+    "description": "Ertekin Özturgut'un teknik makale ve editoryal içeriklerini paylaşacağı; kategori filtreli, canlı aramalı, okuma süreli, zengin metin/markdown destekli ve sıfır XSS garantili yayıncılık modülü.",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-04"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer",
+        "backend-engineer"
+      ],
+      "reviewers": [
+        "security-reviewer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir yazar ve teknoloji lideri olarak, Agentic AI, Model Context Protocol (MCP) ve Kurumsal CRM dönüşümü konularında yazdığım makaleleri güvenli ve şık bir editoryal düzenle okuyucularıma ulaştırmak istiyorum.",
+      "acceptanceCriteria": [
+        "Given makaleler sayfası açıldığında When kategori filtrelerine (Agentic AI, Kurumsal CRM, Kaizen) tıklandığında Then anında ilgili makaleler filtrelenmeli ve arama çubuğu anlık sonuç vermelidir (Happy Path)",
+        "Given bir makale tıklandığında When detay sayfasına (/articles/[slug]) gidildiğinde Then editoryal tipografi, tahmini okuma süresi, yayın tarihi ve yazar kimliği kusursuz render edilmelidir (Validation)",
+        "Given makale içeriğinde kötü niyetli script veya XSS enjeksiyonu denendiğinde When içerik işlenirken Then DOMPurify/sanitize filtresinden geçmeli, dangerouslySetInnerHTML ASLA kullanılmamalıdır (Security/OWASP)",
+        "Given arama kriterine uyan makale bulunmadığında When liste boşaldığında Then açıklayıcı bir Empty State bileşeni görüntülenmelidir (UX Invariant)"
+      ],
+      "architectureDecisions": [
+        "ADR-10: Sıfır dangerouslySetInnerHTML kuralı. İçerik sanitize edilmiş güvenli parser bileşenleri üzerinden render edilir.",
+        "ADR-11: İstemci tarafı anlık arama ve filtreleme için useDebounce ve TanStack Query optimizasyonu uygulanır."
+      ],
+      "designPatternsUsed": [
+        "Safe Markdown Render Pipeline",
+        "Debounced Search Pattern",
+        "Empty State Fallback Pattern"
+      ],
+      "uiDesignTokens": [
+        "typography-prose-invert",
+        "color-accent-amber-500",
+        "radius-lg"
+      ],
+      "testsWritten": [
+        "tests/frontend/articles.test.tsx",
+        "tests/security/xss-sanitization.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 0,
+      "standardTraceability": [
+        "CWE-79-Improper-Neutralization-XSS",
+        "OWASP-Top10-A03-Injection"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-06",
+    "title": "Kapsamlı SEO, Yapılandırılmış Veri (JSON-LD), Performans (CWV) & Doğrulama Kapıları",
+    "description": "Ertekin Özturgut web sitesi için tam teşekküllü Schema.org JSON-LD (Person, ProfilePage, Article, BreadcrumbList), dinamik OpenGraph, otomatik sitemap.xml, robots.txt, Core Web Vitals optimizasyonları ve tüm kalite/güvenlik araçlarının (ESLint, depcruise, opengrep, vitest) çalıştırılarak doğrulanması.",
+    "status": "completed",
+    "priority": "critical",
+    "dependencies": [
+      "TASK-05"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer",
+        "solution-architect"
+      ],
+      "reviewers": [
+        "qa-tester",
+        "security-reviewer",
+        "project-manager"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir web sitesi sahibi olarak, arama motorlarında (Google vb.) 'Ertekin Özturgut', 'Toyota AI Solutions', 'Agentic AI Leader' aramalarında zengin sonuçlar (Rich Results) ve en yüksek SEO puanı elde etmek; sayfa yükleme hızında Core Web Vitals standartlarını aşmak istiyorum.",
+      "acceptanceCriteria": [
+        "Given arama motoru botları veya sosyal platformlar sayfayı ziyaret ettiğinde When meta etiketler tarandığında Then canonical URL, title, description, og:image ve Twitter Card etiketleri eksiksiz bulunmalıdır (Happy Path)",
+        "Given sayfa kaynak kodu incelendiğinde When JSON-LD scriptleri kontrol edildiğinde Then Person şeması (isim, unvan, Toyota Türkiye, LinkedIn, Medium, ödüller) ve Article şemaları Schema.org standartlarına %100 uyumlu olmalıdır (Validation/SEO)",
+        "Given sitemap ve robots adresleri istendiğinde When /sitemap.xml ve /robots.txt çağrıldığında Then tüm sayfaları içeren geçerli XML ve robots direktifleri dönmelidir (SEO Invariant)",
+        "Given tüm proje inşa edildiğinde When DoD kalite denetimleri çalıştırıldığında Then npm run lint 0 hata, npm run typecheck 0 hata, npm run depcruise:check hatasız, npm run security:scan sıfır zafiyet ve npm test tümü yeşil vermelidir (DoD Approval Gate)"
+      ],
+      "architectureDecisions": [
+        "ADR-12: Next.js Metadata API ile dinamik ve statik meta etiket üretimi.",
+        "ADR-13: JSON-LD yapılandırılmış veri blokları Server Components içinde inline script tipi 'application/ld+json' olarak gömülür.",
+        "ADR-14: LCP optimizasyonu: Hero görsel ve kritik yazı fontları için fetchpriority='high' ve font-display: swap uygulanır."
+      ],
+      "designPatternsUsed": [
+        "Metadata Generator Pattern",
+        "Structured Data Injector Pattern",
+        "Zero-Layout-Shift Picture Pattern"
+      ],
+      "uiDesignTokens": [],
+      "testsWritten": [
+        "tests/seo/structured-data.test.ts",
+        "tests/seo/metadata.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 0,
+      "standardTraceability": [
+        "Google-Search-Central-Person-Schema",
+        "ISO25010-Performance-Efficiency",
+        "OWASP-ASVS-SecurityVerification"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-07",
+    "title": "Tipografi ve CSS İyileştirmesi: pl-13 Hatasının Giderilmesi & Mobil Tema Rengi",
+    "description": "EducationAndAwards bileşenindeki geçersiz pl-13 Tailwind sınıfının pl-[52px] ile düzeltilmesi ve layout.tsx içine mobil tarayıcılar için theme-color meta etiketinin eklenmesi.",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-06"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "uiux-designer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir mobil ve masaüstü kullanıcısı olarak, ödül ve eğitim kartlarındaki metinlerin ikonların altına kusursuz hizalanmasını ve mobil tarayıcılarda üst çubuğun koyu temayla uyumlu görünmesini istiyorum.",
+      "acceptanceCriteria": [
+        "Given EducationAndAwards bileşeni açıldığında When ödül açıklamaları ve eğitim maddeleri render edildiğinde Then metinler sol ikonun altına tam pl-[52px] girintiyle hizalanmalıdır (Happy Path)",
+        "Given mobil Safari veya Chrome tarayıcı açıldığında When sayfa yüklendiğinde Then theme-color meta etiketi #090D16 değerini sunmalıdır (Mobile UX)"
+      ],
+      "architectureDecisions": [
+        "ADR-15: Tailwind v3 standart ölçeğine uymayan keyfi sınıflar yerine kesin piksel değeri pl-[52px] kullanılır."
+      ],
+      "designPatternsUsed": [
+        "Tailwind Pixel Alignment Pattern"
+      ],
+      "uiDesignTokens": [
+        "color-background-primary"
+      ],
+      "testsWritten": [
+        "tests/ui/alignment-fixes.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "WCAG-2.2-Visual-Alignment"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "pass",
+        "eslint": "pass",
+        "stryker": "pass",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-08",
+    "title": "Kurumsal Mesajlaşma & Unvan Standardizasyonu (Anti-Blog & Executive Lead)",
+    "description": "/articles sayfasında Blog kelimesi yerine Düşünce Liderliği ifadesinin kullanılması, Navbar ve Hero alanlarındaki unvanların Next-Gen Digital Solutions Unit Supervisor & Enterprise AI Lead olarak konsolide edilmesi.",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-07"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "business-analyst",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Siteyi ziyaret eden kurumsal bir paydaş veya C-Level yönetici olarak, amatör blog tonu yerine kurumsal düşünce liderliği ve net bir unvan hiyerarşisi görmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given /articles sayfası açıldığında When başlık ve etiketler incelendiğinde Then Blog kelimesi geçmemeli, Düşünce Liderliği ve Teknik Yayınlar ifadesi bulunmalıdır (Corporate Tone)",
+        "Given Navbar ve Hero incelendiğinde When unvanlar okunduğunda Then Enterprise AI Lead ve Unit Supervisor unvanı tutarlı biçimde sunulmalıdır (Persona Consistency)"
+      ],
+      "architectureDecisions": [
+        "ADR-16: Executive Tone Standardı: Blog kelimesi Düşünce Liderliği (Thought Leadership) ile ikame edilir."
+      ],
+      "designPatternsUsed": [
+        "Tone Of Voice Alignment"
+      ],
+      "uiDesignTokens": [],
+      "testsWritten": [
+        "tests/frontend/executive-tone.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "BABOK-v3-PersonaValidation"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "pass",
+        "eslint": "pass",
+        "stryker": "pass",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-09",
+    "title": "Navigasyon ve UX İyileştirmesi: Navbar Aktif Sayfa Durumu & Filtre URL Senkronizasyonu",
+    "description": "Navbar bileşenine usePathname entegrasyonu ile aktif sayfa vurgusunun eklenmesi, ArticleListContainer filtre ve aramasının useSearchParams ile URL query state ile senkronize edilmesi.",
+    "status": "completed",
+    "priority": "medium",
+    "dependencies": [
+      "TASK-08"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "qa-tester",
+        "uiux-designer"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir web kullanıcısı olarak, /articles sayfasındayken menüde hangi sekmede olduğumu görmek ve yaptığım arama/kategori filtresini link olarak paylaşabilmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given kullanıcı /articles sayfasına gittiğinde When Navbar render edildiğinde Then Yayınlar & Makaleler bağlantısı aktif renkle (brand-crimson veya parlak beyaz) vurgulanmalıdır (Active Nav)",
+        "Given kullanıcı bir kategori seçtiğinde veya arama yaptığında When sayfa URL incelendiğinde Then URL güncellenmeli ve link paylaşıldığında filtre korunmalıdır (State Persistence)"
+      ],
+      "architectureDecisions": [
+        "ADR-17: Next.js usePathname ve useSearchParams ile URL tabanlı istemci durumu senkronizasyonu."
+      ],
+      "designPatternsUsed": [
+        "URL-Driven State Pattern",
+        "Active Route Indicator Pattern"
+      ],
+      "uiDesignTokens": [
+        "color-brand-crimson"
+      ],
+      "testsWritten": [
+        "tests/frontend/active-nav.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "WCAG-2.2-Location-Awareness"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "pass",
+        "eslint": "pass",
+        "stryker": "pass",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-10",
+    "title": "İletişim ve Dönüşüm Optimizasyonu: API / Server Action & Görüşme Planlama Butonu",
+    "description": "ContactSection için /api/contact Route Handler entegrasyonu (gerçek API doğrulama ve yanıtı) ile 15-30 dakikalık tanışma ve strateji danışmanlığı için Cal.com / Toplantı Planla butonu eklenmesi.",
+    "status": "completed",
+    "priority": "medium",
+    "dependencies": [
+      "TASK-09"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer",
+        "backend-engineer"
+      ],
+      "reviewers": [
+        "security-reviewer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Siteden danışmanlık veya kurumsal iş birliği talep eden bir yönetici olarak, mesajımın bir API ile doğrulandığını görmek ve istersem doğrudan bir takvim toplantısı ayarlayabilmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given kullanıcı formu doldurup gönderdiğinde When /api/contact çağrıldığında Then girdi doğrulaması yapılmalı, JSON yanıt dönmeli ve ekranda onay çıkmalıdır (Happy Path)",
+        "Given doğrudan danışmanlık talep eden bir yönetici When iletişim kartını incelediğinde Then Strateji Görüşmesi Planla (Toplantı Planla) seçeneği sunulmalıdır (High-Value Conversion)"
+      ],
+      "architectureDecisions": [
+        "ADR-18: Next.js Route Handler /api/contact ile sunucu taraflı form işleme ve doğrulama."
+      ],
+      "designPatternsUsed": [
+        "Route Handler Pattern",
+        "Executive Booking CTA Pattern"
+      ],
+      "uiDesignTokens": [
+        "color-brand-cobalt"
+      ],
+      "testsWritten": [
+        "tests/api/contact.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "OWASP-ASVS-InputValidation"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-11",
+    "title": "Scale AI & Palantir Esinli Kurumsal Tasarım Sistemi ve Token Yenilenmesi",
+    "description": "SaaS/Developer şablonu yerine Scale AI ve Palantir otoritesini yansıtan Off-white (#F4F3EF, #FAFAF8), Near-black (#111111, #161616), Electric Lime (#B6FF39) tek sinyal vurgusu, IBM Plex Mono tipografisi, 0px-2px keskin border-radius ve 12-kolon katı grid sisteminin Tailwind CSS ve global stillere uygulanması.",
+    "status": "completed",
+    "priority": "critical",
+    "dependencies": [
+      "TASK-10"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "uiux-designer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir kurumsal paydaş olarak, Ertekin Özturgut web sitesine girdiğimde Scale AI veya Palantir ciddiyetinde, teknik diyagramlarla desteklenmiş, büyük tipografili ve güven telkin eden bir kurumsal marka dili görmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given tailwind.config.ts ve globals.css güncellendiğinde When renkler ve fontlar yüklendiğinde Then Off-white (#F4F3EF), Primary Dark (#111111) ve Electric Lime (#B6FF39) sinyal rengi aktif olmalıdır (Scale AI Palette)",
+        "Given kart ve bileşen stilleri incelendiğinde When border ve radius kuralları uygulandığında Then 24-32px yuvarlak SaaS kartları elenmeli; 0px veya 2-4px keskin kurumsal hatlar kullanılmalıdır (Sharp Borders)"
+      ],
+      "architectureDecisions": [
+        "ADR-19: Scale AI & Palantir Enterprise Editorial Design System standardı kabul edilmiştir.",
+        "ADR-20: Keskin 0-4px border radius, monospaced metadata ve tekil signal accent (#B6FF39) anayasal kuraldır."
+      ],
+      "designPatternsUsed": [
+        "Enterprise Editorial Token System"
+      ],
+      "uiDesignTokens": [
+        "color-bg-light",
+        "color-bg-dark",
+        "color-signal-lime",
+        "font-mono-ibm"
+      ],
+      "testsWritten": [
+        "tests/ui/scale-ai-tokens.test.ts"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "Scale-AI-Design-System",
+        "Palantir-System-Aesthetics"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-12",
+    "title": "Minimalist Kurumsal Header & Sistem Mimarisi Hero Alanı",
+    "description": "Ertekin Özturgut kurumsal kimliği ile minimalist 64px sticky header (Work, Expertise, About, Insights, LinkedIn, Resume) ve %65 Tipografi / %35 Sistem Görseli (People -> AI Agent -> Knowledge / Tools -> Enterprise Data interaktif diyagramı) içeren Hero tasarımı.",
+    "status": "completed",
+    "priority": "critical",
+    "dependencies": [
+      "TASK-11"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "uiux-designer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir ziyaretçi olarak, sitede klasik bir yazılımcı selamlama yazısı yerine büyük ölçekli kurumsal 'BUILDING AI SYSTEMS THAT WORK IN THE REAL ENTERPRISE.' manşetini ve sistem mimarisi görselini görmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given ana sayfa açıldığında When Hero render edildiğinde Then 'BUILDING AI SYSTEMS THAT WORK IN THE REAL ENTERPRISE.' manşeti, mimari veri akış görseli ve Based in / Current Focus metadata blokları eksiksiz görünmelidir (Hero Architecture)",
+        "Given Header incelendiğinde When logotype ve linklere bakıldığında Then ERTEKIN OZTURGUT tipografik başlığı ve sade kurumsal linkler yer almalıdır (Minimal Header)"
+      ],
+      "architectureDecisions": [
+        "ADR-21: Hero alanında portre fotoğraf yerine kurumsal sistem mimarisi şeması (People -> AI Agent -> Tools/Data) merkezileştirilir."
+      ],
+      "designPatternsUsed": [
+        "System Architecture Hero Pattern"
+      ],
+      "uiDesignTokens": [
+        "text-hero-display",
+        "border-grid-hairline"
+      ],
+      "testsWritten": [
+        "tests/frontend/scale-hero.test.tsx"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "Scale-AI-Hero-Standard"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-13",
+    "title": "Proof Band (Impact Metrics) & Büyük Ekran Kişisel Manifesto",
+    "description": "Doğrulanabilir gerçek sayılarla oluşturulan kanıt bandı (8+ Years Enterprise Tech, First Production AI System, 200+ Projects Analysed, 6 Core Team Members) ve 'AI IS NOT THE PRODUCT. THE WORKING SYSTEM IS.' tam ekran felsefe manifestosu.",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-12"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "uiux-designer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir yönetici olarak, somut ve kanıtlanmış kurumsal sayılarla Ertekin Özturgut un güvenilirliğini ve yapay zekaya yaklaşım felsefesini tek bakışta anlamak istiyorum.",
+      "acceptanceCriteria": [
+        "Given Impact Metrics bandı render edildiğinde When rakamlar incelendiğinde Then sadece doğrulanmış 4 metrik bulunmalı, yapay yüzdeler yer almamalıdır (Verified Metrics)",
+        "Given Manifesto bölümüne gelindiğinde When ekran koyu yüzeye geçtiğinde Then 'AI IS NOT THE PRODUCT. THE WORKING SYSTEM IS.' büyük tipografiyle net bir duruş sergilemelidir (Manifesto Impact)"
+      ],
+      "architectureDecisions": [
+        "ADR-22: Kanıtlanamayan abartılı metriklere yer verilmez; sadece CV/organizasyonel doğrulanabilir sayılar kullanılır."
+      ],
+      "designPatternsUsed": [
+        "Full-Screen Statement Pattern",
+        "Proof Band Grid"
+      ],
+      "uiDesignTokens": [
+        "bg-primary-dark",
+        "color-signal-lime"
+      ],
+      "testsWritten": [
+        "tests/frontend/manifesto.test.tsx"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "Palantir-Mission-Statement"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-14",
+    "title": "Selected Systems: 4 Büyük Yatay Blok ve Sistem Mimarisi Şemaları",
+    "description": "Portfolio yerine 'SELECTED SYSTEMS' başlığı altında; 01 Enterprise AI Assistant, 02 Kaizen Intelligence, 03 AI Lead Intelligence ve 04 Enterprise API Modernisation projelerinin mimari şemaları, veri akışları, rol ve metadata blokları ile modellenmesi.",
+    "status": "completed",
+    "priority": "critical",
+    "dependencies": [
+      "TASK-13"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "solution-architect",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir sistem mimarı veya teknoloji direktörü olarak, projelerin basit kartlar değil; mimari katmanları, veri akışlarını ve gerçek iş çıktısını gösteren şemalarla anlatılmasını istiyorum.",
+      "acceptanceCriteria": [
+        "Given Selected Systems bölümü incelendiğinde When 4 vaka analizine bakıldığında Then her birinde mimari akış şeması, rol, sistem bileşenleri ve durum metadata blokları yer almalıdır (System Architecture Storytelling)",
+        "Given 04 API Modernisation incelendiğinde When Before/After karşılaştırması yapıldığında Then karmaşık legacy bağlantılardan merkezi API katmanına geçiş şematik olarak gösterilmelidir (Enterprise Architecture Proof)"
+      ],
+      "architectureDecisions": [
+        "ADR-23: Case study sunumunda screenshot yerine interaktif ve şematik sistem mimarisi blokları kullanılır."
+      ],
+      "designPatternsUsed": [
+        "Large Horizontal System Block Pattern",
+        "Architecture Flow Diagram"
+      ],
+      "uiDesignTokens": [
+        "border-technical-hairline",
+        "font-mono-metadata"
+      ],
+      "testsWritten": [
+        "tests/frontend/selected-systems.test.tsx"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "Scale-AI-Production-Case-Study"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-15",
+    "title": "How I Build (3 Katman) & From Problem to Production (5 Aşamalı Akış)",
+    "description": "How I Build: 01 Architecture, 02 Delivery, 03 Adoption 3 kolonlu yapısı ile 'From business problem to production AI' 5 aşamalı yatay süreç akışının inşası.",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-14"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "uiux-designer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir operasyon veya iş birimi lideri olarak, Ertekin in teknolojiyi sadece geliştirmekle kalmayıp kurum içinde nasıl benimsenebilir kıldığını görmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given How I Build bölümü açıldığında When 3 katman incelendiğinde Then Architecture, Delivery ve Adoption kolonları net ayrılmalıdır (3-Layer Methodology)",
+        "Given From Problem to Production akışı görüntülendiğinde When 5 adım incelendiğinde Then Discover, Design, Build, Deploy, Adopt adımları kurumsal bir proses şeması olarak sunulmalıdır (5-Step Process Flow)"
+      ],
+      "architectureDecisions": [
+        "ADR-24: Adoption (Benimsenme ve Yönetişim) kişisel markanın en güçlü rekabetçi avantajı olarak konumlandırılır."
+      ],
+      "designPatternsUsed": [
+        "3-Pillar Capability Grid",
+        "Horizontal Process Stepper"
+      ],
+      "uiDesignTokens": [],
+      "testsWritten": [
+        "tests/frontend/methodology.test.tsx"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "Enterprise-Adoption-Framework"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-16",
+    "title": "Technical Foundation (Sade Grid), Career Evolution & Leadership",
+    "description": "Logo karmaşası yerine 4 sütunlu sade teknik grid (AI Systems, Enterprise, Engineering, Automation), 'Before AI, I built the systems AI depends on' 2017-2026 evrim akışı ve 4 liderlik sütunu (Strategy, Governance, Delivery, Enablement).",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-15"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "business-analyst",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir paydaş olarak, Ertekin in yapay zekadan önce bu sistemlerin dayandığı kurumsal mimarileri inşa ettiğini ve liderlik sütunlarını okumak istiyorum.",
+      "acceptanceCriteria": [
+        "Given Technical Foundation tablosu görüntülendiğinde When teknolojilere bakıldığında Then logo çöplüğü olmadan 4 kategoride yapılandırılmış temiz tablo bulunmalıdır (Technical Table)",
+        "Given Career Evolution incelendiğinde When 'Before AI, I built the systems AI depends on' başlığı okunduğunda Then 2017 den 2026 ya evrim hikayesi net aktarılmalıdır (Evolution Story)"
+      ],
+      "architectureDecisions": [
+        "ADR-25: Teknoloji amaç değil altyapıdır ilkesi gereği sade kurumsal grid tablosu uygulanır."
+      ],
+      "designPatternsUsed": [
+        "Clean Tech Table",
+        "Historical Evolution Flow"
+      ],
+      "uiDesignTokens": [],
+      "testsWritten": [
+        "tests/frontend/foundation-and-evolution.test.tsx"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "Leadership-Evolution-Story"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-17",
+    "title": "Recognition (3x First Place), Insights (Field Notes) & Koyu Final CTA",
+    "description": "3x First Place dev başlığı ile Kaizen ödülleri sunumu, Field Notes / Thinking editoryal yayın kartları ve koyu tam ekran 'WHAT S NEXT? Let s build systems that make AI useful' Final CTA bölümü ve minimal kurumsal Footer.",
+    "status": "completed",
+    "priority": "high",
+    "dependencies": [
+      "TASK-16"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "uiux-designer",
+        "qa-tester"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir ziyaretçi olarak, sayfanın sonunda Kaizen birincilik ödüllerini, teknik makale özetlerini ve Scale AI tarzında güçlü bir koyu çağrı alanını görmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given Recognition bölümü incelendiğinde When 3x First Place ve ALJ Global Kaizen temsiliyeti okunduğunda Then kurumsal güvenilirlik açıkça hissedilmelidir (Recognition Impact)",
+        "Given Final CTA render edildiğinde When koyu tam ekran blok incelendiğinde Then 'WHAT S NEXT? Let s build systems that make AI useful' başlığı ve doğrudan LinkedIn / E-posta aksiyonları yer almalıdır (Dark Final CTA)"
+      ],
+      "architectureDecisions": [
+        "ADR-26: Koyu tam ekran Final CTA ile sayfa yüksek otorite ve net bir çağrıyla sonlandırılır."
+      ],
+      "designPatternsUsed": [
+        "Oversized Recognition Block",
+        "Dark Final Action Block"
+      ],
+      "uiDesignTokens": [
+        "bg-primary-dark",
+        "color-signal-lime"
+      ],
+      "testsWritten": [
+        "tests/frontend/recognition-cta.test.tsx"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "Scale-AI-CTA-Pattern"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  },
+  {
+    "id": "TASK-18",
+    "title": "Çok Sayfalı Mimari ve Rotaların Tamamlanması: /work, /work/[slug], /expertise, /about, /insights",
+    "description": "Tasarım rehberi Madde 4 te belirtilen tam site mimarisinin (/work, /work/[slug] 4 case study sayfası, /expertise, /about, /insights, /contact) inşa edilmesi ve tüm rotaların hatasız çalışmasının doğrulanması.",
+    "status": "completed",
+    "priority": "critical",
+    "dependencies": [
+      "TASK-17"
+    ],
+    "assignedSquad": {
+      "orchestrator": "project-manager",
+      "analyst": "business-analyst",
+      "architect": "solution-architect",
+      "ux": "uiux-designer",
+      "developers": [
+        "frontend-engineer"
+      ],
+      "reviewers": [
+        "qa-tester",
+        "solution-architect",
+        "project-manager"
+      ]
+    },
+    "dorMet": true,
+    "dodMet": true,
+    "rejectionCount": 0,
+    "reviewNotes": [],
+    "artifacts": {
+      "userStory": "Bir kullanıcı olarak, sadece tek sayfa değil; /work, /work/[slug], /expertise, /about ve /insights rotalarında gezinebilmek istiyorum.",
+      "acceptanceCriteria": [
+        "Given /work ve /work/[slug] çağrıldığında When 4 vaka analizi sayfası açıldığında Then The Challenge, The System Diagram, How It Works, My Role ve Outcome blokları tam şema ile açılmalıdır (Full Case Study Pages)",
+        "Given /expertise, /about ve /insights çağrıldığında When sayfalar render edildiğinde Then kurumsal hikaye, yetkinlikler ve yayınlar tam teşekküllü sunulmalıdır (Complete Site Hierarchy)"
+      ],
+      "architectureDecisions": [
+        "ADR-27: Tam teşekküllü çok sayfalı Next.js App Router mimarisi ve SSG pre-rendering."
+      ],
+      "designPatternsUsed": [
+        "Multi-Page Editorial Hierarchy"
+      ],
+      "uiDesignTokens": [],
+      "testsWritten": [
+        "tests/frontend/multi-page-routing.test.tsx"
+      ],
+      "securityAuditPassed": true,
+      "mutationScore": 100,
+      "standardTraceability": [
+        "Enterprise-Information-Architecture"
+      ],
+      "toolAuditResults": {
+        "depcruise": "pass",
+        "opengrep": "skip",
+        "eslint": "pass",
+        "stryker": "skip",
+        "typecheck": "pass"
+      },
+      "suppressions": []
+    }
+  }
+]

@@ -11,5 +11,21 @@ out/
 .env.development.local
 .env.test.local
 .env.production.local
+strapi/dist/
+strapi/.tmp/
+strapi/.cache/
+strapi/.strapi/
+strapi/.env
+strapi/node_modules/
+strapi/public/uploads/
+strapi/.strapi-updater.json*
+
+# Build artifacts & TypeScript cache
+*.tsbuildinfo
+tsconfig.tsbuildinfo
 .DS_Store
-*.log
+
+# Temporary audit & report targets
+audit_targets/
+audit_report_*.html
+*sartname_uyumluluk_raporu.md

@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "analytics_settings",
+  "info": {
+    "singularName": "analytics-setting",
+    "pluralName": "analytics-settings",
+    "displayName": "[Analitik & İstatistikler] Analitik Ayarları",
+    "description": "Sayfa takip anahtarı, Google Analytics ve Plausible entegrasyonu"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "trackingEnabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "googleAnalyticsId": {
+      "type": "string"
+    },
+    "plausibleDomain": {
+      "type": "string"
+    },
+    "excludeAdminVisits": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

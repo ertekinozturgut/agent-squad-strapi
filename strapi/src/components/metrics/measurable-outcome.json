@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_metrics_measurable_outcomes",
+  "info": {
+    "displayName": "Measurable Outcome",
+    "icon": "bulletList",
+    "description": "Quantifiable results from enterprise case studies"
+  },
+  "options": {},
+  "attributes": {
+    "metric": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

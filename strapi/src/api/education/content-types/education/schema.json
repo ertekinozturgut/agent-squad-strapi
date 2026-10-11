@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "educations",
+  "info": {
+    "singularName": "education",
+    "pluralName": "educations",
+    "displayName": "[Profil & Kariyer] Akademik Geçmiş",
+    "description": "Academic degrees and university background"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "institution": {
+      "type": "string",
+      "required": true
+    },
+    "degree": {
+      "type": "string",
+      "required": true
+    },
+    "fieldOfStudy": {
+      "type": "string",
+      "required": true
+    },
+    "graduationYear": {
+      "type": "string",
+      "required": true
+    },
+    "gpa": {
+      "type": "string"
+    },
+    "highlights": {
+      "type": "json"
+    }
+  }
+}

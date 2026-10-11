@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "knowledge_entries",
+  "info": {
+    "singularName": "knowledge-entry",
+    "pluralName": "knowledge-entries",
+    "displayName": "[AI Asistan] Bilgi Bankası (Knowledge Base)",
+    "description": "Ertekin Özturgut AI Agent Bilgi Bankası ve Doğrulanmış Kurumsal Bilgi Maddeleri"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Architecture",
+        "Experience",
+        "Consulting_and_Services",
+        "Education",
+        "FAQ",
+        "Policy",
+        "Philosophy"
+      ],
+      "default": "Architecture",
+      "required": true
+    },
+    "summary": {
+      "type": "text",
+      "required": true
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "priority": {
+      "type": "integer",
+      "default": 50,
+      "required": true
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "keywords": {
+      "type": "json"
+    },
+    "lastSyncedAt": {
+      "type": "datetime"
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_profiles",
+  "info": {
+    "singularName": "site-profile",
+    "pluralName": "site-profiles",
+    "displayName": "[Profil & Kariyer] Site Profili & Liderlik",
+    "description": "Executive Bio, Roles, Contact, Stats and Leadership Philosophy"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "fullName": {
+      "type": "string",
+      "required": true,
+      "default": "Ertekin Özturgut"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortBio": {
+      "type": "text",
+      "required": true
+    },
+    "fullBio": {
+      "type": "json"
+    },
+    "currentRole": {
+      "type": "string",
+      "required": true
+    },
+    "company": {
+      "type": "string",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "linkedinUrl": {
+      "type": "string"
+    },
+    "mediumUrl": {
+      "type": "string"
+    },
+    "githubUrl": {
+      "type": "string"
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": false,
+      "component": "metrics.stat-item"
+    },
+    "philosophyTitle": {
+      "type": "string",
+      "default": "Enterprise AI & Systems Engineering Philosophy"
+    },
+    "philosophyStatement": {
+      "type": "text",
+      "default": "Positioning AI where it generates verified operational value: Engineering rigor and Kaizen discipline over hype."
+    },
+    "principles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.principle"
+    },
+    "languages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "credentials.language-item"
+    },
+    "certifications": {
+      "type": "json"
+    }
+  }
+}
